@@ -1,4 +1,4 @@
-# Project Repo for TNM040 our project in Kommunikation och användargränssnitt
+# Project Repo for our project in TNM040!
 
 
 ## Available Scripts
