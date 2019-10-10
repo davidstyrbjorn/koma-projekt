@@ -1,0 +1,17 @@
+{
+    "name": "Some Bitch",
+    "hp": "100",
+    "xp": "2",
+    "max_xp": "10",
+
+    "base_stats" : [
+        {"strength": "3"},
+        {"intelligence": "1"},
+        {"dexterity": "4"}
+    ],
+    
+    "stats":[
+        {"name": "Animal Handling", "level": "4", "type": "skill"},
+        {"name": "Spanish", "level": "2", "type": "language"}
+    ]
+}
