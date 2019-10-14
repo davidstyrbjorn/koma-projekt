@@ -1,23 +1,12 @@
 import React from 'react'
-var fs = require('fs');
 
-String.prototype.hashCode = function() {
-    var hash = 0, i, chr;
-    if (this.length === 0) return hash;
-    for (i = 0; i < this.length; i++) {
-      chr   = this.charCodeAt(i);
-      hash  = ((hash << 5) - hash) + chr;
-      hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
-};
+var fs = require('browserify-fs');
+let global = "";
 
 function createNewCharacter(name, initial_max_xp){
 
-    console.log("Create New Character");
-
     // Used as file name
-    let hashedName = name.hashCode();
+    let hashedName = name;
 
     // Create the javascript object we want to JSON-ify
     var obj = {
@@ -41,21 +30,48 @@ function createNewCharacter(name, initial_max_xp){
 
     // Stringify to JSON format
     var json = JSON.stringify(obj);
-
+    
     fs.writeFile(hashedName + ".json", json, 'utf8', err => {
         if(err) throw err;
     })
 }
 
+function getCharacterFromJSON(file_name){
+    let character_data = "COEXIST";
+
+    /*
+    let res = fs.readFile(file_name + ".json", 'utf-8', function(err, data){
+        console.log(JSON.parse(data));
+    });
+    */
+    fs.readFile('Gandalf.json', 'utf-8', function(err, data) { 
+        if(err)
+            throw err;
+
+        global = data;
+    });
+
+    return character_data;
+}
+
 function Persistence(){
+    
+    /*
+    fs.writeFile('hello-world.txt', 'Coke No More');
 
-    //console.log(Characters);
+    fs.readFile('hello-world.txt', 'utf-8', function(err, data){
+        console.log(data);
+    });
+    */
 
-    createNewCharacter("Gandalf The Gray", 10);
+    //createNewCharacter("Gandalf", 10);
+
+    let character = getCharacterFromJSON("Gandalf");
+    //console.log(character);
 
     return (
         <div>
-            
+            <p>Persistence</p>
         </div>
     )
 }
