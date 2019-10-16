@@ -2,19 +2,23 @@ import React from 'react';
 import './App.css';
 
 import CharacterSelect from './CharacterSelect'
+import CharacterCreation from './CharacterCreation'
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
 
   return(
     <Router>
       <Switch>
+        
+        <Route path="/character_creation/">
+          <CharacterCreation />
+        </Route>
 
         <Route path="/">
           <CharacterSelect />
         </Route>
-        
 
       </Switch>
 

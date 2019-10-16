@@ -30,11 +30,16 @@ function CharacterSelect(){
     
     return (
         <div>
+            <h2>Welcome to character selection!</h2>
             <ul>
                 {characters.map((c,i) => {
                     return <CharaccterSelectOption key={i} name={c.name} />
                 })}
             </ul>
+                
+            <p>
+            <Link to="/character_creation/">Character Selection</Link>
+            </p>
 
         </div>
     );
