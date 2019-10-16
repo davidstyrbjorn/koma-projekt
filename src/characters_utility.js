@@ -1,0 +1,42 @@
+var fs = require('browserify-fs');
+
+export function getBaseCharacter(name, initial_max_xp){
+    var obj = {
+        "name": name,
+        "hp": 100,
+        "xp": 0,
+        "max_xp": initial_max_xp,
+        "base_stats" : [
+            { "strength": 0 },
+            { "dexterity": 0 },
+            { "constitution": 0 },
+            { "intelligence:": 0},
+            { "wisdom": 0},
+            { "charisma": 0 }
+        ],
+        "stats":[
+            {"name": "animal handling", "level": 0, "type": "skills"},
+            {"name": "spanish", "level": 0, "type": "language"}
+        ]
+    };
+
+    return obj;
+}
+
+export function getCharactersFromJSON(callback) {
+
+    fs.exists("characters.json", function(exists){
+        if(!exists){
+            console.log("Create characters.json file!");
+            fs.writeFile("characters.json", [], 'utf8', err => {
+                if(err) throw err;
+            })
+        }else{
+            console.log("characters.json already created, loading characters");
+            fs.readFile("characters.json", 'utf8', function(err, data){
+                if(err) throw err;
+                callback(JSON.parse(data));
+            });
+        }
+    });
+}
