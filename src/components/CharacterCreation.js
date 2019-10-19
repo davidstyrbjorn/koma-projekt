@@ -1,36 +1,52 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 
-import {getBaseCharacter, getCharactersFromJSON} from '../characters_utility'
+import "../style/CharacterCreation.css"
+
+import {getBaseCharacter, getCharactersFromJSON, writeCharactersToJSON} from '../characters_utility'
 
 function CharacterCreation(){
 
-    let {characterName, setCharacterName} = React.useState("");
-    let {initMapXP, setInitMaxXP} = React.useState(0);
+    const [characterName, setCharacterName] = React.useState("");
+    const [initMapXP, setInitMaxXP] = React.useState(0);
+
+    const [doneSavingCharacters, setDoneSavingCharacters] = React.useState(false);
+
+    // State hook for the characters
+    let [characters, setCharacters] = React.useState([]);
+    // Get the characters
+    if(characters.length < 1)
+        getCharactersFromJSON(setCharacters);
 
     let handleSubmit = (e) => {
-        let character = getBaseCharacter()
+        let newCharacter = getBaseCharacter(characterName, initMapXP);
+        characters.push(newCharacter);
+        writeCharactersToJSON(characters, setDoneSavingCharacters);
+    }
+
+    if(doneSavingCharacters){
+        return <Redirect to="/"/>
     }
 
     return(
 
-        <div>
+        <div className="CharacterCreation">
             <h2>Welcome to character creation!</h2>
 
             <form>
                 <label>
-                    Character Name
-                    <input type="text" name="name" />
+                    <p>Character Name</p> 
+                    <input type="text" name="name" value={characterName} onChange={e => setCharacterName(e.target.value)} />
                 </label>
                 <br></br>
                 <label>
-                    Initial Max XP
-                    <input type="number" name="init_max_xp"/>
+                    <p>Initial Max XP</p> 
+                    <input type="number" name="init_max_xp" value={initMapXP} onChange={ e => setInitMaxXP(e.target.value)} />
                 </label>
                 <br></br>
             </form>
 
-            <Link to="/" onClick={handleSubmit} > Create </Link>
+            <button onClick={handleSubmit}>Create</button>
 
         </div>
 

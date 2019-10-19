@@ -40,3 +40,11 @@ export function getCharactersFromJSON(callback) {
         }
     });
 }
+
+export async function writeCharactersToJSON(characters, flagCallback){
+    await fs.writeFile("characters.json", JSON.stringify(characters), 'utf8', err => {
+        if(err) throw err;
+
+        flagCallback(true);
+    });
+}

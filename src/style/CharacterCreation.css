@@ -1,0 +1,7 @@
+.CharacterCreation{
+    text-align: center;
+}
+
+.CharacterCreation label p {
+    text-decoration: underline;
+}
