@@ -23,7 +23,7 @@ export function getBaseCharacter(name, initial_max_xp){
     return obj;
 }
 
-export function getCharactersFromJSON(callback) {
+export function getCharactersFromJSON(callback, flagCallback) {
 
     fs.exists("characters.json", function(exists){
         if(!exists){
@@ -36,6 +36,7 @@ export function getCharactersFromJSON(callback) {
             fs.readFile("characters.json", 'utf8', function(err, data){
                 if(err) throw err;
                 callback(JSON.parse(data));
+                flagCallback(true);
             });
         }
     });

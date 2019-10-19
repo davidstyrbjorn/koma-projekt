@@ -5,3 +5,17 @@
 .CharacterSelect h2 {
     color: rgb(167, 6, 0);
 }
+
+.characterOption a{
+    margin: 1%;
+}
+
+a{
+    text-decoration: none;
+}
+
+.characterOption button{
+    margin: 0%;
+    background-color: rgb(200, 6, 0);
+    border-color: darkred;
+}

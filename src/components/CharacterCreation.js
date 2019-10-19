@@ -11,12 +11,14 @@ function CharacterCreation(){
     const [initMapXP, setInitMaxXP] = React.useState(0);
 
     const [doneSavingCharacters, setDoneSavingCharacters] = React.useState(false);
+    const [hasLoaded, setLoaded] = React.useState(false);
 
     // State hook for the characters
     let [characters, setCharacters] = React.useState([]);
+
     // Get the characters
-    if(characters.length < 1)
-        getCharactersFromJSON(setCharacters);
+    if(!hasLoaded)
+        getCharactersFromJSON(setCharacters, setLoaded);
 
     let handleSubmit = (e) => {
         let newCharacter = getBaseCharacter(characterName, initMapXP);
