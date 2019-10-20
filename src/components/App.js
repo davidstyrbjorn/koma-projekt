@@ -3,6 +3,7 @@ import './App.css';
 
 import CharacterSelect from './CharacterSelect'
 import CharacterCreation from './CharacterCreation'
+import CharacterPage from './CharacterPage'
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -12,6 +13,8 @@ function App() {
     <Router>
       <Switch>
         
+        <Route path="/character_page/:name" component={CharacterPage} />
+
         <Route path="/character_creation/">
           <CharacterCreation />
         </Route>

@@ -9,12 +9,13 @@ function CharaccterSelectOption(props){
 
     return(
         <div className="characterOption">
-            <Link to="/">
+            <Link to={"/character_page/" + props.name}> 
                 {props.name} 
             </Link>
             <button onClick={ e => {props.removeCallback(props.name)} }>X</button>
         </div>
     );
+    
 }
 
 function CharacterSelect(){
@@ -29,10 +30,7 @@ function CharacterSelect(){
 
     // Remove callback
     let removeCharacter = name => {
-        characters.splice(characters.indexOf(c => {
-            if(c.name == name) return true;
-            return false;
-        }))
+        characters.splice(characters.findIndex(c => c.name == name), 1);
         writeCharactersToJSON(characters, () => {} );
         setLoaded(false);
     }
@@ -51,9 +49,4 @@ function CharacterSelect(){
     );
 }
 
-// <button onClick={e => {
-//     fs.writeFile("characters.json", JSON.stringify(characters), 'utf8', err => {
-//         if(err) throw err;
-//     })
-// }}>Save</button>
 export default CharacterSelect;
