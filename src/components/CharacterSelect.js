@@ -14,8 +14,7 @@ function CharaccterSelectOption(props){
             </Link>
             <button onClick={ e => {props.removeCallback(props.name)} }>X</button>
         </div>
-    );
-    
+    );   
 }
 
 function CharacterSelect(){
@@ -44,7 +43,6 @@ function CharacterSelect(){
             })}
                 
             <p> <Link to="/character_creation/">Create Character</Link> </p>
-
         </div>
     );
 }

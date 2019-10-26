@@ -5,3 +5,13 @@
 .CharacterCreation label p {
     text-decoration: underline;
 }
+
+.CharacterCreation button{
+    margin-top: 30px;
+    width: 100px;
+    height: 25px;
+}
+
+.CharacterCreation input{
+    margin-top: 0px;
+}

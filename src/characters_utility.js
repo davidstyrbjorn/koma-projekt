@@ -1,11 +1,12 @@
 var fs = require('browserify-fs');
 
-export function getBaseCharacter(name, initial_max_xp){
+export function getBaseCharacter(name, initial_max_xp, campaign_name){
     var obj = {
         "name": name,
         "hp": 100,
         "xp": 0,
         "max_xp": initial_max_xp,
+        "campaign_name": campaign_name,
         "base_stats" : [
             { "strength": 0 },
             { "dexterity": 0 },
