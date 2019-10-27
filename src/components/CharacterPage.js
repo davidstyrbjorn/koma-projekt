@@ -1,28 +1,31 @@
 import React from 'react'
 import '../style/CharacterPage.css'
 
-import { getCharactersFromJSON, writeCharactersToJSON } from "../characters_utility";
+import { getCharactersFromJSON } from "../characters_utility";
 
 function CharacterHeader(props){
 
     let character = props.character;
-
+    
+    
     return(
         <div className="CharacterHeader">
             <p>HEADER!</p>
-            
-            <button onClick={props.setCurrentPage("stats")}>Stats</button>
-            <button onClick={props.setCurrentPage("inventory")}>Inventory</button>
-            <button onClick={props.setCurrentPage("combat")}>Combat</button>
+            <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
+            <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
+            <button onClick={() => props.setCurrentPage("combat")}>Combat</button>
         </div>
     )
 }
 
 function Stats(props){
 
+    console.log(props.character);
+
     return (
         <div>
             <p>Stats Page!</p>
+
         </div>
     );
 }
@@ -53,22 +56,18 @@ function CharacterPage({ match }){
 
     // Used to display which page we're currently on
     const [currentPage, setCurrentPage] = React.useState("stats");
-
-    // Get the characters
-    if(!hasLoaded)
-        getCharactersFromJSON(setCharacters, setLoaded);
-
+    
     let character = characters.find(c => c.name === match.params.name);
-    console.log(currentPage);
+    console.log(character);
 
     if(hasLoaded){
         if(currentPage === "stats"){
-            return(<div><CharacterHeader setCurrentPage={setCurrentPage}/><Stats/></div>)
+            return(<div><CharacterHeader character={character} setCurrentPage={setCurrentPage}/><Stats/></div>)
         }
         else if(currentPage === "inventory"){
             return(<div><CharacterHeader setCurrentPage={setCurrentPage}/><Inventory/></div>)
         }
-        else if(currentPage == "combat"){
+        else if(currentPage === "combat"){
             return(<div><CharacterHeader setCurrentPage={setCurrentPage}/><Combat/></div>)
         }else{
             return(
@@ -79,6 +78,7 @@ function CharacterPage({ match }){
         }
         
     }else{
+        getCharactersFromJSON(setCharacters, setLoaded); // Load the characters!
         return(
             <div>
                 Loading Character

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Switch, Link } from "react-router-dom";
 import { getCharactersFromJSON, writeCharactersToJSON } from "../characters_utility";
 import "../style/CharacterSelect.css"
 
@@ -29,7 +29,7 @@ function CharacterSelect(){
 
     // Remove callback
     let removeCharacter = name => {
-        characters.splice(characters.findIndex(c => c.name == name), 1);
+        characters.splice(characters.findIndex(c => c.name === name), 1);
         writeCharactersToJSON(characters, () => {} );
         setLoaded(false);
     }
