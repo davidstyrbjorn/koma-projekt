@@ -20,12 +20,13 @@ function CharacterHeader(props){
 
 function Stats(props){
 
-    console.log(props.character);
-
     return (
         <div>
             <p>Stats Page!</p>
-
+            {props.character.stats.map((skill,i) => {
+                console.log(skill);
+                return <p key={i}>{skill.type}</p>
+            })}
         </div>
     );
 }
@@ -57,12 +58,15 @@ function CharacterPage({ match }){
     // Used to display which page we're currently on
     const [currentPage, setCurrentPage] = React.useState("stats");
     
-    let character = characters.find(c => c.name === match.params.name);
-    console.log(character);
-
-    if(hasLoaded){
+    if(hasLoaded) {
+        let character = characters.find(c => c.name === match.params.name);
         if(currentPage === "stats"){
-            return(<div><CharacterHeader character={character} setCurrentPage={setCurrentPage}/><Stats/></div>)
+            return(
+                <div>
+                    <CharacterHeader setCurrentPage={setCurrentPage}/>
+                    <Stats character={character} />
+                </div>
+            )
         }
         else if(currentPage === "inventory"){
             return(<div><CharacterHeader setCurrentPage={setCurrentPage}/><Inventory/></div>)
