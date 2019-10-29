@@ -7,10 +7,9 @@ function CharacterHeader(props){
 
     let character = props.character;
     
-    
     return(
         <div className="CharacterHeader">
-            <p>HEADER!</p>
+            <h2> {character.name} <sup>Lv.{character.level}</sup> </h2>
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
             <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
             <button onClick={() => props.setCurrentPage("combat")}>Combat</button>
@@ -20,12 +19,24 @@ function CharacterHeader(props){
 
 function Stats(props){
 
+    const [searchString, setSearchString] = React.useState("");
+
+    let filteredStats = props.character.stats;
+    if(searchString !== ""){
+        // Filter out some stats
+        filteredStats = filteredStats.filter(stat => {
+            return (stat.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 || stat.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
+        })
+    }
+
     return (
         <div>
             <p>Stats Page!</p>
-            {props.character.stats.map((skill,i) => {
-                console.log(skill);
-                return <p key={i}>{skill.type}</p>
+
+            <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
+
+            {filteredStats.map((stat, i) => {
+                return <p key={i}>Name: {stat.name} <br></br> Level: {stat.level}</p>
             })}
         </div>
     );
@@ -36,6 +47,9 @@ function Inventory(props){
     return (
         <div>
             <p>Inventory Page!</p>
+            {props.character.inventory.map((item, i) =>{
+                return <p key={i}>Name: {item.name} <br></br> Description: {item.desc}</p>
+            })}
         </div>
     )
 }
@@ -63,16 +77,26 @@ function CharacterPage({ match }){
         if(currentPage === "stats"){
             return(
                 <div>
-                    <CharacterHeader setCurrentPage={setCurrentPage}/>
+                    <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
                     <Stats character={character} />
                 </div>
             )
         }
         else if(currentPage === "inventory"){
-            return(<div><CharacterHeader setCurrentPage={setCurrentPage}/><Inventory/></div>)
+            return(
+                <div>
+                    <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
+                    <Inventory character={character}/>
+                </div>
+            )
         }
         else if(currentPage === "combat"){
-            return(<div><CharacterHeader setCurrentPage={setCurrentPage}/><Combat/></div>)
+            return(
+                <div>
+                    <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
+                    <Combat character={character}/>
+                </div>
+            )
         }else{
             return(
                 <div>

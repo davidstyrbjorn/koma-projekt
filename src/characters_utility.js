@@ -4,6 +4,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
     var obj = {
         "name": name,
         "hp": 100,
+        "level": 0,
         "xp": 0,
         "max_xp": initial_max_xp,
         "campaign_name": campaign_name,
@@ -16,8 +17,13 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
             { "charisma": 0 }
         ],
         "stats":[
-            {"name": "animal handling", "level": 0, "type": "skills"},
-            {"name": "spanish", "level": 0, "type": "language"}
+            {"name": "Animal Handling", "level": 0, "type": "Skill"},
+            {"name": "Spanish", "level": 0, "type": "Language"}
+        ],
+        "inventory":[
+            {"name": "Bread", "desc": "Eatable bread, gives hp and stuff", "type": "Food"},
+            {"name": "Sword", "desc": "Sharp sword that could cut warm butter", "type": "Weapon"},
+            {}
         ]
     };
 
