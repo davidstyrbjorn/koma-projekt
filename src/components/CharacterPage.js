@@ -20,7 +20,8 @@ function CharacterHeader(props){
 function Stats(props){
 
     const [searchString, setSearchString] = React.useState("");
-
+    const [addingStat, setAdddnigStat] = React.useState(false);
+                        
     let filteredStats = props.character.stats;
     if(searchString !== ""){
         // Filter out some stats
@@ -38,6 +39,9 @@ function Stats(props){
             {filteredStats.map((stat, i) => {
                 return <p key={i}>Name: {stat.name} <br></br> Level: {stat.level}</p>
             })}
+
+            <button onClick={() => setAdddnigStat(true)}>+</button>
+            
         </div>
     );
 }

@@ -17,13 +17,16 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
             { "charisma": 0 }
         ],
         "stats":[
-            {"name": "Animal Handling", "level": 0, "type": "Skill"},
-            {"name": "Spanish", "level": 0, "type": "Language"}
+            {"name": "Animal Handling", "level": 0, "type": "skill"},
+            {"name": "Spanish", "level": 0, "type": "language"},
+            {"name": "Deutsch", "level": 0, "type": "language"},
+            {"name": "Swedish", "level": -1, "type": "language"},
+            {"name": "Running", "level": 0, "type": "skill"},
+            {"name": "Math", "level": -2, "type": "skill"}
         ],
         "inventory":[
             {"name": "Bread", "desc": "Eatable bread, gives hp and stuff", "type": "Food"},
             {"name": "Sword", "desc": "Sharp sword that could cut warm butter", "type": "Weapon"},
-            {}
         ]
     };
 
