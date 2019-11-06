@@ -33,7 +33,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Inspiration" , "level": 0 ,"type": "skill"},
 			{"name": "Proficiency Bonus" , "level": 0 ,"type": "skill"},
 			{"name": "Passive Wisdom (Perception)" , "level": 0 ,"type": "skills"},
-			{"name": "English" , "level": 0 ,"type": "language"},
+			{"name": "English" , "level": 0 ,"type": "language", "baseType": "None"},
 			{"name": "Acrobatics", "level": 0, "type": "skill", "baseType": "Dexterity" },
 			{"name": "Animal Handling", "level": 0, "type": "skill", "baseType": "Wisdom" },
 			{"name": "Arcana", "level": 0, "type": "skill", "baseType": "Intelligence" },

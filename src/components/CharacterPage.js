@@ -16,7 +16,10 @@ function CharacterHeader(props){
                 props.updatedCharacter(character);
             }}>+</button> 
             
-            <button>-</button>
+            <button onClick={e => {
+                character.hp--;
+                props.updatedCharacter(character);
+            }}>-</button>
 
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
             <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
@@ -80,7 +83,9 @@ function CharacterPage({ match }){
     // State hook for the characters
     const [characters, setCharacters] = React.useState([]);
     const [hasLoaded, setLoaded] = React.useState(false);
-    const [character, setCharacter] = React.useState(null);
+    let [character, setCharacter] = React.useState(null);
+
+    const [hasSaved, setHasSaved] = React.useState(false);
 
     // Used to display which page we're currently on
     const [currentPage, setCurrentPage] = React.useState("stats");
@@ -89,16 +94,17 @@ function CharacterPage({ match }){
         let index = findIndexWithAttribute(characters, 'name', character.name);
 
         characters[index] = character;
-        writeCharactersToJSON(characters, () => {});
+        writeCharactersToJSON(characters, setHasSaved);
 
         setCharacter(character);
-
-        
     }
-    
+
+    if(hasSaved){
+        setHasSaved(false);
+    }
+
     if(hasLoaded) {
-        if(character === null)
-            setCharacter(characters.find(c => c.name === match.params.name));
+        character = (characters.find(c => c.name === match.params.name));
 
         //console.log(characters);
         if(currentPage === "stats"){
