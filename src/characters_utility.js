@@ -59,3 +59,12 @@ export async function writeCharactersToJSON(characters, flagCallback){
         flagCallback(true);
     });
 }
+
+export function findIndexWithAttribute(array, attr, value){
+    for(let i = 0; i < array.length; i++){
+        if(array[i][attr] === value){
+            return i;
+        }
+    }
+    return -85490; // We failed
+}

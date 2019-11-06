@@ -20,7 +20,7 @@ function CharacterCreation(){
     // Get the characters
     if(!hasLoaded)
         getCharactersFromJSON(setCharacters, setLoaded);
-
+    
     let handleSubmit = (e) => {
         let newCharacter = getBaseCharacter(characterName, initMapXP, campaignName);
         characters.push(newCharacter);

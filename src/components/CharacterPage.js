@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/CharacterPage.css'
 
-import { getCharactersFromJSON } from "../characters_utility";
+import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute } from "../characters_utility";
 
 function CharacterHeader(props){
 
@@ -10,6 +10,14 @@ function CharacterHeader(props){
     return(
         <div className="CharacterHeader">
             <h2> {character.name} <sup>Lv.{character.level}</sup> </h2>
+            <p>{character.hp}</p> 
+            <button onClick={e => {
+                character.hp++;
+                props.updatedCharacter(character);
+            }}>+</button> 
+            
+            <button>-</button>
+
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
             <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
             <button onClick={() => props.setCurrentPage("combat")}>Combat</button>
@@ -72,16 +80,31 @@ function CharacterPage({ match }){
     // State hook for the characters
     const [characters, setCharacters] = React.useState([]);
     const [hasLoaded, setLoaded] = React.useState(false);
+    const [character, setCharacter] = React.useState(null);
 
     // Used to display which page we're currently on
     const [currentPage, setCurrentPage] = React.useState("stats");
+
+    let updatedCharacter = (character) => {
+        let index = findIndexWithAttribute(characters, 'name', character.name);
+
+        characters[index] = character;
+        writeCharactersToJSON(characters, () => {});
+
+        setCharacter(character);
+
+        
+    }
     
     if(hasLoaded) {
-        let character = characters.find(c => c.name === match.params.name);
+        if(character === null)
+            setCharacter(characters.find(c => c.name === match.params.name));
+
+        //console.log(characters);
         if(currentPage === "stats"){
             return(
                 <div>
-                    <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
+                    <CharacterHeader character={character} setCurrentPage={setCurrentPage} updatedCharacter={updatedCharacter} />
                     <Stats character={character} />
                 </div>
             )
