@@ -78,6 +78,7 @@ function CharacterPage({ match }){
     
     if(hasLoaded) {
         let character = characters.find(c => c.name === match.params.name);
+        console.log(character);
         if(currentPage === "stats"){
             return(
                 <div>
