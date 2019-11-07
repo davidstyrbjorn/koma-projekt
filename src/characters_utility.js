@@ -7,7 +7,8 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
         "level": 0,
         "xp": 0,
         "max_xp": initial_max_xp,
-        "campaign_name": campaign_name,
+		"campaign_name": campaign_name,
+		
         "base_stats" : [
             { "strength": 0 },
             { "dexterity": 0 },
@@ -30,6 +31,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Bonds" , "text": "Who knows" ,"type": "traits"},
 			{"name": "Flaws" , "text": "None" ,"type": "traits"},
 			{"name": "Features and Traits" , "text": "Some boring stuff" ,"type": "traits"},
+
 			{"name": "Inspiration" , "level": 0 ,"type": "skill"},
 			{"name": "Proficiency Bonus" , "level": 0 ,"type": "skill"},
 			{"name": "Passive Wisdom (Perception)" , "level": 0 ,"type": "skills"},
@@ -59,8 +61,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Electrum (ep)", "amount": 0, "type": "currency"},
 			{"name": "Gold (gp)", "amount": 0, "type": "currency"},
 			{"name": "Platinum (pp)", "amount": 0, "type": "currency"},
-			{"name": "Bread", "desc": "Eatable bread, gives hp and stuff", "type": "Food"},
-            {"name": "Sword", "desc": "Sharp sword that could cut warm butter", "type": "Weapon"},
+
 			{"name": "Equipment template", "cost": "cost in whatever" , "amount": 0, "desc": "some text", "type": "equipment"},
         ],
 		
@@ -80,7 +81,6 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Hit Dice", "value": 0 , "total": 0 },
 			{"name": "Death Saves", "successes": 0, "failures": 0},
 			{"name": "Spell template", "spellName": "blabla", "atkBonus": 0, "damage": 9, "type": "fire", "desc": "This spell does this"},
-            
         ],
     };
 

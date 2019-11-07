@@ -1,3 +1,7 @@
 .CharacterHeader button{
+    display: inline-blok;
+}
+
+.StatsAddNew form button {
     display: inline-block;
 }
