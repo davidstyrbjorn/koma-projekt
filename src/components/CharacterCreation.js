@@ -3,14 +3,17 @@ import { BrowserRouter as Switch, Redirect } from "react-router-dom";
 
 import "../style/CharacterCreation.css"
 
-import {getBaseCharacter, getCharactersFromJSON, writeCharactersToJSON} from '../characters_utility'
+// JSON and Character related functions
+import {getBaseCharacter, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute} from '../characters_utility'
 
 function CharacterCreation(){
 
+    // States for the new characters data
     const [characterName, setCharacterName] = React.useState("");
     const [initMapXP, setInitMaxXP] = React.useState(0);
     const [campaignName, setCampaignName] = React.useState("");
 
+    // States used for knowing when we've loaded and saved to JSON
     const [doneSavingCharacters, setDoneSavingCharacters] = React.useState(false);
     const [hasLoaded, setLoaded] = React.useState(false);
 
@@ -22,11 +25,17 @@ function CharacterCreation(){
         getCharactersFromJSON(setCharacters, setLoaded);
     
     let handleSubmit = (e) => {
+        // Create the character
         let newCharacter = getBaseCharacter(characterName, initMapXP, campaignName);
-        characters.push(newCharacter);
-        writeCharactersToJSON(characters, setDoneSavingCharacters);
+        // Make sure we're not creating a character that already has characterName!
+        let index = findIndexWithAttribute(characters, "name", characterName);
+        if(index === -1){
+            characters.push(newCharacter);
+            writeCharactersToJSON(characters, setDoneSavingCharacters);
+        }
     }
 
+    // This is set by the callback when we're done writing the new character to our JSON character file
     if(doneSavingCharacters){
         return <Redirect to="/"/>
     }

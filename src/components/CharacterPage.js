@@ -95,14 +95,14 @@ function Stats(props){
     return (
         <div className="Stats">
             <p>Stats Page!</p>
+            
+            { getAddingBar() }            
 
             <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
 
             {filteredStats.map((stat, i) => {
                 return <p key={i}>Name: {stat.name} <br></br> Level: {stat.level}</p>
             })}
-
-            { getAddingBar() }            
             
         </div>
     );

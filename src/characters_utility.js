@@ -120,5 +120,5 @@ export function findIndexWithAttribute(array, attr, value){
             return i;
         }
     }
-    return -85490; // We failed
+    return -1; // We failed
 }
