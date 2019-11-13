@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Switch>
         
-        <Route path="/character_page/:name" component={CharacterPage} />
+        <Route path="/character_page/:ID" component={CharacterPage} />
 
         <Route path="/character_creation/">
           <CharacterCreation />

@@ -30,7 +30,13 @@ function CharacterCreation(){
         // Make sure we're not creating a character that already has characterName!
         let index = findIndexWithAttribute(characters, "name", characterName);
         if(index === -1){
-            newCharacter.ID = characters.length; //give char an uniqe ID
+            if(characters.length === 0){ //if it is the first character
+                newCharacter.ID = 1;
+            }
+            else{
+                newCharacter.ID = characters[characters.length-1].ID + 1; //makes sure that ID always is unique 
+            }
+            console.log(newCharacter.ID);   
             characters.push(newCharacter);
             writeCharactersToJSON(characters, setDoneSavingCharacters);
         }

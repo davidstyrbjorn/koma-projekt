@@ -8,7 +8,8 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
         "xp": 0,
         "max_xp": initial_max_xp,
 		"campaign_name": campaign_name,
-		
+		"ID": 0, // skappa varen för ID
+
         "base_stats" : [
             { "strength": 0 },
             { "dexterity": 0 },
