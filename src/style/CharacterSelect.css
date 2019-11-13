@@ -6,7 +6,7 @@
     text-align: center;
 }
 
-.characterOption h4, .characterOption h5 {
+.characterOption h3, .characterOption h5 {
    padding:10px;
    margin:0;
    text-align: left;
@@ -22,6 +22,7 @@
 .characterOption{
     display:flex;
     margin:auto;
+    margin-bottom:5px;
 }
 
 .characterList{
@@ -34,6 +35,7 @@ a{
 
 .characterOption button{
     margin: 0%;
-    background-color: rgb(200, 6, 0);
-    border-color: darkred;
+    background-color: #b44040;
+    border:none;
+    color: white;
 }
