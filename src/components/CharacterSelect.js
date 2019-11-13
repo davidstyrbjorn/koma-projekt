@@ -6,7 +6,7 @@ import "../style/CharacterSelect.css"
 /* Character Select Screen */
  
 function CharaccterSelectOption(props){
-
+    
     // This is the individual character that pops up for the user to click on, used in CharacterSelect()
     console.log(props.character.ID);
     // Props up a Link tag that links to the character page with correct context 
@@ -14,7 +14,6 @@ function CharaccterSelectOption(props){
         <div className="characterOption">
             <Link to={"/character_page/" + props.character.ID}> 
                 {props.character.name}
-                {props.character.ID}
             </Link>
             <button onClick={ e => {props.removeCallback(props.character.name)} }>X</button>
         </div>

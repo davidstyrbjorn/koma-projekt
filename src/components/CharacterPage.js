@@ -1,7 +1,12 @@
-    import React from 'react'
+import React from 'react'
+import Modal from 'react-modal';
+
 import '../style/CharacterPage.css'
 
 import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute } from "../characters_utility";
+import { Module } from 'module';
+
+Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
 function CharacterHeader(props){
 
@@ -34,30 +39,43 @@ function CharacterHeader(props){
 
 function StatCard(props){
 
-    const [manipulateStat, setManipulateStat] = React.useState(false); // Flag to know if we want to manipulate the stat?
+    const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
 
-    // Toggle manipulate
-    let toggleManipulate = (e) => {
-        setManipulateStat(e);
+    let openModal = () => {
+        setModalOpen(true);
+    }    
+
+    let closeModal = () => {
+        setModalOpen(false);
     }
 
-    if(!manipulateStat){
-        return (
-            <div className="StatCard" onClick={() => toggleManipulate(true)}>
-                <p>Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
-            </div>
-        );
+    let changeStatLevel = dir => {
+        // Manipulate the stat and call the callback for updating the character!
+        props.character.stats.find(s => s.name === props.stat.name).level += dir;
+        props.updatedCharacter(props.character);
     }
-    else{
-        return (
-            <div className="StatCard" onClick={() => toggleManipulate(false)}>
-                <p>Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
-                <button>-</button>
-                <button>+</button>
-                <button>Delete</button>
-            </div>
-        );
-    }
+
+    return (
+        <div className="StatCard">
+            
+            <Modal
+                isOpen={modalOpen}    
+                onRequestClose={() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+            >
+                <h2>{props.stat.name}</h2>
+                <p>{props.stat.level}</p>
+
+                <button onClick={() => changeStatLevel(-1)}>-</button>
+                <button onClick={() => changeStatLevel(1)}>+</button>
+                <button>Remove</button>
+
+                <button onClick={() => closeModal()}>Close</button>
+            </Modal>
+            
+            <p onClick={() => openModal()} >Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
+        </div>
+    );
 }
 
 function Stats(props){
@@ -125,7 +143,7 @@ function Stats(props){
             <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
 
             {filteredStats.map((stat, i) => {
-                return < StatCard key={i} stat={stat} />
+                return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
             
         </div>
@@ -199,7 +217,7 @@ function CharacterPage({ match }){
             return(
                 <div>
                     <CharacterHeader character={character} setCurrentPage={setCurrentPage} updatedCharacter={updatedCharacter} />
-                    <Stats character={character} updatedCharacter={updatedCharacter} />
+                    <Stats character={character} character={character} updatedCharacter={updatedCharacter} />
                 </div>
             )
         }
