@@ -65,7 +65,9 @@ function StatCard(props){
     }
 
     let removeStat = () => {
-        //props.character.splice()
+        props.character.stats.splice(props.character.stats.findIndex(s => s.name == props.stat.name), 1);
+        props.updatedCharacter(props.character);
+        closeModal();
     }
 
     return (
@@ -81,7 +83,7 @@ function StatCard(props){
 
                 <button onClick={() => changeStatLevel(-1)}>-</button>
                 <button onClick={() => changeStatLevel(1)}>+</button>
-                <button>Remove</button>
+                <button onClick={() => removeStat()}>Remove</button>
 
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
