@@ -64,6 +64,10 @@ function StatCard(props){
         props.updatedCharacter(props.character);
     }
 
+    let removeStat = () => {
+        //props.character.splice()
+    }
+
     return (
         <div className="StatCard">
             
