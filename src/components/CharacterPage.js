@@ -169,9 +169,9 @@ function CharacterPage({ match }){
     }
 
     if(hasLoaded) {
-        character = (characters.find(c => c.ID === match.params.ID));
+        
+        character = (characters.find(c => c.ID.toString() === match.params.ID));
 
-        //console.log(characters);
         if(currentPage === "stats"){
             return(
                 <div>
