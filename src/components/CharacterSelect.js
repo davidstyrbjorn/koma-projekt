@@ -8,14 +8,15 @@ import "../style/CharacterSelect.css"
 function CharaccterSelectOption(props){
 
     // This is the individual character that pops up for the user to click on, used in CharacterSelect()
-
+    console.log(props.character.ID);
     // Props up a Link tag that links to the character page with correct context 
     return(
         <div className="characterOption">
-            <Link to={"/character_page/" + props.name}> 
-                {props.name} 
+            <Link to={"/character_page/" + props.character.name}> 
+                {props.character.name}
+                {props.character.ID}
             </Link>
-            <button onClick={ e => {props.removeCallback(props.name)} }>X</button>
+            <button onClick={ e => {props.removeCallback(props.character.name)} }>X</button>
         </div>
     );   
 }
@@ -46,7 +47,7 @@ function CharacterSelect(){
             <h2>Welcome to character selection!</h2>
            
             {characters.map((c,i) => {
-                return( <CharaccterSelectOption key={i} name={c.name} removeCallback = {removeCharacter} />);
+                return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
             })}
                 
             <p> <Link to="/character_creation/">Create Character</Link> </p>

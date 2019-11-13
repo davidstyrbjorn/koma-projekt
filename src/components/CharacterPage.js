@@ -82,9 +82,6 @@ function Stats(props){
                         setAdddnigStat(false);
                     }}>Add</button>
                     <button onClick={() => setAdddnigStat(false)}>Cancel</button>
-                    
-
-
                 </div>
             );
         }else {
