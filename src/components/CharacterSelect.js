@@ -13,8 +13,8 @@ function CharaccterSelectOption(props){
     return(
         <div className="characterOption">
             <Link to={"/character_page/" + props.character.ID}> 
-                <h4>{props.character.name}</h4>
-                <h5>Campaing: {props.character.campaign_name}</h5>
+                <h3>{props.character.name}</h3>
+                <h5>Campaign: {props.character.campaign_name}</h5>
             </Link>
             <button onClick={ e => {props.removeCallback(props.character.name)} }>X</button>
         </div>
