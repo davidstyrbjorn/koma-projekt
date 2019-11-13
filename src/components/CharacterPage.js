@@ -37,6 +37,15 @@ function CharacterHeader(props){
     )
 }
 
+function BaseStatCard(props){
+    console.log(props);
+    return(
+        <div className="BaseStatCard">
+            <p>{props.base_stat.name} <br></br> {props.base_stat.level}</p>
+        </div>
+    );
+}
+
 function StatCard(props){
 
     const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
@@ -83,11 +92,14 @@ function Stats(props){
     const [searchString, setSearchString] = React.useState("");
     const [addingStat, setAdddnigStat] = React.useState(false);
 
+    
+
     // States used for adding a new stat
     const [newStatName, setNewStatName] = React.useState("");
     const [newStatType, setNewStatType] = React.useState("");
     const [newStatLevel, setNewStatLevel] = React.useState(0);
-                        
+
+                
     let filteredStats = props.character.stats;
     if(searchString !== ""){
         // Filter out some stats
@@ -137,7 +149,9 @@ function Stats(props){
     return (
         <div className="Stats">
             <p>Stats Page!</p>
-            
+            {props.character.base_stats.map((base_stat, j) =>{
+                return < BaseStatCard key={j} base_stat={base_stat} />
+            })}
             { getAddingBar() }            
 
             <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
@@ -211,7 +225,7 @@ function CharacterPage({ match }){
 
     if(hasLoaded) {
         
-        character = (characters.find(c => c.ID.toString() === match.params.ID));
+        character = (characters.find(c => c.ID.toString() === match.params.ID));    
 
         if(currentPage === "stats"){
             return(
