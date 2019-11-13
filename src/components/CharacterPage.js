@@ -32,6 +32,34 @@ function CharacterHeader(props){
     )
 }
 
+function StatCard(props){
+
+    const [manipulateStat, setManipulateStat] = React.useState(false); // Flag to know if we want to manipulate the stat?
+
+    // Toggle manipulate
+    let toggleManipulate = (e) => {
+        setManipulateStat(e);
+    }
+
+    if(!manipulateStat){
+        return (
+            <div className="StatCard" onClick={() => toggleManipulate(true)}>
+                <p>Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
+            </div>
+        );
+    }
+    else{
+        return (
+            <div className="StatCard" onClick={() => toggleManipulate(false)}>
+                <p>Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
+                <button>-</button>
+                <button>+</button>
+                <button>Delete</button>
+            </div>
+        );
+    }
+}
+
 function Stats(props){
 
     const [searchString, setSearchString] = React.useState("");
@@ -41,18 +69,13 @@ function Stats(props){
     const [newStatName, setNewStatName] = React.useState("");
     const [newStatType, setNewStatType] = React.useState("");
     const [newStatLevel, setNewStatLevel] = React.useState(0);
-
-    let addingTag = <p></p>;
-    if(addingStat){
-        addingTag += "<p>Add some stats</p>";
-    }
                         
     let filteredStats = props.character.stats;
     if(searchString !== ""){
         // Filter out some stats
         filteredStats = filteredStats.filter(stat => {
             return (
-                    stat.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 
+                   stat.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 
                 || stat.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
                 || stat.baseType.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
             );
@@ -102,7 +125,7 @@ function Stats(props){
             <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
 
             {filteredStats.map((stat, i) => {
-                return <p key={i}>Name: {stat.name} <br></br> Level: {stat.level}</p>
+                return < StatCard key={i} stat={stat} />
             })}
             
         </div>
