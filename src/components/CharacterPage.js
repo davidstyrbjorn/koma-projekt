@@ -170,7 +170,7 @@ function CharacterPage({ match }){
 
     if(hasLoaded) {
         
-        character = (characters.find(c => c.ID.toString() === match.params.ID));
+        character = (characters.find(c => c.ID.toString() === match.params.ID));    
 
         if(currentPage === "stats"){
             return(
