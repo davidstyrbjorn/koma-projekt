@@ -13,8 +13,8 @@ function CharaccterSelectOption(props){
     return(
         <div className="characterOption">
             <Link to={"/character_page/" + props.character.ID}> 
-                {props.character.name}
-                {props.character.ID}
+                <h4>{props.character.name}</h4>
+                <h5>Campaing: {props.character.campaign_name}</h5>
             </Link>
             <button onClick={ e => {props.removeCallback(props.character.name)} }>X</button>
         </div>
@@ -43,16 +43,23 @@ function CharacterSelect(){
     }
     
     return (
-        <div className="CharacterSelect">
-            <h2>Welcome to character selection!</h2>
-           
-            {characters.map((c,i) => {
-                return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
-            })}
-                
-            <p> <Link to="/character_creation/">Create Character</Link> </p>
+        <div className="wrapper">
+            <div className="CharacterSelect">
+                <h2>Welcome to character selection!</h2>
+                <div className="characterList">
+                {characters.map((c,i) => {
+                    return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
+                })}
+                </div>
+                    
+                <p> <Link to="/character_creation/">Create Character</Link> </p>
+            </div>
         </div>
     );
 }
 
 export default CharacterSelect;
+
+
+
+

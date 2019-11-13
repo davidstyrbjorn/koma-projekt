@@ -1,13 +1,31 @@
+.wrapper{
+    margin:10px;
+}
+
 .CharacterSelect {
     text-align: center;
 }
 
-.CharacterSelect h2 {
-    color: rgb(167, 6, 0);
+.characterOption h4, .characterOption h5 {
+   padding:10px;
+   margin:0;
+   text-align: left;
 }
 
 .characterOption a{
-    margin: 1%;
+    width:90%;
+    margin:0;
+    padding:10px;
+    border: 1px black dotted;
+}
+
+.characterOption{
+    display:flex;
+    margin:auto;
+}
+
+.characterList{
+    
 }
 
 a{
