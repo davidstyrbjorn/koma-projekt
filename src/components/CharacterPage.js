@@ -51,7 +51,11 @@ function Stats(props){
     if(searchString !== ""){
         // Filter out some stats
         filteredStats = filteredStats.filter(stat => {
-            return (stat.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 || stat.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
+            return (
+                    stat.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 
+                || stat.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
+                || stat.baseType.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
+            );
         })
     }
 
@@ -107,10 +111,23 @@ function Stats(props){
 
 function Inventory(props){
 
+    const [searchString, setSearchString] = React.useState("");
+
+    let filteredInventory = props.character.inventory;
+    if(searchString !== ""){
+        // Filter out some stats
+        filteredInventory = filteredInventory.filter(item => {
+            return (item.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 || item.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
+        })
+    }
+
     return (
         <div>
             <p>Inventory Page!</p>
-            {props.character.inventory.map((item, i) =>{
+
+            <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
+
+            {filteredInventory.map((item, i) =>{
                 return <p key={i}>Name: {item.name} <br></br> Description: {item.desc}</p>
             })}
         </div>
