@@ -179,7 +179,7 @@ function CharacterPage({ match }){
     const [currentPage, setCurrentPage] = React.useState("stats");
 
     let updatedCharacter = (character) => {
-        let index = findIndexWithAttribute(characters, 'name', character.name);
+        let index = findIndexWithAttribute(characters, 'ID', character.ID);
 
         characters[index] = character;
         writeCharactersToJSON(characters, setHasSaved);
@@ -192,9 +192,9 @@ function CharacterPage({ match }){
     }
 
     if(hasLoaded) {
-        character = (characters.find(c => c.name === match.params.name));
+        
+        character = (characters.find(c => c.ID.toString() === match.params.ID));
 
-        //console.log(characters);
         if(currentPage === "stats"){
             return(
                 <div>

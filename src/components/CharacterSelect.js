@@ -12,7 +12,7 @@ function CharaccterSelectOption(props){
     // Props up a Link tag that links to the character page with correct context 
     return(
         <div className="characterOption">
-            <Link to={"/character_page/" + props.character.name}> 
+            <Link to={"/character_page/" + props.character.ID}> 
                 {props.character.name}
                 {props.character.ID}
             </Link>
@@ -35,9 +35,9 @@ function CharacterSelect(){
         setHasSaved(false);
 
     // Remove callback
-    let removeCharacter = name => {
+    let removeCharacter = ID => {
         // Takeout the desired character from the big character list!
-        characters.splice(characters.findIndex(c => c.name === name), 1);
+        characters.splice(characters.findIndex(c => c.ID === ID), 1);
         // Write the new character list to the JSON file 
         writeCharactersToJSON(characters, setHasSaved);
     }
