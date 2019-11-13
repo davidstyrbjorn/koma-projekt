@@ -38,12 +38,42 @@ function CharacterHeader(props){
 }
 
 function BaseStatCard(props){
-    console.log(props);
+
+    const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
+
+    let openModal = () => {
+        setModalOpen(true);
+    }    
+
+    let closeModal = () => {
+        setModalOpen(false);
+    }
+
+    let changeStatLevel = dir => {
+        // Manipulate the stat and call the callback for updating the character!
+        props.character.base_stats.find(s => s.name === props.base_stat.name).level += dir;
+        props.updatedCharacter(props.character);
+    }
     return(
         <div className="BaseStatCard">
-            <p>{props.base_stat.name} <br></br> {props.base_stat.level}</p>
+            <Modal
+                isOpen={modalOpen}    
+                onRequestClose={() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+            >
+                <h2>{props.base_stat.name}</h2>
+                <p>{props.base_stat.level}</p>
+
+                <button onClick={() => changeStatLevel(-1)}>-</button>
+                <button onClick={() => changeStatLevel(1)}>+</button>
+                
+
+                <button onClick={() => closeModal()}>Close</button>
+            </Modal>
+            <p onClick={() => openModal()}>{props.base_stat.name} <br></br> {props.base_stat.level}</p>
         </div>
     );
+    
 }
 
 function StatCard(props){
@@ -60,7 +90,7 @@ function StatCard(props){
 
     let changeStatLevel = dir => {
         // Manipulate the stat and call the callback for updating the character!
-        props.character.stats.find(s => s.name === props.stat.name).level += dir;
+        props.character.base_stats.find(s => s.name === props.base_stat.name).level += dir;
         props.updatedCharacter(props.character);
     }
 
@@ -150,7 +180,7 @@ function Stats(props){
         <div className="Stats">
             <p>Stats Page!</p>
             {props.character.base_stats.map((base_stat, j) =>{
-                return < BaseStatCard key={j} base_stat={base_stat} />
+                return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
             { getAddingBar() }            
 
