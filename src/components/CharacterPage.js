@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import '../style/CharacterPage.css'
 
 import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute } from "../characters_utility";
-import { Module } from 'module';
+import Search from './Search';
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
@@ -14,6 +14,7 @@ function CharacterHeader(props){
     
     return(
         <div className="CharacterHeader">
+
             <h2> {character.name} 
                 <sup>
                     Lv.{character.level}<button onClick={e => {character.level--; props.updatedCharacter(character)}}>-</button> <button onClick={e => {character.level++; props.updatedCharacter(character)}}>+</button>
@@ -54,6 +55,7 @@ function BaseStatCard(props){
         props.character.base_stats.find(s => s.name === props.base_stat.name).level += dir;
         props.updatedCharacter(props.character);
     }
+
     return(
         <div className="BaseStatCard">
             <Modal
@@ -65,8 +67,7 @@ function BaseStatCard(props){
                 <p>{props.base_stat.level}</p>
 
                 <button onClick={() => changeStatLevel(-1)}>-</button>
-                <button onClick={() => changeStatLevel(1)}>+</button>
-                
+                <button onClick={() => changeStatLevel(1)}>+</button>                
 
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
@@ -90,19 +91,19 @@ function StatCard(props){
 
     let changeStatLevel = dir => {
         // Manipulate the stat and call the callback for updating the character!
-        props.character.base_stats.find(s => s.name === props.base_stat.name).level += dir;
+        props.character.stats.find(s => s.name === props.stat.name).level += dir;
         props.updatedCharacter(props.character);
     }
 
     let removeStat = () => {
-        props.character.stats.splice(props.character.stats.findIndex(s => s.name == props.stat.name), 1);
+        props.character.stats.splice(props.character.stats.findIndex(s => s.name === props.stat.name), 1);
         props.updatedCharacter(props.character);
         closeModal();
     }
 
     return (
         <div className="StatCard">
-            
+
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
@@ -128,25 +129,12 @@ function Stats(props){
     const [searchString, setSearchString] = React.useState("");
     const [addingStat, setAdddnigStat] = React.useState(false);
 
-    
-
     // States used for adding a new stat
     const [newStatName, setNewStatName] = React.useState("");
     const [newStatType, setNewStatType] = React.useState("");
     const [newStatLevel, setNewStatLevel] = React.useState(0);
 
-                
-    let filteredStats = props.character.stats;
-    if(searchString !== ""){
-        // Filter out some stats
-        filteredStats = filteredStats.filter(stat => {
-            return (
-                   stat.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 
-                || stat.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
-                || stat.baseType.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
-            );
-        })
-    }
+    const [displayedStats, setDisplayedStats] = React.useState(props.character.stats);
 
     let getAddingBar = () => {
         if(addingStat){
@@ -169,6 +157,7 @@ function Stats(props){
                             name: newStatName,
                             level: newStatLevel,
                             type: newStatType,
+                            baseType: "none"
                         }
                         props.character.stats.push(newStatObject);
                         props.updatedCharacter(props.character);
@@ -182,17 +171,20 @@ function Stats(props){
         }
     }
 
+    let keys = ['name', 'type', 'baseType'];
+
     return (
         <div className="Stats">
             <p>Stats Page!</p>
             {props.character.base_stats.map((base_stat, j) =>{
                 return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+
             { getAddingBar() }            
+            
+            <Search list = {props.character.stats} keys={ keys } listCallback={setDisplayedStats} placeholder={"name/type/base"}/>
 
-            <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
-
-            {filteredStats.map((stat, i) => {
+            {displayedStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
             
@@ -202,23 +194,17 @@ function Stats(props){
 
 function Inventory(props){
 
-    const [searchString, setSearchString] = React.useState("");
-
-    let filteredInventory = props.character.inventory;
-    if(searchString !== ""){
-        // Filter out some stats
-        filteredInventory = filteredInventory.filter(item => {
-            return (item.type.toLowerCase().indexOf(searchString.toLowerCase()) !== -1 || item.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
-        })
-    }
+    const [displayedInventory, setdisplayedInventory] = React.useState(props.character.inventory);
+    
+    let keys = ['name', 'desc', 'type']
 
     return (
         <div>
             <p>Inventory Page!</p>
 
-            <input type="text" placeholder="Search" value={searchString} onChange={e => {setSearchString(e.target.value)}}></input>
+            <Search list={props.character.inventory} keys={keys} listCallback={setdisplayedInventory} placeholder={"name/desc/type"} />
 
-            {filteredInventory.map((item, i) =>{
+            {displayedInventory.map((item, i) =>{
                 return <p key={i}>Name: {item.name} <br></br> Description: {item.desc}</p>
             })}
         </div>
@@ -267,7 +253,7 @@ function CharacterPage({ match }){
             return(
                 <div>
                     <CharacterHeader character={character} setCurrentPage={setCurrentPage} updatedCharacter={updatedCharacter} />
-                    <Stats character={character} character={character} updatedCharacter={updatedCharacter} />
+                    <Stats character={character} updatedCharacter={updatedCharacter} />
                 </div>
             )
         }
