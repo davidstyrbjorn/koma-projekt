@@ -11,25 +11,37 @@ Modal.setAppElement('#root'); // Modal needs to know this for some complicated r
 function CharacterHeader(props){
 
     let character = props.character;
+
+    let updateHP = (dir) => {
+        character.hp += dir;
+        props.updatedCharacter(character);
+    }
+
+    let updateXP = () => {
+        character.xp++;
+        if(character.xp >= character.max_xp){
+            character.level++;
+            character.xp = 0;
+        }
+
+        props.updatedCharacter(character);
+    }
     
     return(
         <div className="CharacterHeader">
 
-            <h2> {character.name} 
-                <sup>
-                    Lv.{character.level}<button onClick={e => {character.level--; props.updatedCharacter(character)}}>-</button> <button onClick={e => {character.level++; props.updatedCharacter(character)}}>+</button>
-                </sup>
+            <h2> 
+                {character.name} 
+                <sup>Lv.{character.level}</sup>
             </h2>
-            <p>{character.hp}</p> 
-            <button onClick={e => {
-                character.hp++;
-                props.updatedCharacter(character);
-            }}>+</button> 
-            
-            <button onClick={e => {
-                character.hp--;
-                props.updatedCharacter(character);
-            }}>-</button>
+
+            <p>HP: {character.hp}</p>  
+            <button onClick={ () => updateHP(-1) }>-</button>
+            <button onClick={ () => updateHP(1) }>+</button> 
+
+            <p>XP: {character.xp}</p>
+            <button onClick={ () => updateXP() }>+</button> 
+            <br></br>
 
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
             <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
@@ -62,6 +74,7 @@ function BaseStatCard(props){
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
+                className="Modal"
             >
                 <h2>{props.base_stat.name}</h2>
                 <p>{props.base_stat.level}</p>
@@ -110,6 +123,7 @@ function StatCard(props){
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
+                className="Modal"
             >
                 <h2>{props.stat.name}</h2>
                 <p>{props.stat.level}</p>
@@ -138,43 +152,6 @@ function Stats(props){
     let closeModal = () => {setModalOpen(false); }
 
     const [displayedStats, setDisplayedStats] = React.useState(props.character.stats);
-
-    /*
-    let getAddingBar = () => {
-        if(addingStat){
-            return (
-                <div className="StatsAddNew">
-                    <form>
-                        <input type="text" placeholder="Stat Name" onChange={e => {setNewStatName(e.target.value)}}></input>
-                        <select name="Type" onChange={e => {setNewStatType(e.target.value)}} >
-                            <option value="skill">Skill</option>
-                            <option value="language">Lanauge</option>
-                            <option value="trait">Trait</option>
-                        </select>
-                        <input type="number" placeholder="Stat Level" onChange={e => {setNewStatLevel(e.target.value)}}></input>
-                        
-                        <br></br>
-                    </form>
-                
-                    <button onClick={() => {
-                        let newStatObject = {
-                            name: newStatName,
-                            level: newStatLevel,
-                            type: newStatType,
-                            baseType: "none"
-                        }
-                        props.character.stats.push(newStatObject);
-                        props.updatedCharacter(props.character);
-                        setAdddnigStat(false);
-                    }}>Add</button>
-                    <button onClick={() => setAdddnigStat(false)}>Cancel</button>
-                </div>
-            );
-        }else {
-            return <button onClick={() => setAdddnigStat(true)}>Add New Stat</button>
-        }
-    }
-    */
 
     // This gets called from a button within the add new stat modal!
     let addNewStat = () => {
@@ -206,6 +183,7 @@ function Stats(props){
                 isOpen = {modalOpen}
                 onRequestClose = {() => closeModal()}
                 shouldCloseOnOverlayClick={true}
+                className="Modal"
             >
                 <form>
                     <input type="text" placeholder="Stat Name" onChange={e => {setNewStatName(e.target.value)}}></input>
@@ -226,6 +204,43 @@ function Stats(props){
     );
 }
 
+function ItemCard(props){
+
+    const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
+
+    let openModal = () => {
+        setModalOpen(true);
+    }    
+
+    let closeModal = () => {
+        setModalOpen(false);
+    }
+
+    let removeItem = () => {
+        props.character.stats.splice(props.character.inventory.findIndex(s => s.name === props.item.name), 1);
+        props.updatedCharacter(props.character);
+        closeModal();
+    }
+
+    return (
+        <div className="ItemCard">
+
+            <p onClick={() => openModal()} >Name: {props.item.name} </p>
+            <Modal
+                isOpen={modalOpen}    
+                onRequestClose={() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+                className="Modal"
+            >
+                <h2>{props.item.name}</h2>
+
+                <button onClick={() => closeModal()}>Close</button>
+            </Modal>
+            
+        </div>
+    );
+}
+
 function Inventory(props){
 
     const [displayedInventory, setdisplayedInventory] = React.useState(props.character.inventory);
@@ -239,7 +254,7 @@ function Inventory(props){
             <Search list={props.character.inventory} keys={keys} listCallback={setdisplayedInventory} placeholder={"name/desc/type"} />
 
             {displayedInventory.map((item, i) =>{
-                return <p key={i}>Name: {item.name} <br></br> Description: {item.desc}</p>
+                return <ItemCard key={i} item={item} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
         </div>
     )
@@ -295,7 +310,7 @@ function CharacterPage({ match }){
             return(
                 <div>
                     <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
-                    <Inventory character={character}/>
+                    <Inventory character={character}/> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 </div>
             )
         }
