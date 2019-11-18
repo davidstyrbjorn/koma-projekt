@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import '../style/CharacterPage.css'
 
-import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute } from "../characters_utility";
+import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject } from "../characters_utility";
 import Search from './Search';
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
@@ -101,9 +101,11 @@ function StatCard(props){
         closeModal();
     }
 
+    
     return (
         <div className="StatCard">
 
+            <p onClick={() => openModal()} >Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
@@ -119,23 +121,25 @@ function StatCard(props){
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
             
-            <p onClick={() => openModal()} >Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
         </div>
     );
 }
 
 function Stats(props){
 
-    const [searchString, setSearchString] = React.useState("");
-    const [addingStat, setAdddnigStat] = React.useState(false);
-
     // States used for adding a new stat
     const [newStatName, setNewStatName] = React.useState("");
     const [newStatType, setNewStatType] = React.useState("");
     const [newStatLevel, setNewStatLevel] = React.useState(0);
+    const [modalOpen, setModalOpen] = React.useState(false); // Modal used for adding new stat!
+
+    // Operating the modal
+    let openModal = () => { setModalOpen(true); }
+    let closeModal = () => {setModalOpen(false); }
 
     const [displayedStats, setDisplayedStats] = React.useState(props.character.stats);
 
+    /*
     let getAddingBar = () => {
         if(addingStat){
             return (
@@ -170,6 +174,18 @@ function Stats(props){
             return <button onClick={() => setAdddnigStat(true)}>Add New Stat</button>
         }
     }
+    */
+
+    // This gets called from a button within the add new stat modal!
+    let addNewStat = () => {
+        // Create the object using function from character_utility.js
+        let newStatObject = createItemObject(newStatName, newStatLevel, newStatType);
+        // Push and update the character with the new stat
+        props.character.stats.push(newStatObject);
+        props.updatedCharacter(props.character);
+        // Close the add new stat modal!
+        closeModal();
+    }
 
     let keys = ['name', 'type', 'baseType'];
 
@@ -180,13 +196,31 @@ function Stats(props){
                 return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
 
-            { getAddingBar() }            
-            
             <Search list = {props.character.stats} keys={ keys } listCallback={setDisplayedStats} placeholder={"name/type/base"}/>
 
             {displayedStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+
+            <Modal
+                isOpen = {modalOpen}
+                onRequestClose = {() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+            >
+                <form>
+                    <input type="text" placeholder="Stat Name" onChange={e => {setNewStatName(e.target.value)}}></input>
+                    <select name="Type" onChange={e => {setNewStatType(e.target.value)}} >
+                        <option value="skill">Skill</option>
+                        <option value="language">Lanauge</option>
+                        <option value="trait">Trait</option>
+                    </select>
+                    <input type="number" placeholder="Stat Level" onChange={e => {setNewStatLevel(e.target.value)}}></input>                    
+                </form>
+
+                <button onClick = {() => addNewStat()}>Add</button>
+                <button onClick={() => closeModal()}>Close</button>
+            </Modal>
+            <button onClick={() => openModal()}>Add New Stat!</button>
             
         </div>
     );

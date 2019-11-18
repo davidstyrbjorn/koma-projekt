@@ -121,3 +121,13 @@ export function findIndexWithAttribute(array, attr, value){
     }
     return -1; // We failed
 }
+
+export function createItemObject(name, level, type){
+	let newStatObject = {
+		name: name,
+		level: level,
+		type, type,
+		baseType: "none"
+	};
+	return newStatObject;
+}
