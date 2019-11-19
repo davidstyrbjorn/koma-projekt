@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { BrowserRouter as Switch, Redirect } from "react-router-dom";
 
 import "../style/CharacterCreation.css"

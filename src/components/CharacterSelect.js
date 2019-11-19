@@ -1,10 +1,12 @@
-import React from 'react';
+import React from 'react'
+import Modal from 'react-modal';
 import { BrowserRouter as Switch, Link } from "react-router-dom";
 import { getCharactersFromJSON, writeCharactersToJSON } from "../characters_utility";
-import "../style/CharacterSelect.css"
+import "../style/CharacterSelect.css";
+import CharacterCreation from './CharacterCreation';
 
 /* Character Select Screen */
- 
+
 function CharaccterSelectOption(props){
     
     // This is the individual character that pops up for the user to click on, used in CharacterSelect()
@@ -27,6 +29,16 @@ function CharacterSelect(){
     const [characters, setCharacters] = React.useState([]);
     const [hasLoaded, setLoaded] = React.useState(false);
     const [hasSaved, setHasSaved] = React.useState(false);
+    const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
+
+    let openModal = () => {
+        console.log("what");
+        setModalOpen(true);
+    }    
+
+    let closeModal = () => {
+        setModalOpen(false);
+    }
 
     // Get the characters
     if(!hasLoaded)
@@ -51,8 +63,14 @@ function CharacterSelect(){
                     return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
                 })}
                 </div>
-                    
-                <p> <Link to="/character_creation/">Create Character</Link> </p>
+                <p onClick={() => openModal()}>Create a new character</p>
+                <Modal
+                isOpen={modalOpen}    
+                onRequestClose={() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+                className="Modal">
+                <CharacterCreation/>
+                </Modal>
             </div>
         </div>
     );
