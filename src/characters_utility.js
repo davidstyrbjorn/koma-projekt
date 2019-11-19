@@ -126,7 +126,7 @@ export function createItemObject(name, level, type){
 	let newStatObject = {
 		name: name,
 		level: level,
-		type, type,
+		type: type,
 		baseType: "none"
 	};
 	return newStatObject;

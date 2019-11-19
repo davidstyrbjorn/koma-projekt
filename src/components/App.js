@@ -15,10 +15,6 @@ function App() {
         
         <Route path="/character_page/:ID" component={CharacterPage} />
 
-        <Route path="/character_creation/">
-          <CharacterCreation />
-        </Route>
-
         <Route path="/">
           <CharacterSelect />
         </Route>

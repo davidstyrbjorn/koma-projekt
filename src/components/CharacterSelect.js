@@ -3,14 +3,14 @@ import React from 'react';
 import { BrowserRouter as Switch, Link } from "react-router-dom";
 import { getCharactersFromJSON, writeCharactersToJSON } from "../characters_utility";
 import "../style/CharacterSelect.css";
+
 import CharacterCreation from './CharacterCreation';
 
 /* Character Select Screen */
 
-function CharaccterSelectOption(props){
+function CharacterSelectOption(props){
     
     // This is the individual character that pops up for the user to click on, used in CharacterSelect()
-    console.log(props.character.ID);
     // Props up a Link tag that links to the character page with correct context 
     return(
         <div className="characterOption">
@@ -18,7 +18,7 @@ function CharaccterSelectOption(props){
                 <h3>{props.character.name}</h3>
                 <h5>Campaign: {props.character.campaign_name}</h5>
             </Link>
-            <button onClick={ e => {props.removeCallback(props.character.name)} }>X</button>
+            <button onClick={ e => {props.removeCallback(props.character.ID)} }>X</button>
         </div>
     );   
 }
@@ -50,11 +50,11 @@ function CharacterSelect(){
                 <h2>Welcome to character selection!</h2>
                 <div className="characterList">
                     {characters.map((c,i) => {
-                        return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
+                        return( <CharacterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
                     })}
                 </div>
 
-                <CharacterCreation/>
+                <CharacterCreation characters={characters} setCharacters={setCharacters} setHasSaved={setHasSaved} />
                     
             </div>
         </div>

@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import '../style/CharacterPage.css'
 
 import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject } from "../characters_utility";
-import Search from './Search';
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
@@ -113,7 +112,6 @@ function StatCard(props){
         props.updatedCharacter(props.character);
         closeModal();
     }
-
     
     return (
         <div className="StatCard">
@@ -151,7 +149,23 @@ function Stats(props){
     let openModal = () => { setModalOpen(true); }
     let closeModal = () => {setModalOpen(false); }
 
-    const [displayedStats, setDisplayedStats] = React.useState(props.character.stats);
+    /* FILTER STATS */
+    const [searchString, setSearchString] = React.useState("");
+    let filteredStats = props.character.stats;
+    if(searchString !== ""){
+
+        let keys = ['name', 'type'];
+
+        filteredStats = filteredStats.filter(entry => {
+            let returnValue = false;
+            keys.forEach(key => {
+                if(entry[key].toLowerCase().indexOf(searchString.toLocaleLowerCase()) !== -1){
+                    returnValue = true;
+                }
+            });
+            return returnValue;
+        });
+    }
 
     // This gets called from a button within the add new stat modal!
     let addNewStat = () => {
@@ -164,21 +178,22 @@ function Stats(props){
         closeModal();
     }
 
-    let keys = ['name', 'type', 'baseType'];
-
     return (
         <div className="Stats">
-            <p>Stats Page!</p>
+            <h3>Stats Page!</h3>
+
+            {/* DISPLAY BASE STATS */}
             {props.character.base_stats.map((base_stat, j) =>{
                 return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
 
-            <Search list = {props.character.stats} keys={ keys } listCallback={setDisplayedStats} placeholder={"name/type/base"}/>
-
-            {displayedStats.map((stat, i) => {
+            {/* SEARCH AND DISPLAY STATS */}
+            <input type="text" placeholder={"stat"} onChange={e => {setSearchString(e.target.value)}}></input>
+            {filteredStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
 
+            {/* MODAL FOR ADDING A NEW STAT */}
             <Modal
                 isOpen = {modalOpen}
                 onRequestClose = {() => closeModal()}
@@ -217,7 +232,7 @@ function ItemCard(props){
     }
 
     let removeItem = () => {
-        props.character.stats.splice(props.character.inventory.findIndex(s => s.name === props.item.name), 1);
+        props.character.inventory.splice(props.character.inventory.findIndex(s => s.name === props.item.name), 1);
         props.updatedCharacter(props.character);
         closeModal();
     }
@@ -233,6 +248,7 @@ function ItemCard(props){
                 className="Modal"
             >
                 <h2>{props.item.name}</h2>
+                <button onClick = {removeItem}>Remove</button>
 
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
@@ -243,28 +259,73 @@ function ItemCard(props){
 
 function Inventory(props){
 
-    const [displayedInventory, setdisplayedInventory] = React.useState(props.character.inventory);
-    
-    let keys = ['name', 'desc', 'type']
+    /* FILTER INVENTORY */
+    const [searchString, setSearchString] = React.useState("");
+    let filteredInventory = props.character.inventory;
+    if(searchString !== ""){
+
+        let keys = ['name', 'type', 'desc', 'cost'];
+
+        filteredInventory = filteredInventory.filter(entry => {
+            let returnValue = false;
+            keys.forEach(key => {
+                if(entry[key].toLowerCase().indexOf(searchString.toLocaleLowerCase()) !== -1){
+                    returnValue = true;
+                }
+            });
+            return returnValue;
+        });
+    }
 
     return (
-        <div>
-            <p>Inventory Page!</p>
+        <div className="Inventory">
+            <h3>Inventory Page!</h3>
 
-            <Search list={props.character.inventory} keys={keys} listCallback={setdisplayedInventory} placeholder={"name/desc/type"} />
-
-            {displayedInventory.map((item, i) =>{
+            {/* DISPLAY THE FILTERED INVENTORY USING ITEM CARD COMPONENT */}
+            <input type="text" placeholder={"inventory"} onChange={e => {setSearchString(e.target.value)}}></input>
+            {filteredInventory.map((item, i) => {
                 return <ItemCard key={i} item={item} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
         </div>
     )
 }
 
+function CombatCard(props){
+    return (
+        <div className="CombatCard">
+            <p>{props.combat.name}</p>
+        </div>
+    );
+}
+
 function Combat(props){
+
+    /* FILTER COMBAT */
+    const [searchString, setSearchString] = React.useState("");
+    let filteredCombat = props.character.combat;
+    if(searchString !== ""){
+
+        let keys = ['name'];
+
+        filteredCombat = filteredCombat.filter(entry => {
+            let returnValue = false;
+            keys.forEach(key => {
+                if(entry[key].toLowerCase().indexOf(searchString.toLocaleLowerCase()) !== -1){
+                    returnValue = true;
+                }
+            });
+            return returnValue;
+        });
+    }
 
     return(
         <div>
-            <p>Combat Page!</p>
+            <h3>Combat Page!</h3>
+
+            <input type="text" placeholder={"combat"} onChange={e => {setSearchString(e.target.value)}}></input>
+            {filteredCombat.map((combat, i) => {
+                return <CombatCard key={i} combat={combat} />
+            })}
         </div>
     )
 }
