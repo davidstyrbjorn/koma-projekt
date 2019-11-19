@@ -1,5 +1,5 @@
-import React from 'react'
-import Modal from 'react-modal';
+import React from 'react';
+
 import { BrowserRouter as Switch, Link } from "react-router-dom";
 import { getCharactersFromJSON, writeCharactersToJSON } from "../characters_utility";
 import "../style/CharacterSelect.css";
@@ -29,17 +29,7 @@ function CharacterSelect(){
     const [characters, setCharacters] = React.useState([]);
     const [hasLoaded, setLoaded] = React.useState(false);
     const [hasSaved, setHasSaved] = React.useState(false);
-    const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
-
-    let openModal = () => {
-        console.log("what");
-        setModalOpen(true);
-    }    
-
-    let closeModal = () => {
-        setModalOpen(false);
-    }
-
+    
     // Get the characters
     if(!hasLoaded)
         getCharactersFromJSON(setCharacters, setLoaded);
@@ -63,14 +53,10 @@ function CharacterSelect(){
                     return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
                 })}
                 </div>
-                <p onClick={() => openModal()}>Create a new character</p>
-                <Modal
-                isOpen={modalOpen}    
-                onRequestClose={() => closeModal()}
-                shouldCloseOnOverlayClick={true}
-                className="Modal">
                 <CharacterCreation/>
-                </Modal>
+                
+                
+                
             </div>
         </div>
     );

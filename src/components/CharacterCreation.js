@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-modal';
 import { BrowserRouter as Switch, Redirect } from "react-router-dom";
 
 import "../style/CharacterCreation.css"
@@ -12,6 +13,8 @@ function CharacterCreation(){
     const [characterName, setCharacterName] = React.useState("");
     const [initMapXP, setInitMaxXP] = React.useState(0);
     const [campaignName, setCampaignName] = React.useState("");
+    const [modalOpen, setModalOpen] = React.useState(false);
+
 
     // States used for knowing when we've loaded and saved to JSON
     const [doneSavingCharacters, setDoneSavingCharacters] = React.useState(false);
@@ -19,6 +22,16 @@ function CharacterCreation(){
 
     // State hook for the characters
     let [characters, setCharacters] = React.useState([]);
+
+    let openModal = () => {
+        setModalOpen(true);
+    }    
+
+    let closeModal = () => {
+        setModalOpen(false);
+    }
+   
+    
 
     // Get the characters
     if(!hasLoaded)
@@ -48,7 +61,15 @@ function CharacterCreation(){
     }
 
     return(
-
+        
+        <div>
+        <p onClick={() => openModal()}>Create a new character</p>
+        <Modal
+                
+                isOpen={modalOpen}    
+                onRequestClose={() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+                className="Modal">
         <div className="CharacterCreation">
             <h2>Welcome to character creation!</h2>
 
@@ -69,10 +90,13 @@ function CharacterCreation(){
                 <br></br>
             </form>
 
-            <button onClick={handleSubmit}>Create</button>
+            <button onClick={() => {
+                closeModal(); 
+                handleSubmit();}}>Create</button>
 
         </div>
-
+        </Modal>
+        </div>
     );
 
 }
