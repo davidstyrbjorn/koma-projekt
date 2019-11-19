@@ -310,11 +310,11 @@ function CharacterPage({ match }){
             return(
                 <div>
                     <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
-                    <Inventory character={character}/> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                    <Inventory character={character} updatedCharacter={updatedCharacter} />
                 </div>
             )
         }
-        else if(currentPage === "combat"){
+        else if(currentPage === "combat") {
             return(
                 <div>
                     <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>

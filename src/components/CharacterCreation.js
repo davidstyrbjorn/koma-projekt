@@ -15,7 +15,6 @@ function CharacterCreation(){
     const [campaignName, setCampaignName] = React.useState("");
     const [modalOpen, setModalOpen] = React.useState(false);
 
-
     // States used for knowing when we've loaded and saved to JSON
     const [doneSavingCharacters, setDoneSavingCharacters] = React.useState(false);
     const [hasLoaded, setLoaded] = React.useState(false);
@@ -31,8 +30,6 @@ function CharacterCreation(){
         setModalOpen(false);
     }
    
-    
-
     // Get the characters
     if(!hasLoaded)
         getCharactersFromJSON(setCharacters, setLoaded);

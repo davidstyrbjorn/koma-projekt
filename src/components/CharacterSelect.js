@@ -49,14 +49,13 @@ function CharacterSelect(){
             <div className="CharacterSelect">
                 <h2>Welcome to character selection!</h2>
                 <div className="characterList">
-                {characters.map((c,i) => {
-                    return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
-                })}
+                    {characters.map((c,i) => {
+                        return( <CharaccterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
+                    })}
                 </div>
+
                 <CharacterCreation/>
-                
-                
-                
+                    
             </div>
         </div>
     );
