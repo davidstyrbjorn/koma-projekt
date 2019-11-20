@@ -7,6 +7,8 @@ import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, c
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
+let itemTypes = ["Weapon", "Potion", "Misc"];
+
 function CharacterHeader(props){
 
     let character = props.character;
@@ -233,13 +235,28 @@ function ItemCard(props){
 
     const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
 
-    let openModal = () => {
-        setModalOpen(true);
-    }    
+    const [name, setName] = React.useState(props.item.name);
+    const [cost, setCost] = React.useState(props.item.cost);
+    const [amount, setAmount] = React.useState(props.item.amount);
+    const [desc, setDesc] = React.useState(props.item.desc);
+    const [type, setType] = React.useState(props.item.type);
 
-    let closeModal = () => {
-        setModalOpen(false);
-    }
+    // Modal handling stuff
+    let openModal = () => { setModalOpen(true); }    
+    let closeModal = () => { 
+        // Update the item
+        let index = findIndexWithAttribute(props.character.inventory, 'name', props.item.name);
+        // Update each property with the new item values
+        props.character.inventory[index].name = name;
+        props.character.inventory[index].cost = cost;
+        props.character.inventory[index].amount = amount;
+        props.character.inventory[index].desc = desc;
+        props.character.inventory[index].type = type;
+        // Callback for the file writing 
+        props.updatedCharacter(props.character);
+        // Close the modal now
+        setModalOpen(false); 
+    } 
 
     let removeItem = () => {
         props.character.inventory.splice(props.character.inventory.findIndex(s => s.name === props.item.name), 1);
@@ -247,7 +264,7 @@ function ItemCard(props){
         closeModal();
     }
 
-    let item = props.item;
+    console.log(type);
 
     return (
         <div className="ItemCard">                       
@@ -257,13 +274,16 @@ function ItemCard(props){
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
-            >                       
-                
-
-                <p>{item.cost}</p>
-                <p>{item.amount}</p>
-                <p>{item.desc}</p>
-                <p>{item.type}</p>
+            >             
+                <input type="text" placeholder={"name"} value={name} onChange={e => {setName(e.target.value)}}></input> <br></br>
+                <input type="text" placeholder={"cost"} value={cost} onChange={e => {setCost(e.target.value)}}></input> <br></br>
+                <input type="number" placeholder={"amount"} value={amount} onChange={e => {setAmount(e.target.value)}}></input> <br></br>
+                <input type="text" placeholder={"description"} value={desc} onChange={e => {setDesc(e.target.value)}}></input> <br></br>
+                <select name="Type" value={type} onChange={e => {setType(e.target.value)}} >
+                    {itemTypes.map(type => {
+                        return <option value={type}>{type}</option>
+                    })}
+                </select><br></br>
 
                 <button onClick = {removeItem}>Remove</button>
 
@@ -338,8 +358,10 @@ function Inventory(props){
                     <input type="text" placeholder="Description" onChange={e => {setNewItemDesc(e.target.value)}}></input>
                     <input type="number" placeholder="Amount" onChange={e => {setNewItemAmount(e.target.value)}}></input>                    
                     <input type="cost" placeholder="Cost" onChange={e => {setNewItemCost(e.target.value)}}></input>
-                    <select name="Type" onChange={e => {setNewItemType(e.target.value)}} >
-                        <option value="Weapon">Weapon</option>
+                    <select name="Type" value={newItemType} onChange={e => {setNewItemType(e.target.value)}} >
+                        {itemTypes.map(type => {
+                            return <option value={type}>{type}</option>
+                        })}
                     </select>
                 </form>
                 <button onClick = {() => addNewItem()}>Add</button>
@@ -360,21 +382,59 @@ function CombatCard(props){
         setModalOpen(false);
     }
 
+    let changeStatLevel = (dir, id) => {
+        props.character.combats.find(s => s.name === props.combat.name)[id] += dir;
+        props.updatedCharacter(props.character);
+    }
+   
     return (
         <div className="CombatCard">
-            <p onClick={() => openModal()}> Name: {props.combat.name} :
+            <div onClick={() => openModal()}> Name: {props.combat.name} :
             {props.combat.value != null && props.combat.value}
             {props.combat.type != null && <p>Saving throws</p>}
             {props.combat.maximum != null && <p> Maximum: {props.combat.maximum}</p>}
             {props.combat.total != null && <p> Total: {props.combat.total}</p>}
             {props.combat.successes != null && <p> Successes: {props.combat.successes} Failiures: {props.combat.failures}</p>}
-            </p>
+            </div>
             <Modal
                 isOpen = {modalOpen}
                 onRequestClose = {() => closeModal()}
                 shouldCloseOnOverlayClick={true}
-                className="Modal"
-            >{props.combat.name}</Modal> 
+                className="Modal"> 
+                    <h2>{props.combat.name}</h2>
+                    {props.combat.value != null && 
+                        <div> 
+                            <p>Value: {props.combat.value} </p>
+                            <button onClick={() => changeStatLevel(-1, 'value')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'value')}>+</button>
+                        </div> 
+                    }
+                    {props.combat.maximum != null && 
+                        <div>
+                            <p>Maximum: {props.combat.maximum} </p>
+                            <button onClick={() => changeStatLevel(-1, 'maximum')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'maximum')}>+</button>
+                        </div> 
+                    }
+                    {props.combat.total != null &&
+                        <div>
+                            <p>Total: {props.combat.total}</p>
+                            <button onClick={() => changeStatLevel(-1, 'total')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'total')}>+</button>
+                        </div> 
+                    }
+                    {props.combat.successes != null && 
+                        <div>
+                            <p>Successes: {props.combat.successes}</p> 
+                            <button onClick={() => changeStatLevel(-1, 'successes')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'successes')}>+</button>
+                            <p>Failiures: {props.combat.failures}</p> 
+                            <button onClick={() => changeStatLevel(-1, 'failures')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'failures')}>+</button>
+                        </div> 
+                    }   
+                    <button onClick={() => closeModal()}>Close</button>
+            </Modal> 
         </div>
     );
 }
@@ -383,7 +443,8 @@ function Combat(props){
 
     /* FILTER COMBAT */
     const [searchString, setSearchString] = React.useState("");
-    let filteredCombat = props.character.combat;
+    let filteredCombat = props.character.combats;
+    
     if(searchString !== ""){
 
         let keys = ['name'];
@@ -405,7 +466,7 @@ function Combat(props){
 
             <input type="text" placeholder={"combat"} onChange={e => {setSearchString(e.target.value)}}></input>
             {filteredCombat.map((combat, i) => {
-                return <CombatCard key={i} combat={combat} />
+                return <CombatCard key={i} combat={combat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
         </div>
     )
@@ -460,7 +521,7 @@ function CharacterPage({ match }){
             return(
                 <div>
                     <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
-                    <Combat character={character}/>
+                    <Combat character={character} updatedCharacter={updatedCharacter}/>
                 </div>
             )
         }else{
