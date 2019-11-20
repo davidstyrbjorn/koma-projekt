@@ -126,7 +126,7 @@ export function findIndexWithAttribute(array, attr, value){
 export function createItemObject(name, level, type){
 	let newStatObject = {
 		name: name,
-		level: level,
+		level: parseInt(level),
 		type: type,
 		baseType: "none"
 	};

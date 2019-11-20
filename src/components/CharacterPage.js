@@ -195,6 +195,8 @@ function Stats(props){
             {props.character.base_stats.map((base_stat, j) =>{
                 return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+            
+            <button onClick={() => openModal()}>Add New Stat!</button>
 
             {/* SEARCH AND DISPLAY STATS */}
             <input type="text" placeholder={"stat"} onChange={e => {setSearchString(e.target.value)}}></input>
@@ -222,7 +224,6 @@ function Stats(props){
                 <button onClick = {() => addNewStat()}>Add</button>
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
-            <button onClick={() => openModal()}>Add New Stat!</button>
             
         </div>
     );
@@ -255,7 +256,7 @@ function ItemCard(props){
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
-            >
+            >   
                 <h2>{props.item.name}</h2>
                 <button onClick = {removeItem}>Remove</button>
 
