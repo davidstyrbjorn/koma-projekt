@@ -2,16 +2,46 @@
     text-align: center;
 }
 
+.FormPlusButton {
+    border: 1px dotted black;
+    box-sizing: border-box;
+    width: 50%;
+/*Ask about center alignment */
+    margin: auto;
+}
+
+/*.CharacterCreation label{
+
+} */
+
 .CharacterCreation label p {
     text-decoration: underline;
+    color: #b44040;
+    /*font-family: Roboto;*/
+    font-weight: bold;
 }
 
 .CharacterCreation button{
     margin-top: 30px;
+    margin-bottom: 20px;
     width: 100px;
     height: 25px;
 }
 
 .CharacterCreation input{
     margin-top: 0px;
+    border: 1px solid gray ;
+    border-radius: 3%;
+    min-height: 20px;
+    height: 3vh;
+}
+
+.CharacterCreation h2{
+color: black;
+font-family: "Cinzel", Roboto, serif;
+}
+
+.CharacterCreation button{
+    border-style: hidden;
+    border-radius: 3%;
 }
