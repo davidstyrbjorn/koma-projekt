@@ -346,15 +346,31 @@ function Inventory(props){
 }
 
 function CombatCard(props){
+    const [modalOpen, setModalOpen] = React.useState(false);
+
+    let openModal = () => {
+        setModalOpen(true);
+    }    
+
+    let closeModal = () => {
+        setModalOpen(false);
+    }
+
     return (
         <div className="CombatCard">
-            <p>Name: {props.combat.name} :
+            <p onClick={() => openModal()}> Name: {props.combat.name} :
             {props.combat.value != null && props.combat.value}
             {props.combat.type != null && <p>Saving throws</p>}
             {props.combat.maximum != null && <p> Maximum: {props.combat.maximum}</p>}
             {props.combat.total != null && <p> Total: {props.combat.total}</p>}
             {props.combat.successes != null && <p> Successes: {props.combat.successes} Failiures: {props.combat.failures}</p>}
             </p>
+            <Modal
+                isOpen = {modalOpen}
+                onRequestClose = {() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+                className="Modal"
+            >{props.combat.name}</Modal> 
         </div>
     );
 }
