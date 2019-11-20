@@ -1,17 +1,76 @@
 .CharacterCreation{
     text-align: center;
+/* Center content*/
+    margin: auto;
 }
 
-.CharacterCreation label p {
+.Modal1 {
+/*Ask about center alignment */
+    text-align: center;
+/* Make modal background color light gray and slightly transparent */ 
+    background-color: rgb(247, 247, 247, 0.9);
+    margin: 1% auto;
+    width: 95%;
+    border: 1px dotted black;
+}
+
+.Modal1 label p {
+    /*Fonts etc */
     text-decoration: underline;
+    color: #b44040;
+    /*font-family: Roboto;*/
+    font-weight: bold;
 }
 
-.CharacterCreation button{
+.Modal1 button{
+    /* Button style*/
     margin-top: 30px;
+    margin-bottom: 20px;
     width: 100px;
     height: 25px;
+    border: 1px solid grey;
+    border-radius: 3%;
 }
 
-.CharacterCreation input{
+.Modal1 input{
     margin-top: 0px;
+    border: 1px solid gray ;
+    border-radius: 3%;
+    min-height: 20px;
+    height: 3vh;
+}
+
+.Modal1 h2{
+    /* "Header text" */
+    color: black;
+    font-family: "Cinzel", Roboto, serif;
+    padding-top: 1%;
+}
+
+.Modal1 input[type=text] {
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: rgb(247, 247, 247, 0.9);
+}
+
+.Modal1 input[type=number]{
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: rgb(247, 247, 247, 0.9);
+}
+
+.Modal1 input:focus{
+   /* outline: none; */
+
+    outline-color: darkgrey;
+}
+
+.Modal1:focus {
+    outline: none;
+}
+
+button:focus{
+outline: none;
 }

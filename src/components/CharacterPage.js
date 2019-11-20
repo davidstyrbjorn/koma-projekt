@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import '../style/CharacterPage.css'
 
-import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject } from "../characters_utility";
+import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
@@ -16,13 +16,21 @@ function CharacterHeader(props){
         props.updatedCharacter(character);
     }
 
-    let updateXP = () => {
-        character.xp++;
+    let updateXP = (dir) => {
+        character.xp += dir;
         if(character.xp >= character.max_xp){
             character.level++;
             character.xp = 0;
         }
-
+        if(character.xp < 0){
+            if(character.level > 0){
+                character.level--;
+                character.xp = character.max_xp - 1; 
+            }
+            if(character.xp < 0){
+                character.xp = 0;
+        }
+        }
         props.updatedCharacter(character);
     }
     
@@ -39,7 +47,8 @@ function CharacterHeader(props){
             <button onClick={ () => updateHP(1) }>+</button> 
 
             <p>XP: {character.xp}</p>
-            <button onClick={ () => updateXP() }>+</button> 
+            <button onClick={ () => updateXP(-1) }>-</button> 
+            <button onClick={ () => updateXP(1) }>+</button> 
             <br></br>
 
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
@@ -170,7 +179,7 @@ function Stats(props){
     // This gets called from a button within the add new stat modal!
     let addNewStat = () => {
         // Create the object using function from character_utility.js
-        let newStatObject = createItemObject(newStatName, newStatLevel, newStatType);
+        let newStatObject = createStatObject(newStatName, newStatLevel, newStatType);
         // Push and update the character with the new stat
         props.character.stats.push(newStatObject);
         props.updatedCharacter(props.character);
@@ -186,6 +195,8 @@ function Stats(props){
             {props.character.base_stats.map((base_stat, j) =>{
                 return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+            
+            <button onClick={() => openModal()}>Add New Stat!</button>
 
             {/* SEARCH AND DISPLAY STATS */}
             <input type="text" placeholder={"stat"} onChange={e => {setSearchString(e.target.value)}}></input>
@@ -213,7 +224,6 @@ function Stats(props){
                 <button onClick = {() => addNewStat()}>Add</button>
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
-            <button onClick={() => openModal()}>Add New Stat!</button>
             
         </div>
     );
@@ -237,17 +247,24 @@ function ItemCard(props){
         closeModal();
     }
 
-    return (
-        <div className="ItemCard">
+    let item = props.item;
 
+    return (
+        <div className="ItemCard">                       
             <p onClick={() => openModal()} >Name: {props.item.name} </p>
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
-            >
-                <h2>{props.item.name}</h2>
+            >                       
+                
+
+                <p>{item.cost}</p>
+                <p>{item.amount}</p>
+                <p>{item.desc}</p>
+                <p>{item.type}</p>
+
                 <button onClick = {removeItem}>Remove</button>
 
                 <button onClick={() => closeModal()}>Close</button>
@@ -259,13 +276,33 @@ function ItemCard(props){
 
 function Inventory(props){
 
+    const [newItemName, setNewItemName] = React.useState("");
+    const [newItemDesc, setNewItemDesc] = React.useState("");
+    const [newItemType, setNewItemType] = React.useState("");
+    const [newItemAmount, setNewItemAmount] = React.useState("");
+    const [newItemCost, setNewItemCost] = React.useState("");
+    const [modalOpen, setModalOpen] = React.useState(false); // Modal used for adding new stat!
+
+    // Operating the modal
+    let openModal = () => { setModalOpen(true); }
+    let closeModal = () => {setModalOpen(false); }
+
+    // This gets called from a button within the add new item modal!
+    let addNewItem = () => {
+        // CharacterUtillity function
+        let newItemObject = createItemObject(newItemName, newItemCost, newItemAmount, newItemDesc, newItemType);
+        // Push and update the character with the new item
+        props.character.inventory.push(newItemObject);
+        props.updatedCharacter(props.character);
+        // Close the add new item modal
+        closeModal();
+    }
+
     /* FILTER INVENTORY */
     const [searchString, setSearchString] = React.useState("");
     let filteredInventory = props.character.inventory;
     if(searchString !== ""){
-
         let keys = ['name', 'type', 'desc', 'cost'];
-
         filteredInventory = filteredInventory.filter(entry => {
             let returnValue = false;
             keys.forEach(key => {
@@ -281,19 +318,63 @@ function Inventory(props){
         <div className="Inventory">
             <h3>Inventory Page!</h3>
 
+            <button onClick={openModal}>Add New Item</button>
+
             {/* DISPLAY THE FILTERED INVENTORY USING ITEM CARD COMPONENT */}
             <input type="text" placeholder={"inventory"} onChange={e => {setSearchString(e.target.value)}}></input>
             {filteredInventory.map((item, i) => {
                 return <ItemCard key={i} item={item} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+
+            {/* MODAL FOR ADDING A NEW STAT */}
+            <Modal
+                isOpen = {modalOpen}
+                onRequestClose = {() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+                className="Modal"
+            >       
+                <form>
+                    <input type="text" placeholder="Item Name" onChange={e => {setNewItemName(e.target.value)}}></input>
+                    <input type="text" placeholder="Description" onChange={e => {setNewItemDesc(e.target.value)}}></input>
+                    <input type="number" placeholder="Amount" onChange={e => {setNewItemAmount(e.target.value)}}></input>                    
+                    <input type="cost" placeholder="Cost" onChange={e => {setNewItemCost(e.target.value)}}></input>
+                    <select name="Type" onChange={e => {setNewItemType(e.target.value)}} >
+                        <option value="Weapon">Weapon</option>
+                    </select>
+                </form>
+                <button onClick = {() => addNewItem()}>Add</button>
+                <button onClick={() => closeModal()}>Close</button>
+            </Modal>
         </div>
     )
 }
 
 function CombatCard(props){
+    const [modalOpen, setModalOpen] = React.useState(false);
+
+    let openModal = () => {
+        setModalOpen(true);
+    }    
+
+    let closeModal = () => {
+        setModalOpen(false);
+    }
+
     return (
         <div className="CombatCard">
-            <p>{props.combat.name}</p>
+            <p onClick={() => openModal()}> Name: {props.combat.name} :
+            {props.combat.value != null && props.combat.value}
+            {props.combat.type != null && <p>Saving throws</p>}
+            {props.combat.maximum != null && <p> Maximum: {props.combat.maximum}</p>}
+            {props.combat.total != null && <p> Total: {props.combat.total}</p>}
+            {props.combat.successes != null && <p> Successes: {props.combat.successes} Failiures: {props.combat.failures}</p>}
+            </p>
+            <Modal
+                isOpen = {modalOpen}
+                onRequestClose = {() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+                className="Modal"
+            >{props.combat.name}</Modal> 
         </div>
     );
 }
