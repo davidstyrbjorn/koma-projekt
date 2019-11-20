@@ -258,9 +258,13 @@ function ItemCard(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
             >                       
-                <h2>{props.item.name}</h2>
-                <p>{props.item.cost}</p>
-                <p>{}</p>
+                <input type="text" value={item.}></input>
+
+                <p>{item.cost}</p>
+                <p>{item.amount}</p>
+                <p>{item.desc}</p>
+                <p>{item.type}</p>
+
                 <button onClick = {removeItem}>Remove</button>
 
                 <button onClick={() => closeModal()}>Close</button>
@@ -335,7 +339,7 @@ function Inventory(props){
                     <input type="number" placeholder="Amount" onChange={e => {setNewItemAmount(e.target.value)}}></input>                    
                     <input type="cost" placeholder="Cost" onChange={e => {setNewItemCost(e.target.value)}}></input>
                     <select name="Type" onChange={e => {setNewItemType(e.target.value)}} >
-                        <option value="skill">Weapon</option>
+                        <option value="Weapon">Weapon</option>
                     </select>
                 </form>
                 <button onClick = {() => addNewItem()}>Add</button>
