@@ -47,20 +47,30 @@
     padding-top: 1%;
 }
 
-input[type=text] {
+.Modal1 input[type=text] {
     text-align: center;
     border: none;
     border-bottom: 1px solid black;
     background-color: rgb(247, 247, 247, 0.9);
 }
 
-input[type=number]{
+.Modal1 input[type=number]{
     text-align: center;
     border: none;
     border-bottom: 1px solid black;
     background-color: rgb(247, 247, 247, 0.9);
 }
 
-input:focus{
+.Modal1 input:focus{
+   /* outline: none; */
+
+    outline-color: darkgrey;
+}
+
+.Modal1:focus {
     outline: none;
+}
+
+button:focus{
+outline: none;
 }
