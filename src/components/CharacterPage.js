@@ -7,6 +7,8 @@ import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, c
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
+let itemTypes = ["Weapon", "Potion", "Misc"];
+
 function CharacterHeader(props){
 
     let character = props.character;
@@ -242,19 +244,26 @@ function ItemCard(props){
     // Modal handling stuff
     let openModal = () => { setModalOpen(true); }    
     let closeModal = () => { 
+        console.log("close modal");
 
         // Update the item
         let index = findIndexWithAttribute(props.character.inventory, 'name', props.item.name);
+        // Update each property with the new item values
         props.character.inventory[index].name = name;
+        props.character.inventory[index].cost = cost;
+        props.character.inventory[index].amount = amount;
+        props.character.inventory[index].desc = desc;
+        props.character.inventory[index].type = type;
+        // Callback for the file writing 
         props.updatedCharacter(props.character);
-
+        // Close the modal now
         setModalOpen(false); 
     } 
 
     let removeItem = () => {
         props.character.inventory.splice(props.character.inventory.findIndex(s => s.name === props.item.name), 1);
         props.updatedCharacter(props.character);
-        closeModal();
+        setModalOpen(false);
     }
 
     return (
@@ -270,9 +279,11 @@ function ItemCard(props){
                 <input type="text" placeholder={"cost"} value={cost} onChange={e => {setCost(e.target.value)}}></input> <br></br>
                 <input type="number" placeholder={"amount"} value={amount} onChange={e => {setAmount(e.target.value)}}></input> <br></br>
                 <input type="text" placeholder={"description"} value={desc} onChange={e => {setDesc(e.target.value)}}></input> <br></br>
-                <select name="Type" onChange={e => {setType(e.target.value)}} >
-                    <option value="Weapon">Weapon</option>
-                </select>
+                <select name="Type" value={type} onChange={e => {setType(e.target.value)}} >
+                    {itemTypes.map((type, i) => {
+                        return <option key={i} value={type}>{type}</option>
+                    })}
+                </select><br></br>
 
                 <button onClick = {removeItem}>Remove</button>
 
@@ -347,8 +358,10 @@ function Inventory(props){
                     <input type="text" placeholder="Description" onChange={e => {setNewItemDesc(e.target.value)}}></input>
                     <input type="number" placeholder="Amount" onChange={e => {setNewItemAmount(e.target.value)}}></input>                    
                     <input type="cost" placeholder="Cost" onChange={e => {setNewItemCost(e.target.value)}}></input>
-                    <select name="Type" onChange={e => {setNewItemType(e.target.value)}} >
-                        <option value="Weapon">Weapon</option>
+                    <select name="Type" value={newItemType} onChange={e => {setNewItemType(e.target.value)}} >
+                        {itemTypes.map((type, i) => {
+                            return <option key={i} value={type}>{type}</option>
+                        })}
                     </select>
                 </form>
                 <button onClick = {() => addNewItem()}>Add</button>
