@@ -32,15 +32,20 @@ body{
     display:flex;
 	margin:auto;
     margin-bottom:5px;
-	background-color: #79b85e90;
+	background-color: rgb(235, 235, 235);
 }
 
-.characterList{
+/*.characterList{
 
 }
-
+*/
 .createNew{
-	border: 1px black dotted;
+    margin: auto;
+    border: 1px grey solid;
+    border-radius: 3%;
+    height: 5%;
+    width: 20%;
+    background-color: lightgrey;
 }
 
 a{
