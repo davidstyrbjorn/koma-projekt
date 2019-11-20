@@ -382,21 +382,59 @@ function CombatCard(props){
         setModalOpen(false);
     }
 
+    let changeStatLevel = (dir, id) => {
+        props.character.combats.find(s => s.name === props.combat.name)[id] += dir;
+        props.updatedCharacter(props.character);
+    }
+   
     return (
         <div className="CombatCard">
-            <p onClick={() => openModal()}> Name: {props.combat.name} :
+            <div onClick={() => openModal()}> Name: {props.combat.name} :
             {props.combat.value != null && props.combat.value}
             {props.combat.type != null && <p>Saving throws</p>}
             {props.combat.maximum != null && <p> Maximum: {props.combat.maximum}</p>}
             {props.combat.total != null && <p> Total: {props.combat.total}</p>}
             {props.combat.successes != null && <p> Successes: {props.combat.successes} Failiures: {props.combat.failures}</p>}
-            </p>
+            </div>
             <Modal
                 isOpen = {modalOpen}
                 onRequestClose = {() => closeModal()}
                 shouldCloseOnOverlayClick={true}
-                className="Modal"
-            >{props.combat.name}</Modal> 
+                className="Modal"> 
+                    <h2>{props.combat.name}</h2>
+                    {props.combat.value != null && 
+                        <div> 
+                            <p>Value: {props.combat.value} </p>
+                            <button onClick={() => changeStatLevel(-1, 'value')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'value')}>+</button>
+                        </div> 
+                    }
+                    {props.combat.maximum != null && 
+                        <div>
+                            <p>Maximum: {props.combat.maximum} </p>
+                            <button onClick={() => changeStatLevel(-1, 'maximum')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'maximum')}>+</button>
+                        </div> 
+                    }
+                    {props.combat.total != null &&
+                        <div>
+                            <p>Total: {props.combat.total}</p>
+                            <button onClick={() => changeStatLevel(-1, 'total')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'total')}>+</button>
+                        </div> 
+                    }
+                    {props.combat.successes != null && 
+                        <div>
+                            <p>Successes: {props.combat.successes}</p> 
+                            <button onClick={() => changeStatLevel(-1, 'successes')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'successes')}>+</button>
+                            <p>Failiures: {props.combat.failures}</p> 
+                            <button onClick={() => changeStatLevel(-1, 'failures')}>-</button>
+                            <button onClick={() => changeStatLevel(1, 'failures')}>+</button>
+                        </div> 
+                    }   
+                    <button onClick={() => closeModal()}>Close</button>
+            </Modal> 
         </div>
     );
 }
@@ -405,7 +443,8 @@ function Combat(props){
 
     /* FILTER COMBAT */
     const [searchString, setSearchString] = React.useState("");
-    let filteredCombat = props.character.combat;
+    let filteredCombat = props.character.combats;
+    
     if(searchString !== ""){
 
         let keys = ['name'];
@@ -427,7 +466,7 @@ function Combat(props){
 
             <input type="text" placeholder={"combat"} onChange={e => {setSearchString(e.target.value)}}></input>
             {filteredCombat.map((combat, i) => {
-                return <CombatCard key={i} combat={combat} />
+                return <CombatCard key={i} combat={combat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
         </div>
     )
@@ -482,7 +521,7 @@ function CharacterPage({ match }){
             return(
                 <div>
                     <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
-                    <Combat character={character}/>
+                    <Combat character={character} updatedCharacter={updatedCharacter}/>
                 </div>
             )
         }else{
