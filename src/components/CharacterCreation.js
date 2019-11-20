@@ -5,7 +5,7 @@ import { BrowserRouter as Switch, Redirect } from "react-router-dom";
 import "../style/CharacterCreation.css"
 
 // JSON and Character related functions
-import {getBaseCharacter, writeCharactersToJSON, findIndexWithAttribute} from '../characters_utility'
+import {getBaseCharacter, writeCharactersToJSON} from '../characters_utility'
 
 function CharacterCreation(props){
 
