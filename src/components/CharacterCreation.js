@@ -50,30 +50,32 @@ function CharacterCreation(props){
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
-                className="Modal"
+                className="Modal1"
             >
                 <h2>Welcome to character creation!</h2>
 
-                <form>
-                    <label>
-                        <p>Character Name</p> 
-                        <input type="text" name="name" value={characterName} placeholder="Name" onChange={e => setCharacterName(e.target.value)} />
-                    </label>
-                    <br></br>
-                    <label>
-                        <p>Initial Max XP</p> 
-                        <input type="number" name="init_max_xp" value={initMapXP} onChange={ e => setInitMaxXP(e.target.value)} />
-                    </label>
-                    <label>
-                        <p>Campaign Name</p>
-                        <input type="text" name="campaign_name" value={campaignName} placeholder="Campaign Name" onChange={e => setCampaignName(e.target.value)} />
-                    </label>
-                    <br></br>
-                </form>
+                <div className="FormplusButton">
+                    <form>
+                        <label>
+                            <p>Character Name</p> 
+                            <input type="text" name="name" value={characterName} placeholder="Name" onChange={e => setCharacterName(e.target.value)} />
+                        </label>
+                        <br></br>
+                        <label>
+                            <p>Initial Max XP</p> 
+                            <input type="number" name="init_max_xp" value={initMapXP} onChange={ e => setInitMaxXP(e.target.value)} />
+                        </label>
+                        <label>
+                            <p>Campaign Name</p>
+                            <input type="text" name="campaign_name" value={campaignName} placeholder="Campaign Name" onChange={e => setCampaignName(e.target.value)} />
+                        </label>
+                        <br></br>
+                    </form>
 
-                <button onClick={() => {
-                    handleSubmit();}}>Create</button>
+                    <button onClick={() => {
+                        handleSubmit();}}>Create</button>
 
+                </div>
             </Modal>
         </div>
     );

@@ -1,39 +1,41 @@
 .CharacterCreation{
     text-align: center;
-    border: 1px dotted black;
-    box-sizing: border-box;
-    width: 50%;
-/*Ask about center alignment */
     margin: auto;
 }
 
+.Modal1 {
+/*Ask about center alignment */
+    text-align: center;
+ 
+    background-color: rgb(247, 247, 247, 0.7);
+}
+
+/*
 .FormPlusButton {
-    border: 1px dotted black;
-    box-sizing: border-box;
-    width: 50%;
+    width: auto;
+    border: 1px dotted black; */
 /*Ask about center alignment */
-    margin: auto;
-}
+   
+ /*  
+}*/ 
 
-/*.CharacterCreation label{
-
-} */
-
-.CharacterCreation label p {
+.Modal1 label p {
     text-decoration: underline;
     color: #b44040;
     /*font-family: Roboto;*/
     font-weight: bold;
 }
 
-.CharacterCreation button{
+.Modal1 button{
     margin-top: 30px;
     margin-bottom: 20px;
     width: 100px;
     height: 25px;
+    border-style: hidden;
+    border-radius: 3%;
 }
 
-.CharacterCreation input{
+.Modal1 input{
     margin-top: 0px;
     border: 1px solid gray ;
     border-radius: 3%;
@@ -41,12 +43,7 @@
     height: 3vh;
 }
 
-.CharacterCreation h2{
+.Modal1 h2{
 color: black;
 font-family: "Cinzel", Roboto, serif;
-}
-
-.CharacterCreation button{
-    border-style: hidden;
-    border-radius: 3%;
 }
