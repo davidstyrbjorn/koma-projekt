@@ -64,7 +64,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
         "inventory":[
 			{"name": "Equipment template", "cost": "cost in whatever" , "amount": 0, "desc": "some text", "type": "equipment"},
 		],
-	"combat":[ 
+		"combats":[ 
 			{"name": "Strength", "value": 0, "type": "savingThrows" },
 			{"name": "Dexterity", "value": 0, "type": "savingThrows" },
 			{"name": "Constitution", "value": 0, "type": "savingThrows" },
