@@ -16,13 +16,21 @@ function CharacterHeader(props){
         props.updatedCharacter(character);
     }
 
-    let updateXP = () => {
-        character.xp++;
+    let updateXP = (dir) => {
+        character.xp += dir;
         if(character.xp >= character.max_xp){
             character.level++;
             character.xp = 0;
         }
-
+        if(character.xp < 0){
+            if(character.level > 0){
+                character.level--;
+                character.xp = character.max_xp - 1; 
+            }
+            if(character.xp < 0){
+                character.xp = 0;
+        }
+        }
         props.updatedCharacter(character);
     }
     
@@ -39,7 +47,8 @@ function CharacterHeader(props){
             <button onClick={ () => updateHP(1) }>+</button> 
 
             <p>XP: {character.xp}</p>
-            <button onClick={ () => updateXP() }>+</button> 
+            <button onClick={ () => updateXP(-1) }>-</button> 
+            <button onClick={ () => updateXP(1) }>+</button> 
             <br></br>
 
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
@@ -186,6 +195,8 @@ function Stats(props){
             {props.character.base_stats.map((base_stat, j) =>{
                 return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+            
+            <button onClick={() => openModal()}>Add New Stat!</button>
 
             {/* SEARCH AND DISPLAY STATS */}
             <input type="text" placeholder={"stat"} onChange={e => {setSearchString(e.target.value)}}></input>
@@ -213,7 +224,6 @@ function Stats(props){
                 <button onClick = {() => addNewStat()}>Add</button>
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
-            <button onClick={() => openModal()}>Add New Stat!</button>
             
         </div>
     );
@@ -246,7 +256,7 @@ function ItemCard(props){
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
-            >
+            >   
                 <h2>{props.item.name}</h2>
                 <button onClick = {removeItem}>Remove</button>
 
