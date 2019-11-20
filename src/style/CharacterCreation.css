@@ -1,25 +1,21 @@
 .CharacterCreation{
     text-align: center;
+/* Center content*/
     margin: auto;
 }
 
 .Modal1 {
 /*Ask about center alignment */
     text-align: center;
- 
-    background-color: rgb(247, 247, 247, 0.7);
+/* Make modal background color light gray and slightly transparent */ 
+    background-color: rgb(247, 247, 247, 0.9);
+    margin: 1% auto;
+    width: 95%;
+    border: 1px dotted black;
 }
 
-/*
-.FormPlusButton {
-    width: auto;
-    border: 1px dotted black; */
-/*Ask about center alignment */
-   
- /*  
-}*/ 
-
 .Modal1 label p {
+    /*Fonts etc */
     text-decoration: underline;
     color: #b44040;
     /*font-family: Roboto;*/
@@ -27,11 +23,12 @@
 }
 
 .Modal1 button{
+    /* Button style*/
     margin-top: 30px;
     margin-bottom: 20px;
     width: 100px;
     height: 25px;
-    border-style: hidden;
+    border: 1px solid grey;
     border-radius: 3%;
 }
 
@@ -44,6 +41,15 @@
 }
 
 .Modal1 h2{
-color: black;
-font-family: "Cinzel", Roboto, serif;
+    /* "Header text" */
+    color: black;
+    font-family: "Cinzel", Roboto, serif;
+    padding-top: 1%;
 }
+/*
+.CharacterCreation input {
+
+    
+}
+
+*/
