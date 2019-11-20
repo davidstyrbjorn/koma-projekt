@@ -64,14 +64,15 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
         ],
         "inventory":[
 			{"name": "Equipment template", "cost": "cost in whatever" , "amount": 0, "desc": "some text", "type": "equipment"},
-        ],
-		"combat":[ 
+		],
+	"combat":[ 
 			{"name": "Strength", "value": 0, "type": "savingThrows" },
 			{"name": "Dexterity", "value": 0, "type": "savingThrows" },
 			{"name": "Constitution", "value": 0, "type": "savingThrows" },
 			{"name": "Intelligence", "value": 0, "type": "savingThrows" },
 			{"name": "Wisdom", "value": 0, "type": "savingThrows" },
 			{"name": "Charisma", "value": 0, "type": "savingThrows" },
+			//{"name": "Spell template", "spellName": "blabla", "atkBonus": 0, "damage": 9, "type": "fire", "desc": "This spell does this"},
 			{"name": "Armour Class", "value": 0 },
 			{"name": "Initiative", "value": 0 },
 			{"name": "Speed", "value": 0 },
@@ -79,8 +80,8 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Temporary Hit Points", "value": 0 , "maximum": 0 },
 			{"name": "Hit Dice", "value": 0 , "total": 0 },
 			{"name": "Death Saves", "successes": 0, "failures": 0},
-			{"name": "Spell template", "spellName": "blabla", "atkBonus": 0, "damage": 9, "type": "fire", "desc": "This spell does this"},
-        ],
+		
+	],
     };
 
     return obj;
