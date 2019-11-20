@@ -6,6 +6,7 @@ import "../style/CharacterSelect.css";
 
 import CharacterCreation from './CharacterCreation';
 
+
 /* Character Select Screen */
 
 function CharacterSelectOption(props){
@@ -13,8 +14,9 @@ function CharacterSelectOption(props){
     // This is the individual character that pops up for the user to click on, used in CharacterSelect()
     // Props up a Link tag that links to the character page with correct context 
     return(
-        <div className="characterOption">
-            <Link to={"/character_page/" + props.character.ID}> 
+        <div className="characterOption">	
+			<img src="placeholder" alt="placeholder"/>
+			<Link to={"/character_page/" + props.character.ID}> 
                 <h3>{props.character.name}</h3>
                 <h5>Campaign: {props.character.campaign_name}</h5>
             </Link>
@@ -53,9 +55,10 @@ function CharacterSelect(){
                         return( <CharacterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
                     })}
                 </div>
-
+				
+				<div className="createNew">
                 <CharacterCreation characters={characters} setCharacters={setCharacters} setHasSaved={setHasSaved} />
-                    
+                </div>    
             </div>
         </div>
     );

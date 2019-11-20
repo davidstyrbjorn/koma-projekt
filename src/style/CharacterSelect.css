@@ -1,3 +1,9 @@
+body{
+	/*background: linear-gradient(to bottom, #2b76e6,#79b85e);
+	background-repeat: no-repeat;
+	background-attachment: fixed;*/
+}
+
 .wrapper{
     margin:10px;
 }
@@ -6,8 +12,9 @@
     text-align: center;
 }
 
+
 .characterOption h3, .characterOption h5 {
-   padding:10px;
+   padding:8px;
    margin:0;
    text-align: left;
 }
@@ -17,20 +24,33 @@
     margin:0;
     padding:10px;
     border: 1px black dotted;
+    border: 1px black dotted;
+	border-left: none;
 }
 
 .characterOption{
     display:flex;
-    margin:auto;
+	margin:auto;
     margin-bottom:5px;
+	background-color: #79b85e90;
 }
 
 .characterList{
-    
+
+}
+
+.createNew{
+	border: 1px black dotted;
 }
 
 a{
     text-decoration: none;
+	color: black;
+}
+
+img{
+	border: 1px black dotted;
+	border-right: none;
 }
 
 .characterOption button{
