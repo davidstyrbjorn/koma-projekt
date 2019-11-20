@@ -11,7 +11,9 @@
     background-color: rgb(247, 247, 247, 0.9);
     margin: 1% auto;
     width: 95%;
-    border: 1px dotted black;
+    border: 1px solid lightgrey;
+    box-shadow: 10px 10px 5px grey;
+    width: 45%;
 }
 
 .Modal1 label p {
