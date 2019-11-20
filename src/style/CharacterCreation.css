@@ -1,5 +1,10 @@
 .CharacterCreation{
     text-align: center;
+    border: 1px dotted black;
+    box-sizing: border-box;
+    width: 50%;
+/*Ask about center alignment */
+    margin: auto;
 }
 
 .FormPlusButton {

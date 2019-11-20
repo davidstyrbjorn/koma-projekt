@@ -30,7 +30,7 @@ function CharacterCreation(props){
         // Make sure we're not creating a character that already has characterName!
         let index = findIndexWithAttribute(props.characters, "name", characterName);
         if(index === -1){
-            if(props.characters.length === 0){ //if it is the first character
+            if(props.characters.length === 0) { //if it is the first character
                 newCharacter.ID = 1;
             }
             else{
