@@ -13,6 +13,7 @@
     width: 95%;
     border: 1px solid lightgrey;
     box-shadow: 10px 10px 5px grey;
+    min-width: 250px;
     width: 45%;
 }
 
