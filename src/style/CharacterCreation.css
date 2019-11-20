@@ -46,10 +46,17 @@
     font-family: "Cinzel", Roboto, serif;
     padding-top: 1%;
 }
-/*
-.CharacterCreation input {
 
-    
+input[type=text] {
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: rgb(247, 247, 247, 0.9);
 }
 
-*/
+input[type=number]{
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: rgb(247, 247, 247, 0.9);
+}

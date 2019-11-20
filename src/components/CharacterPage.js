@@ -258,7 +258,7 @@ function ItemCard(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
             >                       
-                <input type="text" value={item.}></input>
+                
 
                 <p>{item.cost}</p>
                 <p>{item.amount}</p>
