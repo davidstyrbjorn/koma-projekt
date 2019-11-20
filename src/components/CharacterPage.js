@@ -233,21 +233,29 @@ function ItemCard(props){
 
     const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
 
-    let openModal = () => {
-        setModalOpen(true);
-    }    
+    const [name, setName] = React.useState(props.item.name);
+    const [cost, setCost] = React.useState(props.item.cost);
+    const [amount, setAmount] = React.useState(props.item.amount);
+    const [desc, setDesc] = React.useState(props.item.desc);
+    const [type, setType] = React.useState(props.item.type);
 
-    let closeModal = () => {
-        setModalOpen(false);
-    }
+    // Modal handling stuff
+    let openModal = () => { setModalOpen(true); }    
+    let closeModal = () => { 
+
+        // Update the item
+        let index = findIndexWithAttribute(props.character.inventory, 'name', props.item.name);
+        props.character.inventory[index].name = name;
+        props.updatedCharacter(props.character);
+
+        setModalOpen(false); 
+    } 
 
     let removeItem = () => {
         props.character.inventory.splice(props.character.inventory.findIndex(s => s.name === props.item.name), 1);
         props.updatedCharacter(props.character);
         closeModal();
     }
-
-    let item = props.item;
 
     return (
         <div className="ItemCard">                       
@@ -257,13 +265,14 @@ function ItemCard(props){
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
-            >                       
-                
-
-                <p>{item.cost}</p>
-                <p>{item.amount}</p>
-                <p>{item.desc}</p>
-                <p>{item.type}</p>
+            >             
+                <input type="text" placeholder={"name"} value={name} onChange={e => {setName(e.target.value)}}></input> <br></br>
+                <input type="text" placeholder={"cost"} value={cost} onChange={e => {setCost(e.target.value)}}></input> <br></br>
+                <input type="number" placeholder={"amount"} value={amount} onChange={e => {setAmount(e.target.value)}}></input> <br></br>
+                <input type="text" placeholder={"description"} value={desc} onChange={e => {setDesc(e.target.value)}}></input> <br></br>
+                <select name="Type" onChange={e => {setType(e.target.value)}} >
+                    <option value="Weapon">Weapon</option>
+                </select>
 
                 <button onClick = {removeItem}>Remove</button>
 

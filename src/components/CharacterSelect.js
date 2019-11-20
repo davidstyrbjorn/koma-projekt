@@ -57,7 +57,7 @@ function CharacterSelect(){
                 </div>
 				
 				<div className="createNew">
-                <CharacterCreation characters={characters} setCharacters={setCharacters} setHasSaved={setHasSaved} />
+                    <CharacterCreation characters={characters} setCharacters={setCharacters} setHasSaved={setHasSaved} />
                 </div>    
             </div>
         </div>
