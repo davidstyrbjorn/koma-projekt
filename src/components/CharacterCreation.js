@@ -27,20 +27,22 @@ function CharacterCreation(props){
         // Create the character
         let newCharacter = getBaseCharacter(characterName, initMapXP, campaignName);
         // Make sure we're not creating a character that already has characterName!
-        let index = findIndexWithAttribute(props.characters, "name", characterName);
-        if(index === -1){
-            if(props.characters.length === 0) { //if it is the first character
+       
+        if(props.characters.length === 0) { //if it is the first character
                 newCharacter.ID = 1;
             }
-            else{
+                else{
                 newCharacter.ID = props.characters[props.characters.length-1].ID + 1; //makes sure that ID always is unique 
-            }
+              }
             props.characters.push(newCharacter); // Add to the actual array 
             writeCharactersToJSON(props.characters, props.setHasSaved); // Write to JSON
             props.setCharacters(props.characters); // New character added!
             closeModal(); // Close modal
-        }
-    }
+            setCharacterName("");
+            setInitMaxXP("");
+            setCampaignName("");
+         }
+    
 
     return(
         
