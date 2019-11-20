@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=cinzel');
+
+*{
+  font-family: cinzel;
+  margin: 0;
+  padding: 0;
+}
+
+.WrapperHeader{
+background-color: #b44040;
+width: 100vw;
+height: 20vw;
+align-content: center;
+}
+
+.menu_pic{
+  position: absolute;
+  align-content: center;
+  margin-left: 33%;
+  transform: translate(0%, +30%);
+  width: 12.5%;
+}
+.logo_pic{
+  position: absolute;
+  transform: translate(-50%, +15%);
+  width: 50%;
+}
+
+li{
+list-style: none;
+align-content: center;
+}
+
+.nav_wrapper{
+width: 100vw;
+height: 20vw;
+}
