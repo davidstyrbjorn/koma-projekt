@@ -16,13 +16,21 @@ function CharacterHeader(props){
         props.updatedCharacter(character);
     }
 
-    let updateXP = () => {
-        character.xp++;
+    let updateXP = (dir) => {
+        character.xp += dir;
         if(character.xp >= character.max_xp){
             character.level++;
             character.xp = 0;
         }
-
+        if(character.xp < 0){
+            if(character.level > 0){
+                character.level--;
+                character.xp = character.max_xp - 1; 
+            }
+            if(character.xp < 0){
+                character.xp = 0;
+        }
+        }
         props.updatedCharacter(character);
     }
     
@@ -39,7 +47,8 @@ function CharacterHeader(props){
             <button onClick={ () => updateHP(1) }>+</button> 
 
             <p>XP: {character.xp}</p>
-            <button onClick={ () => updateXP() }>+</button> 
+            <button onClick={ () => updateXP(-1) }>-</button> 
+            <button onClick={ () => updateXP(1) }>+</button> 
             <br></br>
 
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
