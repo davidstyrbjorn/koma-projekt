@@ -1,11 +1,10 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { BrowserRouter as Switch, Redirect } from "react-router-dom";
 
 import "../style/CharacterCreation.css"
 
 // JSON and Character related functions
-import {getBaseCharacter, writeCharactersToJSON} from '../characters_utility'
+import {getBaseCharacter, writeCharactersToJSON, getSupportedClasses, getCharacterImage} from '../characters_utility'
 
 function CharacterCreation(props){
 
@@ -13,15 +12,12 @@ function CharacterCreation(props){
     const [characterName, setCharacterName] = React.useState("");
     const [initMapXP, setInitMaxXP] = React.useState(1);
     const [campaignName, setCampaignName] = React.useState("");
+    const [characterClass, setCharacterClass] = React.useState("");
     const [modalOpen, setModalOpen] = React.useState(false);
 
-    let openModal = () => {
-        setModalOpen(true);
-    }    
+    let openModal = () => { setModalOpen(true); }    
 
-    let closeModal = () => {
-        setModalOpen(false);
-    }
+    let closeModal = () => { setModalOpen(false); }
     
     let handleSubmit = (e) => {
         // Create the character
@@ -38,12 +34,16 @@ function CharacterCreation(props){
         writeCharactersToJSON(props.characters, props.setHasSaved); // Write to JSON
         props.setCharacters(props.characters); // New character added!
         closeModal(); // Close modal
+
+        // Reset created character info
         setCharacterName("");
         setInitMaxXP("");
         setCampaignName("");
+        setCharacterClass("Mage");
     }
-    
 
+    console.log(getCharacterImage(characterClass));
+    
     return(
         
         <div className="CharacterCreation">
@@ -71,8 +71,18 @@ function CharacterCreation(props){
                             <p>Campaign Name</p>
                             <input type="text" name="campaign_name" value={campaignName} placeholder="Campaign Name" onChange={e => setCampaignName(e.target.value)} />
                         </label>
+                        <label>
+                            <p>Class</p>
+                            <select name="Class" value={characterClass} onChange={e => {setCharacterClass(e.target.value)}}>
+                                {getSupportedClasses().map((element, i) => {
+                                    return <option key={i} value={element}>{element}</option>
+                                })}
+                            </select>
+                        </label>
                         <br></br>
                     </form>
+
+                    
 
                     <button onClick={() => {
                         handleSubmit();}}>Create</button>

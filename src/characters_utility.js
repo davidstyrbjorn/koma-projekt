@@ -1,3 +1,10 @@
+// Import all character images
+import {cyclopsImg} from './assets/images/cyclops.png'
+import {elfImg} from './assets/images/elf.png'
+import {mageImg} from './assets/images/mage.png'
+import {minotaurImg} from './assets/images/minotaur.png'
+import {orcImg} from './assets/images/orc.png'
+
 var fs = require('browserify-fs');
 
 export function getBaseCharacter(name, initial_max_xp, campaign_name){
@@ -18,7 +25,6 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 
 		// Other information 
 		"core_info":[
-			{"name": "Class", "text": "Best class" , "type": "traits"},
 			{"name": "Background" , "text": "Cool background", "type": "traits"},
 			{"name": "Race" , "text": "Best race" ,"type": "traits"},
 
@@ -71,7 +77,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Intelligence", "value": 0, "type": "savingThrows" },
 			{"name": "Wisdom", "value": 0, "type": "savingThrows" },
 			{"name": "Charisma", "value": 0, "type": "savingThrows" },
-			//{"name": "Spell template", "spellName": "blabla", "atkBonus": 0, "damage": 9, "type": "fire", "desc": "This spell does this"},
+
 			{"name": "Armour Class", "value": 0 },
 			{"name": "Initiative", "value": 0 },
 			{"name": "Speed", "value": 0 },
@@ -79,8 +85,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Temporary Hit Points", "value": 0 , "maximum": 0 },
 			{"name": "Hit Dice", "value": 0 , "total": 0 },
 			{"name": "Death Saves", "successes": 0, "failures": 0},
-		
-	],
+		],
     };
 
     return obj;
@@ -141,4 +146,26 @@ export function createItemObject(name, cost, amount, desc, type){
 		type: type
 	};
 	return newItemObject;
+}
+
+export function getSupportedClasses(){
+	return ["Mage", "Elf", "Orc", "Cyclops"];
+}
+
+// Reducer to get image name from 
+export function getCharacterImage(className){
+	switch(className.toLowerCase()){
+		case 'mage':
+			return mageImg;
+		case 'cyclops':
+			return cyclopsImg;
+		case 'elf':
+			return elfImg;
+		case 'minotaur':
+			return minotaurImg;
+		case 'orc':
+			return orcImg;
+		default:
+			return mageImg;
+	}
 }
