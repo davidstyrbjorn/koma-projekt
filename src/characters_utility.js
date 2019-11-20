@@ -21,8 +21,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
 			{"name": "Class", "text": "Best class" , "type": "traits"},
 			{"name": "Background" , "text": "Cool background", "type": "traits"},
 			{"name": "Race" , "text": "Best race" ,"type": "traits"},
-			
-			{"name": "Inspiration" , "level": 0 ,"type": "skill" },
+
 			{"name": "Proficiency Bonus" , "level": 0 ,"type": "skill"},
 			{"name": "Alignment" , "text": "Everything" ,"type": "traits"},
 			
@@ -122,7 +121,7 @@ export function findIndexWithAttribute(array, attr, value){
     return -1; // We failed
 }
 
-export function createItemObject(name, level, type){
+export function createStatObject(name, level, type){
 	let newStatObject = {
 		name: name,
 		level: parseInt(level),
@@ -130,4 +129,15 @@ export function createItemObject(name, level, type){
 		baseType: "none"
 	};
 	return newStatObject;
+}
+
+export function createItemObject(name, cost, amount, desc, type){
+	let newItemObject = {
+		name: name,
+		cost: cost,
+		amount: parseInt(amount),
+		desc: desc,
+		type: type
+	};
+	return newItemObject;
 }
