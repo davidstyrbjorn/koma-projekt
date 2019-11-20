@@ -11,7 +11,7 @@ function CharacterCreation(props){
 
     // States for the new characters data
     const [characterName, setCharacterName] = React.useState("");
-    const [initMapXP, setInitMaxXP] = React.useState(0);
+    const [initMapXP, setInitMaxXP] = React.useState(1);
     const [campaignName, setCampaignName] = React.useState("");
     const [modalOpen, setModalOpen] = React.useState(false);
 
