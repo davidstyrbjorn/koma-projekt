@@ -5,24 +5,24 @@ import { getCharactersFromJSON, writeCharactersToJSON } from "../characters_util
 import "../style/CharacterSelect.css";
 
 import CharacterCreation from './CharacterCreation';
-
+import HeaderStartPage from "./HeaderStartPage.js";
 
 /* Character Select Screen */
 
 function CharacterSelectOption(props){
-    
+
     // This is the individual character that pops up for the user to click on, used in CharacterSelect()
-    // Props up a Link tag that links to the character page with correct context 
+    // Props up a Link tag that links to the character page with correct context
     return(
-        <div className="characterOption">	
+        <div className="characterOption">
 			<img src="placeholder" alt="placeholder"/>
-			<Link to={"/character_page/" + props.character.ID}> 
+			<Link to={"/character_page/" + props.character.ID}>
                 <h3>{props.character.name}</h3>
                 <h5>Campaign: {props.character.campaign_name}</h5>
             </Link>
             <button onClick={ e => {props.removeCallback(props.character.ID)} }>X</button>
         </div>
-    );   
+    );
 }
 
 function CharacterSelect(){
@@ -31,7 +31,7 @@ function CharacterSelect(){
     const [characters, setCharacters] = React.useState([]);
     const [hasLoaded, setLoaded] = React.useState(false);
     const [hasSaved, setHasSaved] = React.useState(false);
-    
+
     // Get the characters
     if(!hasLoaded)
         getCharactersFromJSON(setCharacters, setLoaded);
@@ -42,12 +42,13 @@ function CharacterSelect(){
     let removeCharacter = ID => {
         // Takeout the desired character from the big character list!
         characters.splice(characters.findIndex(c => c.ID === ID), 1);
-        // Write the new character list to the JSON file 
+        // Write the new character list to the JSON file
         writeCharactersToJSON(characters, setHasSaved);
     }
-    
+
     return (
         <div className="wrapper">
+        <HeaderStartPage/>
             <div className="CharacterSelect">
                 <h2>Welcome to character selection!</h2>
                 <div className="characterList">
@@ -55,17 +56,13 @@ function CharacterSelect(){
                         return( <CharacterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
                     })}
                 </div>
-				
+
 				<div className="createNew">
                     <CharacterCreation characters={characters} setCharacters={setCharacters} setHasSaved={setHasSaved} />
-                </div>    
+                </div>
             </div>
         </div>
     );
 }
 
 export default CharacterSelect;
-
-
-
-
