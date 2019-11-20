@@ -60,3 +60,7 @@ input[type=number]{
     border-bottom: 1px solid black;
     background-color: rgb(247, 247, 247, 0.9);
 }
+
+input:focus{
+    outline: none;
+}
