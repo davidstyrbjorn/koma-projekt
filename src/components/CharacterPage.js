@@ -244,6 +244,8 @@ function ItemCard(props){
     // Modal handling stuff
     let openModal = () => { setModalOpen(true); }    
     let closeModal = () => { 
+        console.log("close modal");
+
         // Update the item
         let index = findIndexWithAttribute(props.character.inventory, 'name', props.item.name);
         // Update each property with the new item values
@@ -261,10 +263,8 @@ function ItemCard(props){
     let removeItem = () => {
         props.character.inventory.splice(props.character.inventory.findIndex(s => s.name === props.item.name), 1);
         props.updatedCharacter(props.character);
-        closeModal();
+        setModalOpen(false);
     }
-
-    console.log(type);
 
     return (
         <div className="ItemCard">                       
@@ -280,8 +280,8 @@ function ItemCard(props){
                 <input type="number" placeholder={"amount"} value={amount} onChange={e => {setAmount(e.target.value)}}></input> <br></br>
                 <input type="text" placeholder={"description"} value={desc} onChange={e => {setDesc(e.target.value)}}></input> <br></br>
                 <select name="Type" value={type} onChange={e => {setType(e.target.value)}} >
-                    {itemTypes.map(type => {
-                        return <option value={type}>{type}</option>
+                    {itemTypes.map((type, i) => {
+                        return <option key={i} value={type}>{type}</option>
                     })}
                 </select><br></br>
 
@@ -359,8 +359,8 @@ function Inventory(props){
                     <input type="number" placeholder="Amount" onChange={e => {setNewItemAmount(e.target.value)}}></input>                    
                     <input type="cost" placeholder="Cost" onChange={e => {setNewItemCost(e.target.value)}}></input>
                     <select name="Type" value={newItemType} onChange={e => {setNewItemType(e.target.value)}} >
-                        {itemTypes.map(type => {
-                            return <option value={type}>{type}</option>
+                        {itemTypes.map((type, i) => {
+                            return <option key={i} value={type}>{type}</option>
                         })}
                     </select>
                 </form>
