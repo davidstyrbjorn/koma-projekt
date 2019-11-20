@@ -348,7 +348,13 @@ function Inventory(props){
 function CombatCard(props){
     return (
         <div className="CombatCard">
-            <p>{props.combat.name}</p>
+            <p>Name: {props.combat.name} :
+            {props.combat.value != null && props.combat.value}
+            {props.combat.type != null && <p>Saving throws</p>}
+            {props.combat.maximum != null && <p> Maximum: {props.combat.maximum}</p>}
+            {props.combat.total != null && <p> Total: {props.combat.total}</p>}
+            {props.combat.successes != null && <p> Successes: {props.combat.successes} Failiures: {props.combat.failures}</p>}
+            </p>
         </div>
     );
 }
