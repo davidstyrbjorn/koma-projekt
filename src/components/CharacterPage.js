@@ -54,14 +54,21 @@ function CharacterHeader(props){
                 </div>
             </div>
 
-            <p>HP: {character.hp}</p>  
-            <button onClick={ () => updateHP(-1) }>-</button>
-            <button onClick={ () => updateHP(1) }>+</button> 
+            <div className="HP">
+                <p>HP: {character.hp}</p>  
+                <div>
+                    <button onClick={ () => updateHP(-1) }>-</button>
+                    <button onClick={ () => updateHP(1) }>+</button>
+                </div>
+            </div>
 
-            <p>XP: {character.xp}</p>
-            <button onClick={ () => updateXP(-1) }>-</button> 
-            <button onClick={ () => updateXP(1) }>+</button> 
-            <br></br>
+            <div className="XP">
+                <p>XP: {character.xp}</p>
+                <div>
+                    <button onClick={ () => updateXP(-1) }>-</button> 
+                    <button onClick={ () => updateXP(1) }>+</button>
+                </div>
+            </div>
 
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
             <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
