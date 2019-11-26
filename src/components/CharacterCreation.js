@@ -16,7 +16,6 @@ function CharacterCreation(props){
     const [modalOpen, setModalOpen] = React.useState(false);
 
     let openModal = () => { setModalOpen(true); }    
-
     let closeModal = () => { setModalOpen(false); }
     
     let handleSubmit = (e) => {
@@ -41,8 +40,6 @@ function CharacterCreation(props){
         setCampaignName("");
         setCharacterClass("Mage");
     }
-
-    console.log(getCharacterImage(characterClass));
     
     return(
         

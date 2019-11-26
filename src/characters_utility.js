@@ -1,9 +1,11 @@
 // Import all character images
+/*
 import {cyclopsImg} from './assets/images/cyclops.png'
 import {elfImg} from './assets/images/elf.png'
 import {mageImg} from './assets/images/mage.png'
 import {minotaurImg} from './assets/images/minotaur.png'
 import {orcImg} from './assets/images/orc.png'
+*/
 
 var fs = require('browserify-fs');
 
@@ -13,7 +15,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
         "hp": 100,
         "level": 0,
         "xp": 0,
-        "max_xp": initial_max_xp,
+        "max_xp": initial_max_xp,       
 		"campaign_name": campaign_name,
 
 		// Currency 
@@ -154,6 +156,7 @@ export function getSupportedClasses(){
 
 // Reducer to get image name from 
 export function getCharacterImage(className){
+	/*
 	switch(className.toLowerCase()){
 		case 'mage':
 			return mageImg;
@@ -168,4 +171,5 @@ export function getCharacterImage(className){
 		default:
 			return mageImg;
 	}
+	*/
 }
