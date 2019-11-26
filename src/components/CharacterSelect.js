@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { BrowserRouter as Switch, Link } from "react-router-dom";
-import { getCharactersFromJSON, writeCharactersToJSON } from "../characters_utility";
+import { getCharacterImage, getCharactersFromJSON, writeCharactersToJSON } from "../characters_utility";
 import "../style/CharacterSelect.css";
 
 import CharacterCreation from './CharacterCreation';
 import HeaderStartPage from "./HeaderStartPage.js";
+
+import Orc from '../orc.png'
 
 /* Character Select Screen */
 
@@ -15,12 +17,12 @@ function CharacterSelectOption(props){
     // Props up a Link tag that links to the character page with correct context
     return(
         <div className="characterOption">
-			<img src="placeholder" alt="placeholder"/>
+			<img src={getCharacterImage(props.character.class_name)} alt="placeholder"/>
 			<Link to={"/character_page/" + props.character.ID}>
                 <h3>{props.character.name}</h3>
                 <h5>Campaign: {props.character.campaign_name}</h5>
             </Link>
-            <button onClick={ e => {props.removeCallback(props.character.ID)} }>X</button>
+            <button onClick={ e => {props.removeCallback(props.character.ID)} }>X</button>        
         </div>
     );
 }
@@ -58,10 +60,13 @@ function CharacterSelect(){
             <div className="CharacterSelect">
                 <h3>Select Character:</h3>
                 <div className="characterList">
+                    
+                    {characters.length == 0 && <h2>You have no characters!</h2>}
+                    
                     {characters.map((c,i) => {
                         return( <CharacterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
+                    
                     })}
-                    {characters.length == 0 && <h2>You have no characters!</h2>}
                 </div>
 
 				<div className="createNew">

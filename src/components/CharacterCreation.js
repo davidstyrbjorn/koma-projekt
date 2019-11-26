@@ -4,13 +4,14 @@ import Modal from 'react-modal';
 import "../style/CharacterCreation.css"
 
 // JSON and Character related functions
-import {getBaseCharacter, writeCharactersToJSON, getSupportedClasses, getCharacterImage} from '../characters_utility'
+import {getBaseCharacter, writeCharactersToJSON, getSupportedClasses} from '../characters_utility'
 
 function CharacterCreation(props){
 
     // States for the new characters data
     const [characterName, setCharacterName] = React.useState("");
     const [initMapXP, setInitMaxXP] = React.useState(1);
+    const [initMaxHP, setInitMaxHP] = React.useState(0);
     const [campaignName, setCampaignName] = React.useState("");
     const [characterClass, setCharacterClass] = React.useState("");
     const [modalOpen, setModalOpen] = React.useState(false);
@@ -20,7 +21,7 @@ function CharacterCreation(props){
     
     let handleSubmit = (e) => {
         // Create the character
-        let newCharacter = getBaseCharacter(characterName, initMapXP, campaignName);
+        let newCharacter = getBaseCharacter(characterName, initMaxHP, initMapXP, campaignName, characterClass);
         // Make sure we're not creating a character that already has characterName!
        
         if(props.characters.length === 0) { //if it is the first character
@@ -51,8 +52,6 @@ function CharacterCreation(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal1"
             >
-        
-
                 <div className="FormplusButton">
                     <form>
                         <label>
@@ -63,6 +62,10 @@ function CharacterCreation(props){
                         <label>
                             <p>Initial Max XP</p> 
                             <input type="number" name="init_max_xp" value={initMapXP} onChange={ e => setInitMaxXP(e.target.value)} />
+                        </label>
+                        <label>
+                            <p>HP</p>
+                            <input type="number" name="hp" value={initMaxHP} onChange={e => setInitMaxHP(e.target.value)} />
                         </label>
                         <label>
                             <p>Campaign Name</p>

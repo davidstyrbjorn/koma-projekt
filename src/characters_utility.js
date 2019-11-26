@@ -1,30 +1,27 @@
-// Import all character images
-/*
-import {cyclopsImg} from './assets/images/cyclops.png'
-import {elfImg} from './assets/images/elf.png'
-import {mageImg} from './assets/images/mage.png'
-import {minotaurImg} from './assets/images/minotaur.png'
-import {orcImg} from './assets/images/orc.png'
-*/
+import elfImg from './elf.png'
+import cyclopsImg from './cyclops.png'
+import mageImg from './mage.png'
+import minotaurImg from './minotaur.png'
+import orcImg from './orc.png'
 
 var fs = require('browserify-fs');
 
-export function getBaseCharacter(name, initial_max_xp, campaign_name){
+export function getBaseCharacter(name, initial_max_hp, initial_max_xp, campaign_name, class_name){
     var obj = {
         "name": name,
-        "hp": 100,
+		"hp": parseInt(initial_max_hp),
+		"max_hp": parseInt(initial_max_hp),
         "level": 1,
         "xp": 0,
         "max_xp": initial_max_xp,       
 		"campaign_name": campaign_name,
-
+		"class_name": class_name,
 		// Currency 
 		"copper": 0,
 		"silver": 0,
 		"electrum": 0,
 		"gold": 0,
 		"platinum": 0,
-
 		// Other information 
 		"core_info":[
 			{"name": "Background" , "text": "Cool background", "type": "traits"},
@@ -156,7 +153,6 @@ export function getSupportedClasses(){
 
 // Reducer to get image name from 
 export function getCharacterImage(className){
-	/*
 	switch(className.toLowerCase()){
 		case 'mage':
 			return mageImg;
@@ -171,5 +167,4 @@ export function getCharacterImage(className){
 		default:
 			return mageImg;
 	}
-	*/
 }

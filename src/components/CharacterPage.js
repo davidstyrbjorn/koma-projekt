@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import '../style/CharacterPage.css'
 
-import { getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
+import { getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
@@ -25,17 +25,20 @@ function CharacterHeader(props){
             character.xp = 0;
         }
         if(character.xp < 0){
-            if(character.level > 0){
+            if(character.level > 1){
                 character.level--;
                 character.xp = character.max_xp - 1; 
             }
-            if(character.xp < 0){
-                character.xp = 0;
-        }
+            character.xp = 0;
         }
         props.updatedCharacter(character);
     }
-    
+
+    // Controls for the modal
+    const [modalOpen, setModalOpen] = React.useState(false); 
+    let openModal = () => { setModalOpen(true); }    
+    let closeModal = () => { setModalOpen(false); }
+
     return(
         <div className="CharacterHeader">
             <nav>
@@ -44,7 +47,7 @@ function CharacterHeader(props){
                 <a>...</a>
             </nav>
             <div className="section-1">
-                <img src="https://www.placecage.com/100/100"></img>
+                <img src={getCharacterImage(character.class_name)}></img>
                 <div className="text">
                     <div>
                         <h2> {character.name} </h2>
@@ -54,27 +57,43 @@ function CharacterHeader(props){
                 </div>
             </div>
 
-            <div className="HP">
-                <p>HP: {character.hp}</p>  
-                <div>
-                    <button onClick={ () => updateHP(-1) }>-</button>
-                    <button onClick={ () => updateHP(1) }>+</button>
-                </div>
+            <div className="HP" onClick={e => {openModal()}}>
+                <p>HP: {character.hp}/{character.max_hp}</p>  
             </div>
 
-            <div className="XP">
-                <p>XP: {character.xp}</p>
-                <div>
-                    <button onClick={ () => updateXP(-1) }>-</button> 
-                    <button onClick={ () => updateXP(1) }>+</button>
-                </div>
+            <div className="XP" onClick={e => {openModal()}}>
+                <p>XP: {character.xp}/{character.max_xp}</p>
             </div>
 
             <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
             <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
             <button onClick={() => props.setCurrentPage("combat")}>Combat</button>
+
+            <Modal
+                isOpen={modalOpen}    
+                onRequestClose={() => closeModal()}
+                shouldCloseOnOverlayClick={true}
+                className="Modal"
+            >
+                { <HPAndXPModal character={props.character} /> }
+            </Modal>
+
         </div>
     )
+}
+
+function HPAndXPModal(props){
+    return(
+        <div>
+            <h3>HP</h3>
+            <p>Current HP: </p>{props.character.hp}
+            <p>Max HP: </p> {props.character.max_hp}
+
+            <h3>XP</h3>
+            <p>Current XP: </p>{props.character.xp}
+            <p>Max XP: </p> {props.character.max_xp}
+        </div>
+    );
 }
 
 function BaseStatCard(props){
