@@ -1,6 +1,25 @@
 body{
     background: #F6F6F6;
 }
+nav{
+    margin:0;
+    height:100px;
+    background:#b44040;
+    display:flex;
+    justify-content: space-evenly;
+}
+nav h2{
+    
+}
+nav p{
+    
+}
+
+
+nav h2, nav a{
+    margin:0;
+    color:white;
+}
 
 .wrapper{
     margin:10px;

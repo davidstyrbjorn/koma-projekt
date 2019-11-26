@@ -47,12 +47,13 @@ function CharacterSelect(){
     }
 
     return (
-        
-        <div className="wrapper">
-            <nav>
+        <div>
+        <nav>
             <h2>Scroll</h2>
-            <a>menu</a>
+            <a>...</a>
         </nav>
+
+        <div className="wrapper">
             <div className="CharacterSelect">
                 <h2>Welcome to character selection!</h2>
                 <div className="characterList">
@@ -65,6 +66,7 @@ function CharacterSelect(){
                     <CharacterCreation characters={characters} setCharacters={setCharacters} setHasSaved={setHasSaved} />
                 </div>
             </div>
+        </div>
         </div>
     );
 }
