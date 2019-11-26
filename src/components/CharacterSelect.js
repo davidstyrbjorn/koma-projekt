@@ -61,6 +61,7 @@ function CharacterSelect(){
                     {characters.map((c,i) => {
                         return( <CharacterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
                     })}
+                    {characters.length == 0 && <h2>You have no characters!</h2>}
                 </div>
 
 				<div className="createNew">

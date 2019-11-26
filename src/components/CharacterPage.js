@@ -388,16 +388,11 @@ function Inventory(props){
     )
 }
 
-function CombatCard(props){
+function CombatCard(props) {
+    
     const [modalOpen, setModalOpen] = React.useState(false);
-
-    let openModal = () => {
-        setModalOpen(true);
-    }    
-
-    let closeModal = () => {
-        setModalOpen(false);
-    }
+    let openModal = () => { setModalOpen(true); }    
+    let closeModal = () => { setModalOpen(false); }
 
     let changeStatLevel = (dir, id) => {
         props.character.combats.find(s => s.name === props.combat.name)[id] += dir;
