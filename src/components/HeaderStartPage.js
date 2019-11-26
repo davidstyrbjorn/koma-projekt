@@ -7,6 +7,8 @@ import {logo} from './../assets/images/logo.png';
 function HeaderStartPage(props){
 
   return(
+  
+
     <div className="WrapperHeader">
         <header>
           <nav className="nav_wrapper">

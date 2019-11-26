@@ -54,7 +54,7 @@ function CharacterCreation(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal1"
             >
-                <h2>Welcome to character creation!</h2>
+        
 
                 <div className="FormplusButton">
                     <form>

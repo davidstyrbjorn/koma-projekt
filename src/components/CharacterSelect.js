@@ -47,8 +47,12 @@ function CharacterSelect(){
     }
 
     return (
+        
         <div className="wrapper">
-        <HeaderStartPage/>
+            <nav>
+            <h2>Scroll</h2>
+            <a>menu</a>
+        </nav>
             <div className="CharacterSelect">
                 <h2>Welcome to character selection!</h2>
                 <div className="characterList">
