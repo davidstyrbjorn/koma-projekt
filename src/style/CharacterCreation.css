@@ -17,7 +17,7 @@
 
 .CharacterCreation label p {
     text-decoration: underline;
-    color: #b44040;
+    
     /*font-family: Roboto;*/
     font-weight: bold;
 }
@@ -32,14 +32,35 @@
 .CharacterCreation input{
     margin-top: 0px;
     border: 1px solid gray ;
-    border-radius: 3%;
     min-height: 20px;
     height: 3vh;
 }
 
-.CharacterCreation h2{
-color: black;
-font-family: "Cinzel", Roboto, serif;
+.Modal1 h2{
+    /* "Header text" */
+    color: black;
+    font-family: Roboto, serif;
+
+}
+
+.Modal1 input[type=text] {
+    text-align: center;
+    border: none;
+    border: 1px solid black;
+    background-color: rgb(247, 247, 247, 0.9);
+}
+
+.Modal1 input[type=number]{
+    text-align: center;
+    border: none;
+    border: 1px solid black;
+    background-color: rgb(247, 247, 247, 0.9);
+}
+.Modal1 select{
+    text-align: center;
+    border: none;
+    border: 1px solid black;
+    background-color: rgb(247, 247, 247, 0.9);
 }
 
 .CharacterCreation button{

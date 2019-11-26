@@ -1,3 +1,34 @@
+body{
+    background: #F6F6F6;
+}
+nav{
+    background:#b44040;
+    display:flex;
+    justify-content: space-between;
+    height:50px;
+}
+nav h2{
+   
+    margin:auto;
+    font-size: 24px;
+    padding:10px;
+    
+}
+nav a{
+    font-size:28px;
+    padding: 0 10px;
+}
+nav p{
+    color:#b44040;
+    font-size:24px;
+    padding: 0 10px;
+}
+
+
+nav h2, nav a{
+    margin:0;
+    color:white;
+}
 
 .wrapper{
     margin:10px;
@@ -7,55 +38,105 @@
     text-align: center;
 }
 
-
-.characterOption h3, .characterOption h5 {
-   padding:8px;
-   margin:0;
-   text-align: left;
+.characterOption{
+    width:100%;
+    margin:0;
+    display:flex;
+	margin:auto;
+    margin-bottom:5px;
+        -webkit-box-shadow: 0 8px 6px -6px gray;
+           -moz-box-shadow: 0 8px 6px -6px gray;
+                box-shadow: 0 8px 6px -6px gray;
+    
 }
-
 .characterOption a{
     width:90%;
     margin:0;
     padding:10px;
-    border: 1px black dotted;
-    border: 1px black dotted;
-	border-left: none;
+    background-color:white;
+    border-left: none;
+    text-decoration: none; 
+    color: #282828;
+    overflow:hidden;
 }
 
-.characterOption{
-    display:flex;
-	margin:auto;
-    margin-bottom:5px;
-	background-color: rgb(235, 235, 235);
+.characterOption a h3, .characterOption a h5 {
+   padding:8px;
+   margin:0;
+   padding:0;
+   text-align: left;  
+   
 }
-
-/*.characterList{
-
-}
-*/
+.characterOption a h3{
+    font-size: 20px;
+    font-weight: bolder;
+ }
+ .characterOption a h5{
+    font-size: 10px;
+    font-weight: bolder;
+ }
 .createNew{
     margin: auto;
-    border: 1px grey solid;
-    border-radius: 3%;
-    height: 5%;
-    width: 20%;
-    background-color: lightgrey;
+    width: 100%;
+    border: solid lightgrey 1px; 
+    color: #282828;
+    
+    border-radius: 2px;
+    font-weight:bold;
+    margin-top:10px;
 }
 
-a{
+.createNew a{
+    padding:10px 0;
     text-decoration: none;
 	color: black;
 }
 
 .characterOption img{
-	border: 1px black dotted;
 	border-right: none;
 }
 
 .characterOption button{
     margin: 0%;
+    width:18%;
     background-color: #b44040;
     border:none;
+    font-size:25px;
     color: white;
 }
+
+
+div.ReactModal__Content {
+    width:95%;
+    display:flex;
+}
+
+div.ReactModal__Content form{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-around;
+
+}
+div.ReactModal__Content form label{
+    width:100%;
+    justify-content:space-between;
+}
+div.ReactModal__Content form label p{
+    margin:auto;
+    width:90%;
+    text-align: left;
+    text-decoration: none;
+    margin-top:20px;
+}
+div.ReactModal__Content form label input, div.ReactModal__Content form label select {
+    width:90%;
+    height:50px;
+    margin:0;
+    font-size: 20px;
+    
+}
+div.ReactModal__Content form label p{
+ 
+}
+
+

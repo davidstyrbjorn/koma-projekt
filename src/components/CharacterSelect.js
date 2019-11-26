@@ -47,10 +47,16 @@ function CharacterSelect(){
     }
 
     return (
+        <div>
+        <nav>
+            <p>...</p>
+            <h2>Scroll</h2>
+            <a>...</a>
+        </nav>
+
         <div className="wrapper">
-        <HeaderStartPage/>
             <div className="CharacterSelect">
-                <h2>Welcome to character selection!</h2>
+                <h3>Select Character:</h3>
                 <div className="characterList">
                     {characters.map((c,i) => {
                         return( <CharacterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);
@@ -61,6 +67,7 @@ function CharacterSelect(){
                     <CharacterCreation characters={characters} setCharacters={setCharacters} setHasSaved={setHasSaved} />
                 </div>
             </div>
+        </div>
         </div>
     );
 }
