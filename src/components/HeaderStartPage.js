@@ -5,8 +5,6 @@ import "../style/HeaderStartPage.css";
 function HeaderStartPage(props){
 
   return(
-  
-
     <div className="WrapperHeader">
         <header>
           <nav className="nav_wrapper">

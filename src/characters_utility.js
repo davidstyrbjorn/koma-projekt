@@ -13,7 +13,7 @@ export function getBaseCharacter(name, initial_max_xp, campaign_name){
     var obj = {
         "name": name,
         "hp": 100,
-        "level": 0,
+        "level": 1,
         "xp": 0,
         "max_xp": initial_max_xp,       
 		"campaign_name": campaign_name,

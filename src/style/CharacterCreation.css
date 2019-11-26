@@ -5,9 +5,9 @@
 }
 
 .Modal1 {
-/*Ask about center alignment */
+    /*Ask about center alignment */
     text-align: center;
-/* Make modal background color light gray and slightly transparent */ 
+    /* Make modal background color light gray and slightly transparent */ 
     background-color: rgb(247, 247, 247, 0.9);
     margin: 1% auto;
     width: 95%;
@@ -20,7 +20,6 @@
 .Modal1 label p {
     /*Fonts etc */
     text-decoration: underline;
-    
     /*font-family: Roboto;*/
     font-weight: bold;
     margin:auto;
@@ -82,7 +81,6 @@
 }
 .Modal1 input:focus{
    /* outline: none; */
-
     outline-color: darkgrey;
 }
 
