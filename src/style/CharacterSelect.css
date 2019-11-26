@@ -23,8 +23,6 @@ nav p{
     font-size:24px;
     padding: 0 10px;
 }
-
-
 nav h2, nav a{
     margin:0;
     color:white;
@@ -121,22 +119,7 @@ div.ReactModal__Content form label{
     width:100%;
     justify-content:space-between;
 }
-div.ReactModal__Content form label p{
-    margin:auto;
-    width:90%;
-    text-align: left;
-    text-decoration: none;
-    margin-top:20px;
-}
-div.ReactModal__Content form label input, div.ReactModal__Content form label select {
-    width:90%;
-    height:50px;
-    margin:0;
-    font-size: 20px;
-    
-}
-div.ReactModal__Content form label p{
- 
-}
+
+
 
 

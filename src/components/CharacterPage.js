@@ -38,11 +38,21 @@ function CharacterHeader(props){
     
     return(
         <div className="CharacterHeader">
-
-            <h2> 
-                {character.name} 
-                <sup>Lv.{character.level}</sup>
-            </h2>
+            <nav>
+            <a>{"<-"}</a>
+                <h2>Scroll</h2>
+                <a>...</a>
+            </nav>
+            <div className="section-1">
+                <img src="https://www.placecage.com/100/100"></img>
+                <div className="text">
+                    <div>
+                        <h2> {character.name} </h2>
+                        <h3>Lv.{character.level}</h3>
+                    </div>
+                    <p>Campaign</p>
+                </div>
+            </div>
 
             <p>HP: {character.hp}</p>  
             <button onClick={ () => updateHP(-1) }>-</button>

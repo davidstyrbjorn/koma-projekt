@@ -1,4 +1,69 @@
-.CharacterHeader button{
+
+.CharacterHeader{
+    
+}
+
+
+nav{
+    background:#b44040;
+    display:flex;
+    justify-content: space-between;
+    height:50px;
+}
+nav h2{
+   
+    margin:auto;
+    font-size: 24px;
+    padding:10px;
+    
+}
+nav a{
+    font-size:28px;
+    padding: 0 10px;
+}
+nav p{
+    color:#b44040;
+    font-size:24px;
+    padding: 0 10px;
+}
+nav h2, nav a{
+    margin:0;
+    color:white;
+}
+
+.section-1{
+    margin:10px;
+    padding-bottom:10px;
+    display:flex;
+}
+.section-1 img{
+    border-radius: 2px;
+    height:100px;
+} 
+.section-1 h2, .section-1 p, .section-1 h3{
+    margin:0;
+}
+.section-1 .text{
+    display:block;
+    padding:10px;
+    width:100%;
+}
+.text div{
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+}
+.section-1 h2{
+    font-size:30px;
+    font-weight: bolder;
+   
+}
+.section-1 h3{
+    color: Green;
+    font-size:30px;
+
+}
+.section-1 button{
     display: inline-blok;
 }
 
