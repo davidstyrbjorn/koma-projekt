@@ -7,8 +7,6 @@ import "../style/CharacterSelect.css";
 import CharacterCreation from './CharacterCreation';
 import HeaderStartPage from "./HeaderStartPage.js";
 
-import Orc from '../orc.png'
-
 /* Character Select Screen */
 
 function CharacterSelectOption(props){
