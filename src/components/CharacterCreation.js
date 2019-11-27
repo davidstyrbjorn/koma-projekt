@@ -15,7 +15,7 @@ function CharacterCreation(props){
     const [campaignName, setCampaignName] = React.useState("");
     const [characterClass, setCharacterClass] = React.useState("");
     const [modalOpen, setModalOpen] = React.useState(false);
-
+    
     let openModal = () => { setModalOpen(true); }    
     let closeModal = () => { setModalOpen(false); }
     

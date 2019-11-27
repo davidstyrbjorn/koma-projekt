@@ -91,7 +91,6 @@ export function getBaseCharacter(name, initial_max_hp, initial_max_xp, campaign_
 }
 
 export function getCharactersFromJSON(callback, flagCallback) {
-
     fs.exists("characters.json", function(exists){
         if(!exists){
             console.log("Create characters.json file!");
