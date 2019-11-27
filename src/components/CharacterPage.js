@@ -14,9 +14,14 @@ function CharacterHeader(props){
     let character = props.character;
 
     let updateHP = (dir) => {
-        character.hp += dir;
+        character.hp += parseInt(dir);
         props.updatedCharacter(character);
     }
+
+    let updateMaxHP = (dir) => {
+        character.max_hp += parseInt(dir);
+        props.updatedCharacter(character);
+    } 
 
     let updateXP = (dir) => {
         character.xp += dir;
@@ -75,7 +80,7 @@ function CharacterHeader(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
             >
-                { <HPAndXPModal character={props.character} /> }
+                { <HPAndXPModal updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} character={props.character} /> }
             </Modal>
 
         </div>
@@ -83,15 +88,48 @@ function CharacterHeader(props){
 }
 
 function HPAndXPModal(props){
+
+    const [incrementerHP, setIncrementerHP] = React.useState(1); 
+    const [incrementerMaxHP, setIncrementerMaxHP] = React.useState(1);
+    const [incrementerXP, setIncrementerXP] = React.useState(1);
+    const {incrementerMaxXP, setIncrementerMaxXP} = React.useState(1);
+
+    let updateHP = dir => {
+        if(incrementerHP !== 0){
+            props.updateHP(incrementerHP*dir);
+        }
+    }
+
+    let updateMaxHP = dir => {
+        if(incrementerMaxHP !== 0){
+            props.updateMaxHP(incrementerMaxHP*dir);
+        }
+    }
+
+    let updateXP = dir => {
+        if(incrementerXP !== 0){
+            props.updateXP(incrementerXP);
+        }
+    }
+
     return(
         <div>
-            <h3>HP</h3>
-            <p>Current HP: </p>{props.character.hp}
-            <p>Max HP: </p> {props.character.max_hp}
+            {/* HP Related Things */}
+            <h3>HP:</h3>
+            <h4>Current HP: {props.character.hp} </h4>
+            <input type="number" placeholder="Incrementation" value={incrementerHP} onChange={e => {setIncrementerHP(e.target.value)}}></input>
+            <button onClick={e => { updateHP(-1) }}>-</button>
+            <button onClick={e => { updateHP(1) }}>+</button>
 
-            <h3>XP</h3>
-            <p>Current XP: </p>{props.character.xp}
-            <p>Max XP: </p> {props.character.max_xp}
+            <h4>Max HP: {props.character.max_hp} </h4> 
+            <input type="number" placeholder="Incrementation" value={incrementerMaxHP} onChange={e => {setIncrementerMaxHP(e.target.value)}}></input>
+            <button onClick={e => { updateMaxHP(-1) }}>-</button>
+            <button onClick={e => { updateMaxHP(1) }}>+</button>
+
+            {/* XP Related Things */}
+            <h3>XP:</h3>
+            <h4>Current XP: {props.character.xp}</h4>
+            <h4>Max XP: {props.character.max_xp}</h4>
         </div>
     );
 }
