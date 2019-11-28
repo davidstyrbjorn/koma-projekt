@@ -90,7 +90,13 @@ export function getBaseCharacter(name, initial_max_hp, initial_max_xp, campaign_
     return obj;
 }
 
+export async function deleteAllCharacters(){
+	//await fs.writeFile("characters.json", [], 'utf8');
+	await fs.unlink("characters.json");
+}
+
 export function getCharactersFromJSON(callback, flagCallback) {
+
     fs.exists("characters.json", function(exists){
         if(!exists){
             console.log("Create characters.json file!");
