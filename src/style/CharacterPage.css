@@ -92,4 +92,29 @@ nav h2, nav a{
     font-size: 15px;
 }
 
+.characterOption img{
+    height:60px;
+    padding:10px 0 10px 10px;
+    background:white;
+}
+
+.menu{
+    display:flex;
+    justify-content: space-around;
+    padding: 0 5px;
+    font-weight: bolder;
+    font-family: 'Roboto';
+}
+
+.menu button{
+    background:0;
+    border:0;
+
+    border-bottom: 2px transparent;
+}
+
+.menu .active{
+    border-bottom: 2px black solid;
+}
+
 

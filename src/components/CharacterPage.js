@@ -44,6 +44,10 @@ function CharacterHeader(props){
     let openModal = () => { setModalOpen(true); }    
     let closeModal = () => { setModalOpen(false); }
 
+    let handleStateClick = e => {
+        props.setCurrentPage(e);
+    }
+
     return(
         <div className="CharacterHeader">
             <nav>
@@ -69,11 +73,31 @@ function CharacterHeader(props){
             <div className="XP" onClick={e => {openModal()}}>
                 <p>XP: {character.xp}/{character.max_xp}</p>
             </div>
+            
+                { props.currentPage === "stats" &&
+                    <div className="menu">
+                        <button className="active" onClick={() => handleStateClick("stats")} >Stats</button>
+                        <button onClick={() => handleStateClick("inventory")}>Inventory</button>
+                        <button onClick={() => handleStateClick("combat")}>Combat</button>
+                    </div>
+                }
+                { props.currentPage === "inventory" &&
+                    <div className="menu">
+                        <button onClick={() => handleStateClick("stats")} >Stats</button>
+                        <button className="active" onClick={() => handleStateClick("inventory")}>Inventory</button>
+                        <button onClick={() => handleStateClick("combat")}>Combat</button>
+                    </div>
+                }
+                { props.currentPage === "combat" &&
+                    <div className="menu">
+                        <button onClick={() => handleStateClick("stats")} >Stats</button>
+                        <button onClick={() => handleStateClick("inventory")}>Inventory</button>
+                        <button className="active" onClick={() => handleStateClick("combat")}>Combat</button>
+                    </div>
+                }
 
-            <button onClick={() => props.setCurrentPage("stats")}>Stats</button>
-            <button onClick={() => props.setCurrentPage("inventory")}>Inventory</button>
-            <button onClick={() => props.setCurrentPage("combat")}>Combat</button>
-
+           
+            
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
@@ -573,7 +597,7 @@ function CharacterPage({ match }){
         if(currentPage === "stats"){
             return(
                 <div>
-                    <CharacterHeader character={character} setCurrentPage={setCurrentPage} updatedCharacter={updatedCharacter} />
+                    <CharacterHeader character={character} currentPage={currentPage} setCurrentPage={setCurrentPage} updatedCharacter={updatedCharacter} />
                     <Stats character={character} updatedCharacter={updatedCharacter} />
                 </div>
             )
@@ -581,7 +605,7 @@ function CharacterPage({ match }){
         else if(currentPage === "inventory"){
             return(
                 <div>
-                    <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
+                    <CharacterHeader character={character} currentPage={currentPage} setCurrentPage={setCurrentPage} updatedCharacter={updatedCharacter}/>
                     <Inventory character={character} updatedCharacter={updatedCharacter} />
                 </div>
             )
@@ -589,7 +613,7 @@ function CharacterPage({ match }){
         else if(currentPage === "combat") {
             return(
                 <div>
-                    <CharacterHeader character={character} setCurrentPage={setCurrentPage}/>
+                    <CharacterHeader character={character} currentPage={currentPage} setCurrentPage={setCurrentPage} updatedCharacter={updatedCharacter}/>
                     <Combat character={character} updatedCharacter={updatedCharacter}/>
                 </div>
             )
