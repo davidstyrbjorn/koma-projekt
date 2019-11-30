@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 
 import '../style/CharacterPage.css'
 
+import {BrowserRouter as Link} from "react-router-dom";
+
 import { getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
@@ -25,17 +27,11 @@ function CharacterHeader(props){
 
     let updateXP = (dir) => {
         character.xp += dir;
-        if(character.xp >= character.max_xp){
-            character.level++;
-            character.xp = 0;
-        }
-        if(character.xp < 0){
-            if(character.level > 1){
-                character.level--;
-                character.xp = character.max_xp - 1; 
-            }
-            character.xp = 0;
-        }
+        props.updatedCharacter(character);
+    }
+
+    let updateMaxXP = dir => {
+        character.max_xp += parseInt(dir);
         props.updatedCharacter(character);
     }
 
@@ -44,6 +40,10 @@ function CharacterHeader(props){
     let openModal = () => { setModalOpen(true); }    
     let closeModal = () => { setModalOpen(false); }
 
+    const [levelUpModalOpen, setLevelUpModalOpen] = React.useState(false);
+    let openLevelUpModal = () => { setLevelUpModalOpen(true); }
+    let closeLevelUpModal = () => { setLevelUpModalOpen(false); }
+
     let handleStateClick = e => {
         props.setCurrentPage(e);
     }
@@ -51,16 +51,17 @@ function CharacterHeader(props){
     return(
         <div className="CharacterHeader">
             <nav>
-            <a>{"<-"}</a>
+            <Link to={"/character_selection"}> <h3>{"<-"}</h3> </Link>
                 <h2>Scroll</h2>
-                <a>...</a>
+                <p>...</p>
             </nav>
             <div className="section-1">
-                <img src={getCharacterImage(character.class_name)}></img>
+                <img alt={"Character Error"} src={getCharacterImage(character.class_name)}></img>
                 <div className="text">
                     <div>
                         <h2> {character.name} </h2>
                         <h3>Lv.{character.level}</h3>
+                        {character.xp >= character.max_xp && <button onClick={e => {openLevelUpModal()} }>Level Up!</button>}
                     </div>
                     <p>Campaign</p>
                 </div>
@@ -96,19 +97,61 @@ function CharacterHeader(props){
                     </div>
                 }
 
-           
-            
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
             >
-                { <HPAndXPModal updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} character={props.character} /> }
+                <HPAndXPModal updateMaxXP={updateMaxXP} updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} character={props.character} /> 
+            </Modal>
+
+            <Modal
+                isOpen={levelUpModalOpen}
+                onRequestClose={() => closeLevelUpModal()}
+                className="Modal"
+            >
+                <LevelUpModal character={character} updatedCharacter={props.updatedCharacter} closeModal={closeLevelUpModal} />
             </Modal>
 
         </div>
     )
+}
+
+function LevelUpModal(props){
+
+    const [increaseMaxXP, setIncreaseMaxXP] = React.useState(0);
+    const [increaseMaxHP, setIncreaseMaxHP] = React.useState(0);
+
+    let levelUp = () => {
+        // Level up and remove XP
+        props.character.level++;
+        props.character.xp -= props.character.max_xp;
+
+        // Set new XP
+        props.character.max_xp += parseInt(increaseMaxXP);
+        props.character.max_hp += parseInt(increaseMaxHP);
+        props.character.hp += parseInt(increaseMaxHP);
+        
+        props.updatedCharacter(props.character);
+            
+        // Close modal?
+        if(props.character.xp < props.character.max_xp)
+            props.closeModal();
+    }
+
+    return(
+        <div className="levelUpModal">
+            <h3>Increase XP Cap, Current: {props.character.max_hp}+{increaseMaxXP} </h3>
+            <input type="number" placeholder={"Increase XP By"} value={increaseMaxXP} onChange={e => {setIncreaseMaxXP(e.target.value)}}></input>
+            
+            <h3>Increase HP Cap, Current: {props.character.max_hp}+{increaseMaxHP} </h3>
+            <input type="number" placeholder={"Increase HP By"} value={increaseMaxHP} onChange={e => {setIncreaseMaxHP(e.target.value)}}></input>
+
+            <br></br>
+            <button onClick={e => {levelUp()}}>Do It!</button>
+        </div>
+    );
 }
 
 function HPAndXPModal(props){
@@ -116,7 +159,7 @@ function HPAndXPModal(props){
     const [incrementerHP, setIncrementerHP] = React.useState(1); 
     const [incrementerMaxHP, setIncrementerMaxHP] = React.useState(1);
     const [incrementerXP, setIncrementerXP] = React.useState(1);
-    const {incrementerMaxXP, setIncrementerMaxXP} = React.useState(1);
+    const [incrementerMaxXP, setIncrementerMaxXP] = React.useState(1);
 
     let updateHP = dir => {
         if(incrementerHP !== 0){
@@ -132,7 +175,13 @@ function HPAndXPModal(props){
 
     let updateXP = dir => {
         if(incrementerXP !== 0){
-            props.updateXP(incrementerXP);
+            props.updateXP(incrementerXP*dir);
+        }
+    }
+
+    let updateMaxXP = dir => {
+        if(incrementerMaxXP !== 0){
+            props.updateMaxXP(incrementerMaxXP*dir)
         }
     }
 
@@ -153,7 +202,15 @@ function HPAndXPModal(props){
             {/* XP Related Things */}
             <h3>XP:</h3>
             <h4>Current XP: {props.character.xp}</h4>
+            <input type="number" placeholder="Incrementation" value={incrementerXP} onChange={e => {setIncrementerXP(e.target.value)}}></input>
+            <button onClick={e => { updateXP(-1) }}>-</button>
+            <button onClick={e => { updateXP(1) }}>+</button>
+
             <h4>Max XP: {props.character.max_xp}</h4>
+            <input type="number" placeholder="Incrementation" value={incrementerMaxXP} onChange={e => {setIncrementerMaxXP(e.target.value)}}></input>
+            <button onClick={e => { updateMaxXP(-1) }}>-</button>
+            <button onClick={e => { updateMaxXP(1) }}>+</button>
+
         </div>
     );
 }
@@ -253,10 +310,14 @@ function Stats(props){
     const [newStatType, setNewStatType] = React.useState("");
     const [newStatLevel, setNewStatLevel] = React.useState(0);
     const [modalOpen, setModalOpen] = React.useState(false); // Modal used for adding new stat!
+    const [errorMessages, setErrorMessages] = React.useState([]);
 
     // Operating the modal
     let openModal = () => { setModalOpen(true); }
-    let closeModal = () => {setModalOpen(false); }
+    let closeModal = () => {
+        setErrorMessages([]); // Reset error messages
+        setModalOpen(false); 
+    }
 
     /* FILTER STATS */
     const [searchString, setSearchString] = React.useState("");
@@ -278,13 +339,31 @@ function Stats(props){
 
     // This gets called from a button within the add new stat modal!
     let addNewStat = () => {
-        // Create the object using function from character_utility.js
-        let newStatObject = createStatObject(newStatName, newStatLevel, newStatType);
-        // Push and update the character with the new stat
-        props.character.stats.push(newStatObject);
-        props.updatedCharacter(props.character);
-        // Close the add new stat modal!
-        closeModal();
+
+        // Validation check
+        setErrorMessages([]); // Reset error messages
+        // Go through and check for invalid stuff
+        let wasEvaluated = true;
+        let _errors = [];
+        if(newStatName === ""){
+            wasEvaluated = false;
+            _errors.push("Invalid Stat Name");
+        }
+        if(newStatLevel < 0){
+            wasEvaluated = false;
+            _errors.push("Invalid Stat Level");
+        }
+        setErrorMessages(_errors); // Set the actual state
+
+        if(wasEvaluated){
+            // Create the object using function from character_utility.js
+            let newStatObject = createStatObject(newStatName, newStatLevel, newStatType);
+            // Push and update the character with the new stat
+            props.character.stats.push(newStatObject);
+            props.updatedCharacter(props.character);
+            // Close the add new stat modal!
+            closeModal();
+        }
     }
 
     return (
@@ -323,6 +402,12 @@ function Stats(props){
 
                 <button onClick = {() => addNewStat()}>Add</button>
                 <button onClick={() => closeModal()}>Close</button>
+
+                <br></br>
+                {errorMessages.map((msg, i) => {
+                    return <p key={i}>- {msg} -</p>
+                })}
+
             </Modal>
             
         </div>
@@ -339,23 +424,45 @@ function ItemCard(props){
     const [desc, setDesc] = React.useState(props.item.desc);
     const [type, setType] = React.useState(props.item.type);
 
+    const [errorMessages, setErrorMessages] = React.useState([]);
+
     // Modal handling stuff
     let openModal = () => { setModalOpen(true); }    
     let closeModal = () => { 
-        console.log("close modal");
 
-        // Update the item
-        let index = findIndexWithAttribute(props.character.inventory, 'name', props.item.name);
-        // Update each property with the new item values
-        props.character.inventory[index].name = name;
-        props.character.inventory[index].cost = cost;
-        props.character.inventory[index].amount = amount;
-        props.character.inventory[index].desc = desc;
-        props.character.inventory[index].type = type;
-        // Callback for the file writing 
-        props.updatedCharacter(props.character);
-        // Close the modal now
-        setModalOpen(false); 
+        // Validation check
+        setErrorMessages([]); // Reset error messages
+        // Go through and check for invalid stuff
+        let wasEvaluated = true;
+        let _errors = [];
+        if(name === ""){
+            wasEvaluated = false;
+            _errors.push("Invalid Item Name");
+        }
+        if(cost === ""){
+            wasEvaluated = false;
+            _errors.push("Invalid Item Cost");
+        }
+        if(amount <= 0){
+            wasEvaluated = false;
+            _errors.push("Invalid Item Amount")
+        }
+        setErrorMessages(_errors); // Set the actual state
+
+        if(wasEvaluated){
+            // Update the item
+            let index = findIndexWithAttribute(props.character.inventory, 'name', props.item.name);
+            // Update each property with the new item values
+            props.character.inventory[index].name = name;
+            props.character.inventory[index].cost = cost;
+            props.character.inventory[index].amount = amount;
+            props.character.inventory[index].desc = desc;
+            props.character.inventory[index].type = type;
+            // Callback for the file writing 
+            props.updatedCharacter(props.character);
+            // Close the modal now
+            setModalOpen(false); 
+        }
     } 
 
     let removeItem = () => {
@@ -385,7 +492,12 @@ function ItemCard(props){
 
                 <button onClick = {removeItem}>Remove</button>
 
-                <button onClick={() => closeModal()}>Close</button>
+                <button onClick={() => closeModal()}>Save</button>
+
+                {errorMessages.map((msg, i) => {
+                    return <p key={i}>- {msg} -</p>
+                })}
+
             </Modal>
             
         </div>
@@ -396,24 +508,59 @@ function Inventory(props){
 
     const [newItemName, setNewItemName] = React.useState("");
     const [newItemDesc, setNewItemDesc] = React.useState("");
-    const [newItemType, setNewItemType] = React.useState("");
-    const [newItemAmount, setNewItemAmount] = React.useState("");
+    const [newItemType, setNewItemType] = React.useState("Weapon");
+    const [newItemAmount, setNewItemAmount] = React.useState(0);
     const [newItemCost, setNewItemCost] = React.useState("");
+
     const [modalOpen, setModalOpen] = React.useState(false); // Modal used for adding new stat!
+    const [errorMessages, setErrorMessages] = React.useState([]);
 
     // Operating the modal
     let openModal = () => { setModalOpen(true); }
-    let closeModal = () => {setModalOpen(false); }
+    let closeModal = () => {
+        setErrorMessages([]);
+        setModalOpen(false); 
+    }
 
     // This gets called from a button within the add new item modal!
     let addNewItem = () => {
-        // CharacterUtillity function
-        let newItemObject = createItemObject(newItemName, newItemCost, newItemAmount, newItemDesc, newItemType);
-        // Push and update the character with the new item
-        props.character.inventory.push(newItemObject);
-        props.updatedCharacter(props.character);
-        // Close the add new item modal
-        closeModal();
+
+        // Validation check
+        setErrorMessages([]); // Reset error messages
+        // Go through and check for invalid stuff
+        let wasEvaluated = true;
+        let _errors = [];
+        if(newItemName === ""){
+            wasEvaluated = false;
+            _errors.push("Invalid Item Name");
+        }
+        if(newItemCost === ""){
+            wasEvaluated = false;
+            _errors.push("Invalid Item Cost");
+        }
+        if(newItemAmount <= 0){
+            wasEvaluated = false;
+            _errors.push("Invalid Item Amount")
+        }
+        setErrorMessages(_errors); // Set the actual state
+
+        if(wasEvaluated){
+            // CharacterUtillity function
+            let newItemObject = createItemObject(newItemName, newItemCost, newItemAmount, newItemDesc, newItemType);
+            // Push and update the character with the new item
+            props.character.inventory.push(newItemObject);
+            props.updatedCharacter(props.character);
+
+            // Reset input 
+            setNewItemName("");
+            setNewItemDesc("");
+            setNewItemCost("");
+            setNewItemType("Weapon");
+            setNewItemAmount(0);
+
+            // Close the add new item modal
+            closeModal();
+        }
     }
 
     /* FILTER INVENTORY */
@@ -464,6 +611,11 @@ function Inventory(props){
                 </form>
                 <button onClick = {() => addNewItem()}>Add</button>
                 <button onClick={() => closeModal()}>Close</button>
+
+                {errorMessages.map((msg, i) => {
+                    return <p key={i}>- {msg} -</p>
+                })}
+
             </Modal>
         </div>
     )

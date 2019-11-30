@@ -6,40 +6,71 @@ import "../style/CharacterCreation.css"
 // JSON and Character related functions
 import {getBaseCharacter, writeCharactersToJSON, getSupportedClasses} from '../characters_utility'
 
-function CharacterCreation(props){
-
+function CharacterCreation(props) {
+    
     // States for the new characters data
     const [characterName, setCharacterName] = React.useState("");
     const [initMapXP, setInitMaxXP] = React.useState(1);
-    const [initMaxHP, setInitMaxHP] = React.useState(0);
+    const [initMaxHP, setInitMaxHP] = React.useState(1);
     const [campaignName, setCampaignName] = React.useState("");
     const [characterClass, setCharacterClass] = React.useState("");
     const [modalOpen, setModalOpen] = React.useState(false);
-    
+    const [errorMessages, setErrorMessages] = React.useState([]);
+
     let openModal = () => { setModalOpen(true); }    
-    let closeModal = () => { setModalOpen(false); }
+    let closeModal = () => { 
+        setErrorMessages([]);
+        setModalOpen(false); 
+    }
     
     let handleSubmit = (e) => {
-        // Create the character
-        let newCharacter = getBaseCharacter(characterName, initMaxHP, initMapXP, campaignName, characterClass);
-        // Make sure we're not creating a character that already has characterName!
-       
-        if(props.characters.length === 0) { //if it is the first character
-            newCharacter.ID = 1;
-        }
-        else{
-            newCharacter.ID = props.characters[props.characters.length-1].ID + 1; //makes sure that ID always is unique 
-        }
-        props.characters.push(newCharacter); // Add to the actual array 
-        writeCharactersToJSON(props.characters, props.setHasSaved); // Write to JSON
-        props.setCharacters(props.characters); // New character added!
-        closeModal(); // Close modal
 
-        // Reset created character info
-        setCharacterName("");
-        setInitMaxXP("");
-        setCampaignName("");
-        setCharacterClass("Mage");
+        let passedEvaluation = true; // Flag
+        setErrorMessages([]);
+        let _list = [];
+
+        // Evaluate errors, should we flag for input fail
+        if(characterName === ""){
+            passedEvaluation = false;
+            _list.push("Invalid character name");
+        }
+        if(campaignName === ""){
+            passedEvaluation = false;
+            _list.push("Invalid campaign name");
+        }
+        if(initMapXP <= 0){
+            passedEvaluation = false;
+            _list.push("Invalid XP");
+        }
+        if(initMaxHP <= 0){
+            passedEvaluation = false;
+            _list.push("Invalid HP");
+        }
+        setErrorMessages(_list);
+
+        if(passedEvaluation) {
+            // Create the character
+            let newCharacter = getBaseCharacter(characterName, initMaxHP, initMapXP, campaignName, characterClass);
+            // Make sure we're not creating a character that already has characterName!
+        
+            if(props.characters.length === 0) { //if it is the first character
+                newCharacter.ID = 1;
+            }
+            else{
+                newCharacter.ID = props.characters[props.characters.length-1].ID + 1; //makes sure that ID always is unique 
+            }
+            props.characters.push(newCharacter); // Add to the actual array 
+            writeCharactersToJSON(props.characters, props.setHasSaved); // Write to JSON
+            props.setCharacters(props.characters); // New character added!
+            closeModal(); // Close modal
+            
+            // Reset created character info
+            setCharacterName("");
+            setInitMaxXP(0);
+            setInitMaxHP(0);
+            setCampaignName("");
+            setCharacterClass("Mage");
+        }
     }
     
     return(
@@ -81,11 +112,13 @@ function CharacterCreation(props){
                         </label>
                         <br></br>
                     </form>
-
                     
-
                     <button onClick={() => {
                         handleSubmit();}}>Create</button>
+
+                    {errorMessages.map((msg, i) => {
+                        return <p key={i}>- {msg} -</p>
+                    })}
 
                 </div>
             </Modal>

@@ -5,7 +5,9 @@ import { getCharacterImage, getCharactersFromJSON, writeCharactersToJSON } from 
 import "../style/CharacterSelect.css";
 
 import CharacterCreation from './CharacterCreation';
-import HeaderStartPage from "./HeaderStartPage.js";
+
+import "../style/HeaderStartPage.css";
+//import HeaderStartPage from "./HeaderStartPage.js";
 
 /* Character Select Screen */
 
@@ -51,7 +53,7 @@ function CharacterSelect(){
         <nav>
             <p>...</p>
             <h2>Scroll</h2>
-            <a>...</a>
+            <p>...</p>
         </nav>
 
         <div className="wrapper">
@@ -59,7 +61,7 @@ function CharacterSelect(){
                 <h3>Select Character:</h3>
                 <div className="characterList">
                     
-                    {characters.length == 0 && <h2>You have no characters!</h2>}
+                    {characters.length === 0 && <h2>You have no characters!</h2>}
                     
                     {characters.map((c,i) => {
                         return( <CharacterSelectOption key={i} character={c} removeCallback = {removeCharacter} />);

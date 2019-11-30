@@ -13,7 +13,7 @@ export function getBaseCharacter(name, initial_max_hp, initial_max_xp, campaign_
 		"max_hp": parseInt(initial_max_hp),
         "level": 1,
         "xp": 0,
-        "max_xp": initial_max_xp,       
+        "max_xp": parseInt(initial_max_xp),       
 		"campaign_name": campaign_name,
 		"class_name": class_name,
 		// Currency 

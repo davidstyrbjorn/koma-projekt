@@ -6,7 +6,7 @@ import CharacterPage from './CharacterPage'
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import {deleteAllCharacters} from '../characters_utility';
+//import {deleteAllCharacters} from '../characters_utility';
 
 function App() {
   
