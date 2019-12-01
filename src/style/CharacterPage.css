@@ -65,21 +65,23 @@ nav h2, nav a{
 }
 
 .XP, .HP{
-    color:white;
+    color:black;
     display:flex;
     margin:5px 10px;
     justify-content: space-between;
-    padding:5px;
     font-size: 20px;
     border-radius: 2px;
+    border-style: solid;
+    
 }
-.HP{
+.innerHP{
     background:green;
     
 }
 
-.XP{
+.innerXP{
     background:blue;
+   
 }
 
 .HP p, .XP p{

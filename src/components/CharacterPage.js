@@ -31,7 +31,7 @@ function CharacterHeader(props){
     }
 
     let updateMaxXP = dir => {
-        character.max_xp += parseInt(dir);
+        character.max_xp += (dir);
         props.updatedCharacter(character);
     }
 
@@ -68,11 +68,15 @@ function CharacterHeader(props){
             </div>
 
             <div className="HP" onClick={e => {openModal()}}>
-                <p>HP: {character.hp}/{character.max_hp}</p>  
+            <div className="innerHP" style={{width: (character.hp/character.max_hp) * 100 + "%"}}>
+                <p>HP: {character.hp}/{character.max_hp}</p> 
+                </div> 
             </div>
 
             <div className="XP" onClick={e => {openModal()}}>
+            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
                 <p>XP: {character.xp}/{character.max_xp}</p>
+                </div>
             </div>
             
                 { props.currentPage === "stats" &&
@@ -142,7 +146,7 @@ function LevelUpModal(props){
 
     return(
         <div className="levelUpModal">
-            <h3>Increase XP Cap, Current: {props.character.max_hp}+{increaseMaxXP} </h3>
+            <h3>Increase XP Cap, Current: {props.character.max_xp}+{increaseMaxXP} </h3>
             <input type="number" placeholder={"Increase XP By"} value={increaseMaxXP} onChange={e => {setIncreaseMaxXP(e.target.value)}}></input>
             
             <h3>Increase HP Cap, Current: {props.character.max_hp}+{increaseMaxHP} </h3>
