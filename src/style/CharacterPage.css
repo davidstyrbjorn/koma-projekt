@@ -119,4 +119,66 @@ nav h2, nav a{
     border-bottom: 2px black solid;
 }
 
+.page{
+    padding: 10px;
+}
 
+.baseStats{
+display:flex;
+justify-content: space-between;
+flex-wrap:wrap;
+}
+.BaseStatCard{
+    width:30%;
+    background:white;
+    margin:5px;
+    -webkit-box-shadow: 0 6px 4px -4px lightgray;
+    -moz-box-shadow: 0 6px 4px -4px lightgray;
+         box-shadow: 0 6px 4px -4px lightgray;
+}
+
+.BaseStatCard p{
+    margin:0;
+}
+
+.StatCard{
+    border-left:4px #b44040 solid;
+    display:flex;
+    padding:5px;
+    justify-content: space-between;
+    background:white;
+    margin-bottom:5px;
+        -webkit-box-shadow: 0 6px 4px -4px lightgray;
+           -moz-box-shadow: 0 6px 4px -4px lightgray;
+                box-shadow: 0 6px 4px -4px lightgray;
+    
+}
+.StatCard p{
+    margin:0;
+}
+
+.addStatBtn{
+    z-index: 2;
+    position:fixed;
+    bottom:0;
+    right:0;
+    margin:10px;
+    font-size:35px;
+    color:white;
+    background: green;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.searchbar{
+    border:0;
+    width:100%;
+    border-bottom:1px #b44040 solid;
+    font-size: 20px;
+    padding:5px;
+    margin: 5px 0 10px 0;
+    
+}

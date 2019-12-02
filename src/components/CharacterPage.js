@@ -284,9 +284,9 @@ function StatCard(props){
     }
     
     return (
-        <div className="StatCard">
+        <div className="StatCard" >
 
-            <p onClick={() => openModal()} >Name: {props.stat.name} <br></br> Level: {props.stat.level}</p>
+            <p onClick={() => openModal()}>{props.stat.name} </p><p onClick={() => openModal()}> Lv: {props.stat.level}</p>
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
@@ -371,18 +371,17 @@ function Stats(props){
     }
 
     return (
-        <div className="Stats">
-            <h3>Stats Page!</h3>
-
+        <div className="Stats page">
+            <div className = "baseStats">
             {/* DISPLAY BASE STATS */}
             {props.character.base_stats.map((base_stat, j) =>{
                 return < BaseStatCard key={j} base_stat={base_stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
-            
-            <button onClick={() => openModal()}>Add New Stat!</button>
+            </div>
+            <button className="addStatBtn" onClick={() => openModal()}>+</button>
 
             {/* SEARCH AND DISPLAY STATS */}
-            <input type="text" placeholder={"stat"} onChange={e => {setSearchString(e.target.value)}}></input>
+            <input className="searchbar" type="text" placeholder={"stat"} onChange={e => {setSearchString(e.target.value)}}></input>
             {filteredStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
@@ -398,7 +397,7 @@ function Stats(props){
                     <input type="text" placeholder="Stat Name" onChange={e => {setNewStatName(e.target.value)}}></input>
                     <select name="Type" onChange={e => {setNewStatType(e.target.value)}} >
                         <option value="skill">Skill</option>
-                        <option value="language">Lanauge</option>
+                        <option value="language">Language</option>
                         <option value="trait">Trait</option>
                     </select>
                     <input type="number" placeholder="Stat Level" onChange={e => {setNewStatLevel(e.target.value)}}></input>                    
@@ -584,10 +583,10 @@ function Inventory(props){
     }
 
     return (
-        <div className="Inventory">
-            <h3>Inventory Page!</h3>
+        <div className="Inventory page">
+           
 
-            <button onClick={openModal}>Add New Item</button>
+           <button onClick={openModal}>Add New Item</button>
 
             {/* DISPLAY THE FILTERED INVENTORY USING ITEM CARD COMPONENT */}
             <input type="text" placeholder={"inventory"} onChange={e => {setSearchString(e.target.value)}}></input>
@@ -710,8 +709,7 @@ function Combat(props){
     }
 
     return(
-        <div>
-            <h3>Combat Page!</h3>
+        <div className="combat page">
 
             <input type="text" placeholder={"combat"} onChange={e => {setSearchString(e.target.value)}}></input>
             {filteredCombat.map((combat, i) => {
