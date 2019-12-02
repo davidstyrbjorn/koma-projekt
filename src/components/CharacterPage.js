@@ -68,15 +68,13 @@ function CharacterHeader(props){
             </div>
 
             <div className="HP" onClick={e => {openModal()}}>
-            <div className="innerHP" style={{width: (character.hp/character.max_hp) * 100 + "%"}}>
-                <p>HP: {character.hp}/{character.max_hp}</p> 
-                </div> 
+            <p>HP: {character.hp}/{character.max_hp}</p> 
+            <div className="innerHP" style={{width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
             </div>
 
             <div className="XP" onClick={e => {openModal()}}>
-            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
-                <p>XP: {character.xp}/{character.max_xp}</p>
-                </div>
+            <p>XP: {character.xp}/{character.max_xp}</p>
+            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}></div>
             </div>
             
                 { props.currentPage === "stats" &&
@@ -284,9 +282,10 @@ function StatCard(props){
     }
     
     return (
-        <div className="StatCard" >
-
-            <p onClick={() => openModal()}>{props.stat.name} </p><p onClick={() => openModal()}> Lv: {props.stat.level}</p>
+        <div className="StatCard Card">
+            <div onClick={() => openModal()}>
+            <p>{props.stat.name} </p><p onClick={() => openModal()}> Lv: {props.stat.level}</p>
+            </div>
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
@@ -381,7 +380,7 @@ function Stats(props){
             <button className="addStatBtn" onClick={() => openModal()}>+</button>
 
             {/* SEARCH AND DISPLAY STATS */}
-            <input className="searchbar" type="text" placeholder={"stat"} onChange={e => {setSearchString(e.target.value)}}></input>
+            <input className="searchbar" type="text" placeholder={"Search Name or Type of Stat"} onChange={e => {setSearchString(e.target.value)}}></input>
             {filteredStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
@@ -475,7 +474,7 @@ function ItemCard(props){
     }
 
     return (
-        <div className="ItemCard">                       
+        <div className="ItemCard Card">                       
             <p onClick={() => openModal()} >Name: {props.item.name} </p>
             <Modal
                 isOpen={modalOpen}    
@@ -589,7 +588,7 @@ function Inventory(props){
            <button onClick={openModal}>Add New Item</button>
 
             {/* DISPLAY THE FILTERED INVENTORY USING ITEM CARD COMPONENT */}
-            <input type="text" placeholder={"inventory"} onChange={e => {setSearchString(e.target.value)}}></input>
+            <input className="searchbar" type="text" placeholder={"inventory"} onChange={e => {setSearchString(e.target.value)}}></input>
             {filteredInventory.map((item, i) => {
                 return <ItemCard key={i} item={item} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
@@ -636,7 +635,7 @@ function CombatCard(props) {
     }
    
     return (
-        <div className="CombatCard">
+        <div className="CombatCard Card">
             <div onClick={() => openModal()}> Name: {props.combat.name} :
             {props.combat.value != null && props.combat.value}
             {props.combat.type != null && <p>Saving throws</p>}

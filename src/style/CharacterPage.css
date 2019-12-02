@@ -64,28 +64,41 @@ nav h2, nav a{
     display: inline-block;
 }
 
+.HP{
+    background:#335425;
+}
+.XP{
+    background:#0c3168;
+}
+
 .XP, .HP{
-    color:black;
+    
     display:flex;
     margin:5px 10px;
     justify-content: space-between;
-    font-size: 20px;
-    border-radius: 2px;
-    border-style: solid;
-    
+    border-radius: 3px;
+    height:30px; 
 }
 .innerHP{
-    background:green;
+    background:#5d9843;
+    border-radius: 3px;
     
 }
-
 .innerXP{
-    background:blue;
+    background:#2b76e6;
+    border-radius: 3px;
+    
    
 }
 
 .HP p, .XP p{
-    margin:0;
+    position:absolute;
+    font-size: 15px;
+    color:white;
+    z-index: 2;
+    padding:5px;
+    margin:auto;
+
 }
 
 .XP div button, .HP div button{
@@ -143,9 +156,17 @@ flex-wrap:wrap;
 
 .StatCard{
     border-left:4px #b44040 solid;
+}
+.StatCard div{
     display:flex;
-    padding:5px;
     justify-content: space-between;
+}
+
+.Card{
+    
+    
+    padding:5px;
+    
     background:white;
     margin-bottom:5px;
         -webkit-box-shadow: 0 6px 4px -4px lightgray;
@@ -153,7 +174,7 @@ flex-wrap:wrap;
                 box-shadow: 0 6px 4px -4px lightgray;
     
 }
-.StatCard p{
+.Card p{
     margin:0;
 }
 
@@ -174,11 +195,14 @@ flex-wrap:wrap;
 }
 
 .searchbar{
+   
     border:0;
     width:100%;
     border-bottom:1px #b44040 solid;
-    font-size: 20px;
-    padding:5px;
+    font-size: 15px;
+    padding:5px 0;
+    text-align: center;
     margin: 5px 0 10px 0;
+    border-radius: 2px;
     
 }
