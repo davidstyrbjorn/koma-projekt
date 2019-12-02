@@ -68,12 +68,12 @@ function CharacterHeader(props){
             </div>
 
             <div className="HP" onClick={e => {openModal()}}>
-            <p>HP: {character.hp}/{character.max_hp}</p> 
+            <p> HP: {character.hp}/{character.max_hp}</p> 
             <div className="innerHP" style={{width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
             </div>
 
             <div className="XP" onClick={e => {openModal()}}>
-            <p>XP: {character.xp}/{character.max_xp}</p>
+            <p> XP: {character.xp}/{character.max_xp}</p>
             <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}></div>
             </div>
             

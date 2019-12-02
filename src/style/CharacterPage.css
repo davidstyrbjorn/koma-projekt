@@ -88,7 +88,6 @@ nav h2, nav a{
     background:#2b76e6;
     border-radius: 3px;
     
-   
 }
 
 .HP p, .XP p{
@@ -195,14 +194,16 @@ flex-wrap:wrap;
 }
 
 .searchbar{
-   
     border:0;
-    width:100%;
+    width:97%;
     border-bottom:1px #b44040 solid;
+    border-top:1px #b44040 solid;
+    border-right:5px #b44040 solid;
+    border-left:5px #b44040 solid;
     font-size: 15px;
     padding:5px 0;
     text-align: center;
     margin: 5px 0 10px 0;
-    border-radius: 2px;
+    border-radius: 20px;
     
 }
