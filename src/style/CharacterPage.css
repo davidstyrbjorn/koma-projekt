@@ -87,14 +87,12 @@ nav h2, nav a{
 .innerXP{
     background:#2b76e6;
     border-radius: 3px;
-    
 }
 
 .HP p, .XP p{
     position:absolute;
     font-size: 15px;
     color:white;
-    z-index: 2;
     padding:5px;
     margin:auto;
 
@@ -136,9 +134,9 @@ nav h2, nav a{
 }
 
 .baseStats{
-display:flex;
-justify-content: space-between;
-flex-wrap:wrap;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
 }
 .BaseStatCard{
     width:30%;
@@ -207,3 +205,43 @@ flex-wrap:wrap;
     border-radius: 20px;
     
 }
+
+div.ReactModal__Content{
+    z-index:3;
+    display:block;
+    background:white;
+    width:90%;
+    margin:auto;
+    margin-top:10px;
+    border:6px double #b44040;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 10px 6px -6px gray;
+    -moz-box-shadow: 0 10px 6px -6px gray;
+         box-shadow: 0 10px 6px -6px gray;
+
+
+}
+div.ReactModal__Content h2{
+    width: 100%;
+    text-align: center;
+}
+div.ReactModal__Content p{
+    font-size:80px;
+    margin:0;
+}
+div.ReactModal__Content .statDisplay{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+}
+div.ReactModal__Content .statDisplay button{
+    position: static;
+    font-size: 30px;
+    padding:0;
+    background:green;
+    color:white;
+    width:50px;
+    height: 50px;
+    border-radius:25px;
+}
+

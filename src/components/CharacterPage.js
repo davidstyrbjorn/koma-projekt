@@ -293,10 +293,11 @@ function StatCard(props){
                 className="Modal"
             >
                 <h2>{props.stat.name}</h2>
-                <p>{props.stat.level}</p>
-
-                <button onClick={() => changeStatLevel(-1)}>-</button>
-                <button onClick={() => changeStatLevel(1)}>+</button>
+                <div className="statDisplay">
+                    <button onClick={() => changeStatLevel(-1)}>-</button>
+                    <p>{props.stat.level}</p>
+                    <button onClick={() => changeStatLevel(1)}>+</button>
+                </div>
                 <button onClick={() => removeStat()}>Remove</button>
 
                 <button onClick={() => closeModal()}>Close</button>
