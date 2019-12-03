@@ -290,7 +290,7 @@ function StatCard(props){
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
-                className="Modal"
+                className="Modal modalStatCard"
             >
                 <h2>{props.stat.name}</h2>
                 <div className="statDisplay">
@@ -298,8 +298,7 @@ function StatCard(props){
                     <p>{props.stat.level}</p>
                     <button onClick={() => changeStatLevel(1)}>+</button>
                 </div>
-                <button onClick={() => removeStat()}>Remove</button>
-
+                <button className="" onClick={() => removeStat()}>Remove</button>
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
             

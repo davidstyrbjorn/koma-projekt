@@ -206,7 +206,7 @@ nav h2, nav a{
     
 }
 
-div.ReactModal__Content{
+.modalStatCard{
     z-index:3;
     display:block;
     background:white;
@@ -221,20 +221,20 @@ div.ReactModal__Content{
 
 
 }
-div.ReactModal__Content h2{
+.modalStatCardh2{
     width: 100%;
     text-align: center;
 }
-div.ReactModal__Content p{
+.modalStatCard p{
     font-size:80px;
     margin:0;
 }
-div.ReactModal__Content .statDisplay{
+.modalStatCard .statDisplay{
     width:100%;
     display:flex;
     justify-content:space-around;
 }
-div.ReactModal__Content .statDisplay button{
+.modalStatCard .statDisplay button{
     position: static;
     font-size: 30px;
     padding:0;
