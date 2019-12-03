@@ -37,10 +37,10 @@ export function getBaseCharacter(name, initial_max_hp, initial_max_xp, campaign_
 		],
 		"base_stats" : [
             { "name": "strength", "level": 0 },
-            { "name": "dexterity", "level": 0 },
+            { "name": "dexterity", "level": 0  },
             { "name": "constitution", "level": 0 },
-            { "name": "intelligence", "level": 0},
-            { "name": "wisdom", "level": 0},
+            { "name": "intelligence", "level": 0 },
+            { "name": "wisdom", "level": 0, },
             { "name": "charisma", "level": 0 },
         ],
         "stats":[

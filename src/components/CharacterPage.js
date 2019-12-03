@@ -76,7 +76,6 @@ function CharacterHeader(props){
             <p> XP: {character.xp}/{character.max_xp}</p>
             <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}></div>
             </div>
-            
                 { props.currentPage === "stats" &&
                     <div className="menu">
                         <button className="active" onClick={() => handleStateClick("stats")} >Stats</button>
@@ -230,10 +229,12 @@ function BaseStatCard(props){
     }
 
     let changeStatLevel = dir => {
-        // Manipulate the stat and call the callback for updating the character!
         props.character.base_stats.find(s => s.name === props.base_stat.name).level += dir;
         props.updatedCharacter(props.character);
     }
+
+    // Calculate the modifier
+    let modifier = Math.floor((props.base_stat.level-10) / 2);
 
     return(
         <div className="BaseStatCard">
@@ -244,7 +245,9 @@ function BaseStatCard(props){
                 className="Modal"
             >
                 <h2>{props.base_stat.name}</h2>
-                <p>{props.base_stat.level}</p>
+
+                {modifier >= 0 && <p>{props.base_stat.level} + {modifier}</p> }     
+                {modifier < 0 &&  <p>{props.base_stat.level} {modifier}</p>}
 
                 <button onClick={() => changeStatLevel(-1)}>-</button>
                 <button onClick={() => changeStatLevel(1)}>+</button>                
@@ -311,10 +314,12 @@ function Stats(props){
 
     // States used for adding a new stat
     const [newStatName, setNewStatName] = React.useState("");
-    const [newStatType, setNewStatType] = React.useState("");
+    const [newStatType, setNewStatType] = React.useState("skill");
     const [newStatLevel, setNewStatLevel] = React.useState(0);
     const [modalOpen, setModalOpen] = React.useState(false); // Modal used for adding new stat!
     const [errorMessages, setErrorMessages] = React.useState([]);
+
+    const [wantsCustomType, setWantsCustomType] = React.useState(false); // Custom type
 
     // Operating the modal
     let openModal = () => { setModalOpen(true); }
@@ -353,6 +358,10 @@ function Stats(props){
             wasEvaluated = false;
             _errors.push("Invalid Stat Name");
         }
+        if(newStatType === ""){
+            wasEvaluated = false;
+            _errors.push("Invalid Stat Type");
+        }
         if(newStatLevel < 0){
             wasEvaluated = false;
             _errors.push("Invalid Stat Level");
@@ -362,11 +371,27 @@ function Stats(props){
         if(wasEvaluated){
             // Create the object using function from character_utility.js
             let newStatObject = createStatObject(newStatName, newStatLevel, newStatType);
+            console.log(newStatObject);
             // Push and update the character with the new stat
             props.character.stats.push(newStatObject);
             props.updatedCharacter(props.character);
+
+            // Reset
+            setNewStatName("");
+            setNewStatType("skill");
+            setNewStatLevel(0);
+            setWantsCustomType(false);
+
             // Close the add new stat modal!
             closeModal();
+        }
+    }
+
+    let changeStatType = v => {
+        if(v === "custom"){
+            setWantsCustomType(true);
+        }else{
+            setNewStatType(v);
         }
     }
 
@@ -395,11 +420,23 @@ function Stats(props){
             >
                 <form>
                     <input type="text" placeholder="Stat Name" onChange={e => {setNewStatName(e.target.value)}}></input>
-                    <select name="Type" onChange={e => {setNewStatType(e.target.value)}} >
-                        <option value="skill">Skill</option>
-                        <option value="language">Language</option>
-                        <option value="trait">Trait</option>
-                    </select>
+
+                    {/* Conditional rendering to check if we want custom type or not, change input fields depending on that */}
+                    {!wantsCustomType && 
+                        <div>
+                            <select name="Type" onChange={e => {changeStatType(e.target.value)}} >
+                                <option value="skill">Skill</option>
+                                <option value="language">Language</option>
+                                <option value="trait">Trait</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                    }
+                    {wantsCustomType && 
+                        <div>
+                            <input type="text" placeholder="Custom Type" onChange={e => {setNewStatType(e.target.value)}}></input>
+                        </div>
+                    }
                     <input type="number" placeholder="Stat Level" onChange={e => {setNewStatLevel(e.target.value)}}></input>                    
                 </form>
 
