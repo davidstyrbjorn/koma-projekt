@@ -88,6 +88,9 @@ nav h2, nav a{
     background:#2b76e6;
     border-radius: 3px;
 }
+.temporaryHP{
+    background: gray;
+}
 
 .HP p, .XP p{
     position:absolute;
