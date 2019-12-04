@@ -5,7 +5,7 @@ import '../style/CharacterPage.css'
 
 import {BrowserRouter as Link} from "react-router-dom";
 
-import { getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
+import { getBaseStatImage, getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
@@ -249,12 +249,16 @@ function BaseStatCard(props){
                 {modifier >= 0 && <p>{props.base_stat.level} + {modifier}</p> }     
                 {modifier < 0 &&  <p>{props.base_stat.level} {modifier}</p>}
 
-                <button onClick={() => changeStatLevel(-1)}>-</button>
-                <button onClick={() => changeStatLevel(1)}>+</button>                
+                <button onClick={() => changeStatLevel(-1)}>-1</button>
+                <button onClick={() => changeStatLevel(1)}>+1</button>                
 
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
-            <p onClick={() => openModal()}>{props.base_stat.name} <br></br> {props.base_stat.level}</p>
+            <div className="baseStat" onClick={() => openModal()}>
+                <img className="baseStatImage" src={getBaseStatImage(props.base_stat.name)}></img>
+                {modifier >= 0 && <div><p>{props.base_stat.level}</p> <p> + {modifier}</p></div>}     
+                {modifier < 0 &&  <div><p>{props.base_stat.level}</p> <p>{modifier}</p></div>}
+            </div>
         </div>
     );
     
@@ -297,9 +301,9 @@ function StatCard(props){
             >
                 <h2>{props.stat.name}</h2>
                 <div className="statDisplay">
-                    <button onClick={() => changeStatLevel(-1)}>-</button>
+                    <button onClick={() => changeStatLevel(-1)}>-1</button>
                     <p>{props.stat.level}</p>
-                    <button onClick={() => changeStatLevel(1)}>+</button>
+                    <button onClick={() => changeStatLevel(1)}>+1</button>
                 </div>
                 <button className="" onClick={() => removeStat()}>Remove</button>
                 <button className="closeCard" onClick={() => closeModal()}>Close</button>

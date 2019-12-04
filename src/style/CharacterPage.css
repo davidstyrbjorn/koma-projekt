@@ -77,24 +77,30 @@ nav h2, nav a{
     margin:5px 10px;
     justify-content: space-between;
     border-radius: 3px;
-    height:30px; 
+    height:40px; 
 }
 .innerHP{
+    height:30px;
     background:#5d9843;
     border-radius: 3px;
+    margin-top:5px;
     
 }
 .innerXP{
+    height:30px;
     background:#2b76e6;
     border-radius: 3px;
+    margin-top:5px;
 }
 
 .HP p, .XP p{
+    
     position:absolute;
     font-size: 15px;
     color:white;
     padding:5px;
     margin:auto;
+    margin-top:5px;
     font-family: 'Roboto';
 
 }
@@ -104,6 +110,7 @@ nav h2, nav a{
     color:white;
     font-size: 15px;
 }
+
 
 .characterOption img{
     height:60px;
@@ -134,23 +141,39 @@ nav h2, nav a{
     padding: 10px;
 }
 
-.baseStats{
+div.baseStats{
     display:flex;
     justify-content: space-between;
     flex-wrap:wrap;
 }
-.BaseStatCard{
-    width:30%;
+
+.baseStat{
+    border-left:solid 3px #b44040;
+    display:flex;
+    justify-content: space-around;
+    padding:10px;
     background:white;
     margin:5px;
-    -webkit-box-shadow: 0 6px 4px -4px lightgray;
-    -moz-box-shadow: 0 6px 4px -4px lightgray;
-         box-shadow: 0 6px 4px -4px lightgray;
+    
+    -webkit-box-shadow: 0 8px 6px -6px lightgray;
+    -moz-box-shadow: 0 8px 6px -6px lightgray;
+         box-shadow: 0 8px 6px -6px lightgray;
+    
 }
 
-.BaseStatCard p{
-    margin:0;
+.BaseStatCard{
+    width:33%;
     
+}
+
+.baseStatImage{
+    height:40px;
+}
+
+
+.baseStat p{
+    margin:0; 
+    font-family: 'roboto';
 }
 
 .StatCard{
@@ -211,7 +234,7 @@ nav h2, nav a{
     background:white;
     width:90%;
     margin:auto;
-    margin-top:10px;
+    margin-top:40%;
     border:6px double #b44040;
     border-radius: 3px;
     -webkit-box-shadow: 0 10px 6px -6px gray;
@@ -244,8 +267,8 @@ nav h2, nav a{
     position: static;
     font-size: 30px;
     padding:0;
-    background:green;
-    color:white;
+    background:white;
+    color:black;
     width:50px;
     height: 50px;
     border-radius:25px;
