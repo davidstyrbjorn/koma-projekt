@@ -302,7 +302,7 @@ function StatCard(props){
                     <button onClick={() => changeStatLevel(1)}>+</button>
                 </div>
                 <button className="" onClick={() => removeStat()}>Remove</button>
-                <button onClick={() => closeModal()}>Close</button>
+                <button className="closeCard" onClick={() => closeModal()}>Close</button>
             </Modal>
             
         </div>
