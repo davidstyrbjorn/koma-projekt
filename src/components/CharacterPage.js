@@ -79,6 +79,7 @@ function CharacterHeader(props){
                         <h2> {character.name} </h2>
                         <h3>Lv.{character.level}</h3>
                         {character.xp >= character.max_xp && <button onClick={e => {openLevelUpModal()} }>Level Up!</button>}
+                        {character.hp < character.max_hp + character.temporary_hp && <button onClick={() =>updateHP((character.max_hp + character.temporary_hp) - character.hp)}>Heal To Full Health!</button>}
                     </div>
                     <p>Campaign</p>
                 </div>
@@ -838,7 +839,7 @@ function Combat(props){
             {filteredCombat.map((combat, i) => {
                 return <CombatCard key={i} combat={combat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
-            
+
             {/*scrolls to the top of the page*/}
             <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button>
         </div>
