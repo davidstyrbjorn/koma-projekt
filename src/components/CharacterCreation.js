@@ -24,7 +24,7 @@ function CharacterCreation(props) {
     }
     
     let handleSubmit = (e) => {
-
+        
         let passedEvaluation = true; // Flag
         setErrorMessages([]);
         let _list = [];
