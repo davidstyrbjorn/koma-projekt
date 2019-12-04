@@ -345,6 +345,18 @@ function Stats(props){
         });
     }
 
+    /* Sort the stats alphabetically */
+    filteredStats.sort((statA, statB) => {
+        if(statA.name > statB.name)
+            return 1;
+        else if(statB.name > statA.name){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    });
+
     // This gets called from a button within the add new stat modal!
     let addNewStat = () => {
 
