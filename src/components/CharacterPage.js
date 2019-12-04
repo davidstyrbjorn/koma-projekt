@@ -6,6 +6,7 @@ import '../style/CharacterPage.css'
 import {BrowserRouter as Switch, Link} from "react-router-dom";
 
 import { getBaseStatImage, getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
+import ScrollToTop from './ScrollToTop.js'
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
 
@@ -81,7 +82,7 @@ function CharacterHeader(props){
                         {character.xp >= character.max_xp && <button onClick={e => {openLevelUpModal()} }>Level Up!</button>}
                         {character.hp < character.max_hp + character.temporary_hp && <button onClick={() =>updateHP((character.max_hp + character.temporary_hp) - character.hp)}>Heal To Full Health!</button>}
                     </div>
-                    <p>Campaign</p>
+                    <p>{character.campaign_name}</p>
                 </div>
             </div>
 
@@ -469,10 +470,6 @@ function Stats(props){
             setNewStatType(v);
         }
     }
-    
-    let scrollToTop = () => {
-        window.scrollTo(0,0)
-    }
 
     return (
         <div className="Stats page">
@@ -489,8 +486,9 @@ function Stats(props){
             {filteredStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+
             {/*scrolls to the top of the page*/}
-            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button> 
+            <ScrollToTop/>
 
             {/* MODAL FOR ADDING A NEW STAT */}
             <Modal
@@ -700,14 +698,9 @@ function Inventory(props){
         });
     }
 
-    let scrollToTop = () => {
-        window.scrollTo(0,0)
-    }
-
     return (
         <div className="Inventory page">
-           
-
+        
            <button onClick={openModal}>Add New Item</button>
 
             {/* DISPLAY THE FILTERED INVENTORY USING ITEM CARD COMPONENT */}
@@ -717,7 +710,7 @@ function Inventory(props){
             })}
 
             {/*scrolls to the top of the page*/}
-            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button> 
+            <ScrollToTop/>
             
             {/* MODAL FOR ADDING A NEW STAT */}
             <Modal
@@ -832,9 +825,6 @@ function Combat(props){
             return returnValue;
         });
     }
-    let scrollToTop = () => {
-        window.scrollTo(0,0)
-    } 
 
     return(
         <div className="combat page">
@@ -845,9 +835,8 @@ function Combat(props){
             })}
 
             {/*scrolls to the top of the page*/}
-            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button>
+            <ScrollToTop/>
         </div>
-            
     )
 }
 
