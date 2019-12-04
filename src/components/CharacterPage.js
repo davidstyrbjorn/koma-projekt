@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import '../style/CharacterPage.css'
 
-import {BrowserRouter as Link} from "react-router-dom";
+import {BrowserRouter as Switch, Link} from "react-router-dom";
 
 import { getBaseStatImage, getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
 
@@ -68,7 +68,7 @@ function CharacterHeader(props){
     return(
         <div className="CharacterHeader">
             <nav>
-            <Link to={"/character_selection"}> <h3>{"<-"}</h3> </Link>
+            <Link to={"/"}> <h2>{"<-"}</h2> </Link>
                 <h2>Scroll</h2>
                 <p>...</p>
             </nav>
@@ -210,14 +210,14 @@ function HPAndXPModal(props){
         if(incrementerTemporaryHP !== 0){ //funkar ej logiken är inte fungerande.
 
             if(props.character.temporary_hp + incrementerMaxHP*dir <= 0){
-                if(props.character.hp - props.character.max_hp == props.character.temporary_hp){
+                if(props.character.hp - props.character.max_hp === props.character.temporary_hp){
                     props.updateHP(props.character.temporary_hp*dir);
                 }
                 props.updateTemporaryHP(props.character.temporary_hp*dir);
             }
             
             else{
-                if(props.character.hp == props.character.max_hp + props.character.temporary_hp){
+                if(props.character.hp === props.character.max_hp + props.character.temporary_hp){
                     props.updateHP(incrementerTemporaryHP*dir);
                 }
 
