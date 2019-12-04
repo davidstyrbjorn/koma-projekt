@@ -1,7 +1,7 @@
 //images for character class
 import elfImg from './elf.png'
 import cyclopsImg from './cyclops.png'
-import mageImg from './mage.png'
+import mageImg from './wizard_color.png'
 import minotaurImg from './minotaur.png'
 import orcImg from './orc.png'
 
@@ -10,6 +10,8 @@ import constitutionImg from './constitution_color.png'
 import intelligenceImg from './Intelligence_color.png'
 import strengthImg from './Strength_color.png'
 import wisdomImg from './wisdom_color.png'
+import charismaImg from './charisma.png'
+import dexterityImg from './dexterity.png'
 
 var fs = require('browserify-fs');
 
@@ -189,10 +191,10 @@ export function getBaseStatImage(statName){
 			return wisdomImg;
 		case 'constitution':
 			return constitutionImg;
-		/*case 'dexterity':
+		case 'dexterity':
 			return dexterityImg;
 		case 'charisma':
-			return charismaImg;*/
+			return charismaImg;
 		default:
 			return mageImg;
 	}

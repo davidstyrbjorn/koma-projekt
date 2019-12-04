@@ -80,20 +80,21 @@ nav h2, nav a{
     height:40px; 
 }
 .innerHP{
-    height:30px;
     background:#5d9843;
-    border-radius: 3px;
-    margin-top:5px;
+    border-radius: 3px 0 0 3px;
     
 }
 .innerXP{
-    height:30px;
     background:#2b76e6;
     border-radius: 3px;
-    margin-top:5px;
 }
 .temporaryHP{
-    background: gray;
+    background: #fdb515;
+    border-radius: 0 3px 3px 0;
+}
+.temporaryHP p{
+   
+    
 }
 
 .HP p, .XP p{

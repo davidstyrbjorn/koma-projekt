@@ -86,7 +86,7 @@ function CharacterHeader(props){
             </div>
 
             <div className="HP" onClick={e => {openModal()}}>
-            <p> HP: {character.hp}/{character.max_hp + character.temporary_hp}</p> 
+    <p> HP: {character.hp}/{character.max_hp + character.temporary_hp} { character.temporary_hp > 0 && <span>({character.temporary_hp})</span> } </p> 
             <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
             <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
             </div>
@@ -306,7 +306,7 @@ function BaseStatCard(props){
             >
                 <h2>{props.base_stat.name}</h2>
 
-                {modifier >= 0 && <p>{props.base_stat.level} + {modifier}</p> }     
+                {modifier >= 0 && <p>{props.base_stat.level}+{modifier}</p> }     
                 {modifier < 0 &&  <p>{props.base_stat.level} {modifier}</p>}
 
                 <button onClick={() => changeStatLevel(-1)}>-1</button>
@@ -316,7 +316,7 @@ function BaseStatCard(props){
             </Modal>
             <div className="baseStat" onClick={() => openModal()}>
                 <img className="baseStatImage" src={getBaseStatImage(props.base_stat.name)}></img>
-                {modifier >= 0 && <div><p>{props.base_stat.level}</p> <p> + {modifier}</p></div>}     
+                {modifier >= 0 && <div><p>{props.base_stat.level}</p> <p>+{modifier}</p></div>}     
                 {modifier < 0 &&  <div><p>{props.base_stat.level}</p> <p>{modifier}</p></div>}
             </div>
         </div>
