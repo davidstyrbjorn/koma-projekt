@@ -91,8 +91,8 @@ function CharacterHeader(props){
             </div>
  
             <div className="XP" onClick={e => {openModal()}}>
-            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100}}>
-            <p> XP: {character.xp}/{character.max_xp}</p> + "%"}}></div>
+            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
+            <p> XP: {character.xp}/{character.max_xp}</p></div>
             </div>
                 { props.currentPage === "stats" &&
                     <div className="menu">
@@ -183,21 +183,46 @@ function HPAndXPModal(props){
 
     let updateHP = dir => {
         if(incrementerHP !== 0){
-            props.updateHP(incrementerHP*dir);
+            if(props.character.hp + incrementerHP*dir <= 0){
+                props.updateHP(props.character.hp *dir);
+            }
+            else{
+                props.updateHP(incrementerHP*dir);
+            }    
             props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
         }
     }
 
     let updateMaxHP = dir => {
         if(incrementerMaxHP !== 0){
+            if(props.character.max_hp + incrementerMaxHP*dir <= 1){
+                props.updateHP((props.character.max_hp -1) *dir);
+            }
+            else{
             props.updateMaxHP(incrementerMaxHP*dir);
+            }
             props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
         }
     }
 
     let updateTemporaryHP = dir => {
-        if(incrementerTemporaryHP !== 0){
-            props.updateTemporaryHP(incrementerTemporaryHP*dir);
+        if(incrementerTemporaryHP !== 0){ //funkar ej logiken är inte fungerande.
+
+            if(props.character.temporary_hp + incrementerMaxHP*dir <= 0){
+                if(props.character.hp - props.character.max_hp == props.character.temporary_hp){
+                    props.updateHP(props.character.temporary_hp*dir);
+                }
+                props.updateTemporaryHP(props.character.temporary_hp*dir);
+            }
+            
+            else{
+                if(props.character.hp == props.character.max_hp + props.character.temporary_hp){
+                    props.updateHP(incrementerTemporaryHP*dir);
+                }
+
+            
+                props.updateTemporaryHP(incrementerTemporaryHP*dir);
+            }
             props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
             
         }
