@@ -63,7 +63,7 @@ function CharacterHeader(props){
                         <h3>Lv.{character.level}</h3>
                         {character.xp >= character.max_xp && <button onClick={e => {openLevelUpModal()} }>Level Up!</button>}
                     </div>
-                    <p>Campaign</p>
+                    <p>{character.campaign_name}</p>
                 </div>
             </div>
 
