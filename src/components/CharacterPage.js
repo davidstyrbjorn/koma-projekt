@@ -56,8 +56,8 @@ function CharacterHeader(props){
     //Krav för temporaryHP ska vissas
     const[showTemp, setShowTemp] = React.useState(false);
     
-    let showTemporary = (overflow, temp) => {
-        if(overflow > 0 && overflow <= temp) {
+    let showTemporary = (temp) => {
+        if(temp > 0) {
             setShowTemp(true);
         }
         else{
@@ -85,12 +85,12 @@ function CharacterHeader(props){
                 </div>
             </div>
 
-            <div className="HP" onClick={e => {openModal()}}>
+            <div className="HP" onClick={e => {openModal()}} style={showTemp ? {width:((1 - ((character.temporary_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%")} : {width: 100 + "%"}}>
             <p> HP: {character.hp}/{character.max_hp + character.temporary_hp}</p> 
-            <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
-            <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
+            <div className="innerHP" style={{width: (character.hp/(character.max_hp + character.temporary_hp) * 100 + "%")}}></div>  
+            <div className="temporaryHP" style={ showTemp ? {width: ((character.temporary_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
             </div>
- 
+            
             <div className="XP" onClick={e => {openModal()}}>
             <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
             <p> XP: {character.xp}/{character.max_xp}</p></div>
@@ -190,19 +190,19 @@ function HPAndXPModal(props){
             else{
                 props.updateHP(incrementerHP*dir);
             }    
-            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
+            props.showTemporary( props.character.temporary_hp);
         }
     }
 
     let updateMaxHP = dir => {
         if(incrementerMaxHP !== 0){
             if(props.character.max_hp + incrementerMaxHP*dir <= 1){
-                props.updateHP((props.character.max_hp -1) *dir);
+                props.updateMaxHP((props.character.max_hp -1) *dir);
             }
             else{
             props.updateMaxHP(incrementerMaxHP*dir);
             }
-            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
+            props.showTemporary(props.character.temporary_hp);
         }
     }
 
@@ -217,14 +217,13 @@ function HPAndXPModal(props){
             }
             
             else{
-                if(props.character.hp === props.character.max_hp + props.character.temporary_hp){
                     props.updateHP(incrementerTemporaryHP*dir);
-                }
+                
 
             
                 props.updateTemporaryHP(incrementerTemporaryHP*dir);
             }
-            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
+            props.showTemporary(props.character.temporary_hp);
             
         }
     }
