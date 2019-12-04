@@ -464,6 +464,10 @@ function Stats(props){
             setNewStatType(v);
         }
     }
+    
+    let scrollToTop = () => {
+        window.scrollTo(0,0)
+    }
 
     return (
         <div className="Stats page">
@@ -480,6 +484,8 @@ function Stats(props){
             {filteredStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+            {/*scrolls to the top of the page*/}
+            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button> 
 
             {/* MODAL FOR ADDING A NEW STAT */}
             <Modal
@@ -689,6 +695,10 @@ function Inventory(props){
         });
     }
 
+    let scrollToTop = () => {
+        window.scrollTo(0,0)
+    }
+
     return (
         <div className="Inventory page">
            
@@ -701,6 +711,9 @@ function Inventory(props){
                 return <ItemCard key={i} item={item} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
 
+            {/*scrolls to the top of the page*/}
+            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button> 
+            
             {/* MODAL FOR ADDING A NEW STAT */}
             <Modal
                 isOpen = {modalOpen}
@@ -814,6 +827,9 @@ function Combat(props){
             return returnValue;
         });
     }
+    let scrollToTop = () => {
+        window.scrollTo(0,0)
+    } 
 
     return(
         <div className="combat page">
@@ -822,7 +838,11 @@ function Combat(props){
             {filteredCombat.map((combat, i) => {
                 return <CombatCard key={i} combat={combat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+            
+            {/*scrolls to the top of the page*/}
+            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button>
         </div>
+            
     )
 }
 
