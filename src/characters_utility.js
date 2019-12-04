@@ -1,8 +1,15 @@
+//images for character class
 import elfImg from './elf.png'
 import cyclopsImg from './cyclops.png'
 import mageImg from './mage.png'
 import minotaurImg from './minotaur.png'
 import orcImg from './orc.png'
+
+//Images for baseStats
+import constitutionImg from './constitution_color.png'
+import intelligenceImg from './Intelligence_color.png'
+import strengthImg from './Strength_color.png'
+import wisdomImg from './wisdom_color.png'
 
 var fs = require('browserify-fs');
 
@@ -11,6 +18,7 @@ export function getBaseCharacter(name, initial_max_hp, initial_max_xp, campaign_
         "name": name,
 		"hp": parseInt(initial_max_hp),
 		"max_hp": parseInt(initial_max_hp),
+		"temporary_hp": 0,
         "level": 1,
         "xp": 0,
         "max_xp": parseInt(initial_max_xp),       
@@ -80,8 +88,6 @@ export function getBaseCharacter(name, initial_max_hp, initial_max_xp, campaign_
 			{"name": "Armour Class", "value": 0 },
 			{"name": "Initiative", "value": 0 },
 			{"name": "Speed", "value": 0 },
-			{"name": "Current Hit Points", "value": 0, "maximum": 0 },
-			{"name": "Temporary Hit Points", "value": 0 , "maximum": 0 },
 			{"name": "Hit Dice", "value": 0 , "total": 0 },
 			{"name": "Death Saves", "successes": 0, "failures": 0},
 		],
@@ -169,6 +175,24 @@ export function getCharacterImage(className){
 			return minotaurImg;
 		case 'orc':
 			return orcImg;
+		default:
+			return mageImg;
+	}
+}
+export function getBaseStatImage(statName){
+	switch(statName.toLowerCase()){
+		case 'strength':
+			return strengthImg;
+		case 'intelligence':
+			return intelligenceImg;
+		case 'wisdom':
+			return wisdomImg;
+		case 'constitution':
+			return constitutionImg;
+		/*case 'dexterity':
+			return dexterityImg;
+		case 'charisma':
+			return charismaImg;*/
 		default:
 			return mageImg;
 	}
