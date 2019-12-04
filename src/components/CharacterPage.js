@@ -336,7 +336,7 @@ function StatCard(props){
                     <button onClick={() => changeStatLevel(1)}>+</button>
                 </div>
                 <button className="" onClick={() => removeStat()}>Remove</button>
-                <button onClick={() => closeModal()}>Close</button>
+                <button className="closeCard" onClick={() => closeModal()}>Close</button>
             </Modal>
             
         </div>
@@ -378,6 +378,18 @@ function Stats(props){
             return returnValue;
         });
     }
+
+    /* Sort the stats alphabetically */
+    filteredStats.sort((statA, statB) => {
+        if(statA.name > statB.name)
+            return 1;
+        else if(statB.name > statA.name){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    });
 
     // This gets called from a button within the add new stat modal!
     let addNewStat = () => {

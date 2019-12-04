@@ -98,6 +98,7 @@ nav h2, nav a{
     color:white;
     padding:5px;
     margin:auto;
+    font-family: 'Roboto';
 
 }
 
@@ -152,6 +153,7 @@ nav h2, nav a{
 
 .BaseStatCard p{
     margin:0;
+    
 }
 
 .StatCard{
@@ -163,10 +165,7 @@ nav h2, nav a{
 }
 
 .Card{
-    
-    
     padding:5px;
-    
     background:white;
     margin-bottom:5px;
         -webkit-box-shadow: 0 6px 4px -4px lightgray;
@@ -209,7 +208,7 @@ nav h2, nav a{
     
 }
 
-.modalStatCard{
+.ReactModal__Content.modalStatCard{
     z-index:3;
     display:block;
     background:white;
@@ -224,12 +223,14 @@ nav h2, nav a{
 
 
 }
-.modalStatCardh2{
+.modalStatCard h2{
     width: 100%;
     text-align: center;
 }
 .modalStatCard p{
-    font-size:80px;
+    text-align:center;
+    width:40%;
+    font-size:60px;
     margin:0;
 }
 .modalStatCard .statDisplay{
@@ -237,6 +238,11 @@ nav h2, nav a{
     display:flex;
     justify-content:space-around;
 }
+
+.modalStatCard button{
+    width:100%;
+}
+
 .modalStatCard .statDisplay button{
     position: static;
     font-size: 30px;
@@ -248,3 +254,6 @@ nav h2, nav a{
     border-radius:25px;
 }
 
+.closeCard{
+    margin-bottom:-50px;
+}
