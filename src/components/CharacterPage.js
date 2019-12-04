@@ -25,6 +25,11 @@ function CharacterHeader(props){
         props.updatedCharacter(character);
     } 
 
+    let updateTemporaryHP = (dir) => {
+        character.temporary_hp += parseInt(dir);
+        props.updatedCharacter(character);
+    }
+
     let updateXP = (dir) => {
         character.xp += dir;
         props.updatedCharacter(character);
@@ -48,6 +53,18 @@ function CharacterHeader(props){
         props.setCurrentPage(e);
     }
 
+    //Krav för temporaryHP ska vissas
+    const[showTemp, setShowTemp] = React.useState(false);
+    
+    let showTemporary = (overflow, temp) => {
+        if(overflow > 0 && overflow <= temp) {
+            setShowTemp(true);
+        }
+        else{
+            setShowTemp(false);
+        }
+    }
+
     return(
         <div className="CharacterHeader">
             <nav>
@@ -62,19 +79,21 @@ function CharacterHeader(props){
                         <h2> {character.name} </h2>
                         <h3>Lv.{character.level}</h3>
                         {character.xp >= character.max_xp && <button onClick={e => {openLevelUpModal()} }>Level Up!</button>}
+                        {character.hp < character.max_hp + character.temporary_hp && <button onClick={() =>updateHP((character.max_hp + character.temporary_hp) - character.hp)}>Heal To Full Health!</button>}
                     </div>
                     <p>Campaign</p>
                 </div>
             </div>
 
             <div className="HP" onClick={e => {openModal()}}>
-            <p> HP: {character.hp}/{character.max_hp}</p> 
-            <div className="innerHP" style={{width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
+            <p> HP: {character.hp}/{character.max_hp + character.temporary_hp}</p> 
+            <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
+            <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
             </div>
-
+ 
             <div className="XP" onClick={e => {openModal()}}>
-            <p> XP: {character.xp}/{character.max_xp}</p>
-            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}></div>
+            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
+            <p> XP: {character.xp}/{character.max_xp}</p></div>
             </div>
                 { props.currentPage === "stats" &&
                     <div className="menu">
@@ -104,7 +123,7 @@ function CharacterHeader(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
             >
-                <HPAndXPModal updateMaxXP={updateMaxXP} updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} character={props.character} /> 
+                <HPAndXPModal updateMaxXP={updateMaxXP} updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} updateTemporaryHP={updateTemporaryHP} showTemporary={showTemporary} character={props.character} /> 
             </Modal>
 
             <Modal
@@ -159,18 +178,54 @@ function HPAndXPModal(props){
 
     const [incrementerHP, setIncrementerHP] = React.useState(1); 
     const [incrementerMaxHP, setIncrementerMaxHP] = React.useState(1);
+    const [incrementerTemporaryHP, setIncrementerTemporaryHP] = React.useState(1);
     const [incrementerXP, setIncrementerXP] = React.useState(1);
     const [incrementerMaxXP, setIncrementerMaxXP] = React.useState(1);
 
     let updateHP = dir => {
         if(incrementerHP !== 0){
-            props.updateHP(incrementerHP*dir);
+            if(props.character.hp + incrementerHP*dir <= 0){
+                props.updateHP(props.character.hp *dir);
+            }
+            else{
+                props.updateHP(incrementerHP*dir);
+            }    
+            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
         }
     }
 
     let updateMaxHP = dir => {
         if(incrementerMaxHP !== 0){
+            if(props.character.max_hp + incrementerMaxHP*dir <= 1){
+                props.updateHP((props.character.max_hp -1) *dir);
+            }
+            else{
             props.updateMaxHP(incrementerMaxHP*dir);
+            }
+            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
+        }
+    }
+
+    let updateTemporaryHP = dir => {
+        if(incrementerTemporaryHP !== 0){ //funkar ej logiken är inte fungerande.
+
+            if(props.character.temporary_hp + incrementerMaxHP*dir <= 0){
+                if(props.character.hp - props.character.max_hp == props.character.temporary_hp){
+                    props.updateHP(props.character.temporary_hp*dir);
+                }
+                props.updateTemporaryHP(props.character.temporary_hp*dir);
+            }
+            
+            else{
+                if(props.character.hp == props.character.max_hp + props.character.temporary_hp){
+                    props.updateHP(incrementerTemporaryHP*dir);
+                }
+
+            
+                props.updateTemporaryHP(incrementerTemporaryHP*dir);
+            }
+            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
+            
         }
     }
 
@@ -199,6 +254,11 @@ function HPAndXPModal(props){
             <input type="number" placeholder="Incrementation" value={incrementerMaxHP} onChange={e => {setIncrementerMaxHP(e.target.value)}}></input>
             <button onClick={e => { updateMaxHP(-1) }}>-</button>
             <button onClick={e => { updateMaxHP(1) }}>+</button>
+
+            <h4>Temporary hp HP: {props.character.temporary_hp} </h4> 
+            <input type="number" placeholder="Incrementation" value={incrementerTemporaryHP} onChange={e => {setIncrementerTemporaryHP(e.target.value)}}></input>
+            <button onClick={e => { updateTemporaryHP(-1) }}>-</button>
+            <button onClick={e => { updateTemporaryHP(1) }}>+</button>
 
             {/* XP Related Things */}
             <h3>XP:</h3>
@@ -409,6 +469,10 @@ function Stats(props){
             setNewStatType(v);
         }
     }
+    
+    let scrollToTop = () => {
+        window.scrollTo(0,0)
+    }
 
     return (
         <div className="Stats page">
@@ -425,6 +489,8 @@ function Stats(props){
             {filteredStats.map((stat, i) => {
                 return < StatCard key={i} stat={stat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+            {/*scrolls to the top of the page*/}
+            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button> 
 
             {/* MODAL FOR ADDING A NEW STAT */}
             <Modal
@@ -634,6 +700,10 @@ function Inventory(props){
         });
     }
 
+    let scrollToTop = () => {
+        window.scrollTo(0,0)
+    }
+
     return (
         <div className="Inventory page">
            
@@ -646,6 +716,9 @@ function Inventory(props){
                 return <ItemCard key={i} item={item} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
 
+            {/*scrolls to the top of the page*/}
+            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button> 
+            
             {/* MODAL FOR ADDING A NEW STAT */}
             <Modal
                 isOpen = {modalOpen}
@@ -759,6 +832,9 @@ function Combat(props){
             return returnValue;
         });
     }
+    let scrollToTop = () => {
+        window.scrollTo(0,0)
+    } 
 
     return(
         <div className="combat page">
@@ -767,7 +843,11 @@ function Combat(props){
             {filteredCombat.map((combat, i) => {
                 return <CombatCard key={i} combat={combat} character={props.character} updatedCharacter={props.updatedCharacter} />
             })}
+
+            {/*scrolls to the top of the page*/}
+            <button className="ToTopBtn" onClick={() => scrollToTop()}>scroll</button>
         </div>
+            
     )
 }
 

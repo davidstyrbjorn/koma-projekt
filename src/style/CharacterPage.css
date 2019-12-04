@@ -92,6 +92,9 @@ nav h2, nav a{
     border-radius: 3px;
     margin-top:5px;
 }
+.temporaryHP{
+    background: gray;
+}
 
 .HP p, .XP p{
     
