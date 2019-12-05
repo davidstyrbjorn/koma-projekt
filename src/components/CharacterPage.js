@@ -5,7 +5,7 @@ import '../style/CharacterPage.css'
 
 import {BrowserRouter as Switch, Link} from "react-router-dom";
 
-import { getBaseStatImage, getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
+import { getStatTypes, writeStatTypesToJSON, getBaseStatImage, getCharacterImage, getCharactersFromJSON, writeCharactersToJSON, findIndexWithAttribute, createItemObject, createStatObject } from "../characters_utility";
 import ScrollToTop from './ScrollToTop.js'
 
 Modal.setAppElement('#root'); // Modal needs to know this for some complicated reason
@@ -383,7 +383,12 @@ function Stats(props){
     const [modalOpen, setModalOpen] = React.useState(false); // Modal used for adding new stat!
     const [errorMessages, setErrorMessages] = React.useState([]);
 
+    const [statTypes, setStatTypes] = React.useState([]);
     const [wantsCustomType, setWantsCustomType] = React.useState(false); // Custom type
+
+    // Get custom types
+    if(statTypes.length === 0)
+        getStatTypes(setStatTypes);
 
     // Operating the modal
     let openModal = () => { setModalOpen(true); }
@@ -447,7 +452,6 @@ function Stats(props){
         if(wasEvaluated){
             // Create the object using function from character_utility.js
             let newStatObject = createStatObject(newStatName, newStatLevel, newStatType);
-            console.log(newStatObject);
             // Push and update the character with the new stat
             props.character.stats.push(newStatObject);
             props.updatedCharacter(props.character);
@@ -458,13 +462,21 @@ function Stats(props){
             setNewStatLevel(0);
             setWantsCustomType(false);
 
+            // Make sure we write the new stat type to the file if we did a custom one
+            if(wantsCustomType){
+                let temp = statTypes;
+                temp.push(newStatType);
+                setStatTypes(temp);
+                writeStatTypesToJSON(statTypes);
+            }
+
             // Close the add new stat modal!
             closeModal();
         }
     }
 
     let changeStatType = v => {
-        if(v === "custom"){
+        if(v === "add_new"){
             setWantsCustomType(true);
         }else{
             setNewStatType(v);
@@ -504,10 +516,10 @@ function Stats(props){
                     {!wantsCustomType && 
                         <div>
                             <select name="Type" onChange={e => {changeStatType(e.target.value)}} >
-                                <option value="skill">Skill</option>
-                                <option value="language">Language</option>
-                                <option value="trait">Trait</option>
-                                <option value="custom">Custom</option>
+                                {statTypes.map((st, i) => {
+                                    return <option key={i} value={st}>{st}</option>
+                                })}
+                                <option value="add_new">Add New Type</option>
                             </select>
                         </div>
                     }
