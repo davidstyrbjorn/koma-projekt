@@ -98,7 +98,6 @@ nav h2, nav a{
 }
 
 .HP p, .XP p{
-    
     position:absolute;
     font-size: 15px;
     color:white;
@@ -106,6 +105,10 @@ nav h2, nav a{
     margin:auto;
     margin-top:5px;
     font-family: 'Roboto';
+}
+.HP p span{
+    font-family: 'Roboto';
+    color:#fecd61;
 
 }
 
