@@ -49,12 +49,11 @@ function CharacterHeader(props){
     const [levelUpModalOpen, setLevelUpModalOpen] = React.useState(false);
     let openLevelUpModal = () => { setLevelUpModalOpen(true); }
     let closeLevelUpModal = () => { setLevelUpModalOpen(false); }
-
     let handleStateClick = e => {
         props.setCurrentPage(e);
     }
 
-    //Krav för temporaryHP ska vissas
+    //Krav för temporaryHP ska visas
     const[showTemp, setShowTemp] = React.useState(false);
     
     let showTemporary = (overflow, temp) => {
@@ -87,7 +86,7 @@ function CharacterHeader(props){
             </div>
 
             <div className="HP" onClick={e => {openModal()}}>
-    <p> HP: {character.hp}/{character.max_hp + character.temporary_hp} { character.temporary_hp > 0 && <span>({character.temporary_hp})</span> } </p> 
+            <p> HP: {character.hp}/{character.max_hp + character.temporary_hp} { character.temporary_hp > 0 && <span>({character.temporary_hp})</span> } </p> 
             <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
             <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
             </div>
@@ -122,9 +121,22 @@ function CharacterHeader(props){
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
-                className="Modal"
-            >
+                className="Modal HPandXPModal">
+                    <div className="modalBar">
+                        <div className="HP">
+                        <p> HP: {character.hp}/{character.max_hp + character.temporary_hp} { character.temporary_hp > 0 && <span>({character.temporary_hp})</span> } </p> 
+                        <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
+                        <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
+                        </div>
+            
+                        <div className="XP">
+                        <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
+                        <p> XP: {character.xp}/{character.max_xp}</p></div>
+                        </div>
+                    </div>
                 <HPAndXPModal updateMaxXP={updateMaxXP} updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} updateTemporaryHP={updateTemporaryHP} showTemporary={showTemporary} character={props.character} /> 
+            
+            
             </Modal>
 
             <Modal
@@ -225,11 +237,9 @@ function HPAndXPModal(props){
             
                 props.updateTemporaryHP(incrementerTemporaryHP*dir);
             }
-            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
-            
+            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);       
         }
     }
-
     let updateXP = dir => {
         if(incrementerXP !== 0){
             props.updateXP(incrementerXP*dir);
@@ -243,7 +253,7 @@ function HPAndXPModal(props){
     }
 
     return(
-        <div>
+        <div className="infoHPXP">
             {/* HP Related Things */}
             <h3>HP:</h3>
             <h4>Current HP: {props.character.hp} </h4>

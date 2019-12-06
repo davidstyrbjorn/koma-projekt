@@ -8,7 +8,7 @@ function ScrollToTop(){
 
     return (
         <div>
-            <button onClick={() => {handleClick()} }>Go To Top</button>
+            <button className="toTop" onClick={() => {handleClick()} }>Go To Top</button>
         </div>
     );
 }

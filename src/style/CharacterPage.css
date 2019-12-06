@@ -238,7 +238,7 @@ div.baseStats{
 .ReactModal__Content.modalStatCard{
     z-index:3;
     display:block;
-    background:white;
+    background:#F6F6F6;
     width:90%;
     margin:auto;
     margin-top:40%;
@@ -284,3 +284,54 @@ div.baseStats{
 .closeCard{
     margin-bottom:-50px;
 }
+
+.toTop{
+    font-size:15px;
+    padding:15px 0;
+    width: 100%;
+    border: solid lightgrey 1px; 
+    color: #282828;
+    border-radius: 2px;
+    font-weight:bold;
+    margin:5px 0 60px 0;
+}
+
+.Modal{
+    background: #F6F6F6;
+    margin:auto;
+}
+div.ReactModal__Content {
+    display: block;
+}
+
+
+.HPandXPModal div{
+    
+}
+.HPandXPModal div input{
+   width:80%;
+   padding:10px 0;
+   text-align: center;
+}
+.HPandXPModal div h4{
+    margin:10px 0 5px 0;
+ }
+
+ .modalBar{
+     width:100%;
+     margin:0;
+ }
+
+ .HPandXPModal{
+     
+     display: block;
+     z-index:3;
+     width:90%;
+     margin:auto;
+     margin-top:10px;
+     border:6px double #b44040;
+     border-radius: 3px;
+     -webkit-box-shadow: 0 10px 6px -6px gray;
+     -moz-box-shadow: 0 10px 6px -6px gray;
+          box-shadow: 0 10px 6px -6px gray;
+ }
