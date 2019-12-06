@@ -104,15 +104,14 @@ export async function deleteAllCharacters(){
 }
 
 export function getCharactersFromJSON(callback, flagCallback) {
-
     fs.exists("characters.json", function(exists){
         if(!exists){
-            console.log("Create characters.json file!");
+            //console.log("Create characters.json file!");
             fs.writeFile("characters.json", [], 'utf8', err => {
                 if(err) throw err;
             })
         }else{
-            console.log("characters.json already created, loading characters");
+            //console.log("characters.json already created, loading characters");
             fs.readFile("characters.json", 'utf8', function(err, data){
                 if(err) throw err;
                 callback(JSON.parse(data));
@@ -162,6 +161,28 @@ export function createItemObject(name, cost, amount, desc, type){
 
 export function getSupportedClasses(){
 	return ["Mage", "Elf", "Orc", "Cyclops"];
+}
+
+
+export function getStatTypes(callback) {
+	fs.exists("stat_types.json", function(exists){
+		if(!exists){
+			fs.writeFile("stat_types.json", JSON.stringify(["Skill", "Language", "Trait"]), 'utf8', err => {
+				if(err) throw err;
+			});
+		}else{
+			fs.readFile("stat_types.json", 'utf8', (err,data) => {
+				if(err) throw err;
+				callback(JSON.parse(data));
+			});
+		}
+	});
+}
+
+export async function writeStatTypesToJSON(statTypes){
+    await fs.writeFile("stat_types.json", JSON.stringify(statTypes), 'utf8', err => {
+        if(err) throw err;
+    });
 }
 
 // Reducer to get image name from 
