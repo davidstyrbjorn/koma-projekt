@@ -267,13 +267,12 @@ function HPAndXPModal(props) {
             <div className="HP-change info-change">
                 <h4>Current HP: {props.character.hp} </h4>
                 <div className="input-group">
-                    <input type="number" placeholder="Incrementation" value={incrementerHP} onChange={e => {
+                    <button onClick={e => { updateHP(-1) }}>-</button>
+                    <input type="number" value={incrementerHP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerHP((x))}}>
                     </input>
-                    <button onClick={e => { updateHP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerHP} onChange={e => {setIncrementerHP(e.target.value)}}></input>
                     <button onClick={e => { updateHP(1) }}>+</button>
                 </div>
             </div>
@@ -282,7 +281,7 @@ function HPAndXPModal(props) {
                 <h4>Max HP: {props.character.max_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateMaxHP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerMaxHP} onChange={e => {
+                    <input type="number" value={incrementerMaxHP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerMaxHP(x)}}>
@@ -295,7 +294,7 @@ function HPAndXPModal(props) {
                 <h4>Temporary hp HP: {props.character.temporary_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateTemporaryHP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerTemporaryHP} onChange={e => {
+                    <input type="number" value={incrementerTemporaryHP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerTemporaryHP(x)}}>    
@@ -310,7 +309,7 @@ function HPAndXPModal(props) {
                 <h4>Current XP: {props.character.xp}</h4>
                 <div className="input-group">    
                     <button onClick={e => { updateXP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerXP} onChange={e => {
+                    <input type="number" value={incrementerXP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerXP(e.target.value)}}>
