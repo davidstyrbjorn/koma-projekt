@@ -44,7 +44,10 @@ function CharacterHeader(props){
 
     // Controls for the modal
     const [modalOpen, setModalOpen] = React.useState(false); 
-    let openModal = () => { setModalOpen(true); }    
+    let openModal = () => { 
+        console.log("open HP/XP MODAL");
+        setModalOpen(true);
+     }    
     let closeModal = () => { setModalOpen(false); }
 
     const [levelUpModalOpen, setLevelUpModalOpen] = React.useState(false);
@@ -212,7 +215,6 @@ function HPAndXPModal(props){
         setModalOpen(false);
     }
     */
-
 
     let updateHP = dir => {
         if(incrementerHP !== 0){
@@ -902,7 +904,7 @@ function Combat(props){
     )
 }
 
-function CharacterPage({ match }){
+function CharacterPage({ match }) {
 
     // State hook for the characters
     const [characters, setCharacters] = React.useState([]);

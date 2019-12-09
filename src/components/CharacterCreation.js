@@ -6,6 +6,11 @@ import "../style/CharacterCreation.css"
 // JSON and Character related functions
 import {getBaseCharacter, writeCharactersToJSON, getSupportedClasses} from '../characters_utility'
 
+const CHARACTER_NAME_ERROR_INDEX = 0;
+const CAMPAIGN_NAME_ERROR_INDEX = 1;
+const INIT_MAX_XP_ERROR_INDEX = 2;
+const INIT_MAX_HP_ERROR_INDEX = 3;
+
 function CharacterCreation(props) {
     
     // States for the new characters data
@@ -17,7 +22,9 @@ function CharacterCreation(props) {
     const [modalOpen, setModalOpen] = React.useState(false);
     const [errorMessages, setErrorMessages] = React.useState([]);
 
-    let openModal = () => { setModalOpen(true); }    
+    let openModal = () => { 
+        setModalOpen(true); 
+    }    
     let closeModal = () => { 
         setErrorMessages([]);
         setModalOpen(false); 
@@ -32,19 +39,19 @@ function CharacterCreation(props) {
         // Evaluate errors, should we flag for input fail
         if(characterName === ""){
             passedEvaluation = false;
-            _list.push("Invalid character name");
+            _list[CHARACTER_NAME_ERROR_INDEX] = true;
         }
         if(campaignName === ""){
             passedEvaluation = false;
-            _list.push("Invalid campaign name");
+            _list[CAMPAIGN_NAME_ERROR_INDEX] = true;
         }
         if(initMapXP <= 0){
             passedEvaluation = false;
-            _list.push("Invalid XP");
+            _list[INIT_MAX_XP_ERROR_INDEX] = true;
         }
         if(initMaxHP <= 0){
             passedEvaluation = false;
-            _list.push("Invalid HP");
+            _list[INIT_MAX_HP_ERROR_INDEX] = true;
         }
         setErrorMessages(_list);
 
@@ -86,6 +93,7 @@ function CharacterCreation(props) {
                 <div className="FormplusButton">
                     <form>
                         <label>
+                            {errorMessages[CHARACTER_NAME_ERROR_INDEX] === true && <p>Invalid Character Name!</p>}
                             <p>Character Name</p> 
                             <input type="text" name="name" value={characterName} placeholder="Name" onChange={e => setCharacterName(e.target.value)} />
                         </label>
@@ -115,10 +123,6 @@ function CharacterCreation(props) {
                     
                     <button onClick={() => {
                         handleSubmit();}}>Create</button>
-
-                    {errorMessages.map((msg, i) => {
-                        return <p key={i}>- {msg} -</p>
-                    })}
 
                 </div>
             </Modal>
