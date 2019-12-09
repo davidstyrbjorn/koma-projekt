@@ -94,11 +94,19 @@ function CharacterHeader(props){
             <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
             
             </div>
+<<<<<<< HEAD
  
             <div className="XP" onClick={e => {openModal()}}>
             <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
             <p> XP: {character.xp}/{character.max_xp}</p>{character.xp >= character.max_xp && <button className="lvlUp" onClick={e => {openLevelUpModal()} }>Level Up!</button>}</div> 
             
+=======
+            
+            {character.xp >= character.max_xp && <button className="lvlUp" onClick={e => {openLevelUpModal()} }>Level Up!</button>}
+            <div className="XP" onClick={e => {openModal()}}>
+            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
+            <p> XP: {character.xp}/{character.max_xp}</p></div>
+>>>>>>> 3879386c71b867fe47141693037976c91135d537
             </div>
             
                 { props.currentPage === "stats" &&

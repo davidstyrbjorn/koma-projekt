@@ -387,10 +387,11 @@ div.ReactModal__Content {
  }
  
  .lvlUp{
+     position:absolute;
      margin:5px;
      padding:5px;
-     z-index:1;
-     float:right;
+     
+     right:10px;
      border:0;
      font-family: 'Roboto';
      border-radius:3px;
