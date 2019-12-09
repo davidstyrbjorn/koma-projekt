@@ -114,7 +114,7 @@ nav h2, nav a{
 
 .XP div button, .HP div button{
     text-decoration: none;
-    color:white;
+ 
     font-size: 15px;
 }
 
@@ -130,13 +130,14 @@ nav h2, nav a{
     justify-content: space-around;
     padding: 0 5px;
     font-weight: bolder;
-    font-family: 'Roboto';
+    
 }
 
 .menu button{
     background:0;
     border:0;
-
+    font-size:12px;
+    
     border-bottom: 2px transparent;
 }
 
@@ -205,7 +206,7 @@ div.baseStats{
 }
 
 .addStatBtn{
-    z-index: 2;
+ 
     position:fixed;
     bottom:0;
     right:0;
@@ -250,9 +251,10 @@ div.baseStats{
 
 
 }
-.modalStatCard h2{
+.Modal h2{
     width: 100%;
     text-align: center;
+    margin:10px 0;
 }
 .modalStatCard p{
     text-align:center;
@@ -301,12 +303,9 @@ div.ReactModal__Content {
 }
 
 
-.HPandXPModal div{
-    
-}
+
 .HPandXPModal div input{
-   width:80%;
-   padding:10px 0;
+   
    text-align: center;
 }
 .HPandXPModal div h4{
@@ -320,7 +319,6 @@ div.ReactModal__Content {
  }
 
  .HPandXPModal{
-     
      display: block;
      z-index:3;
      width:90%;
@@ -335,16 +333,76 @@ div.ReactModal__Content {
 
  .infoHPXP{
      padding:10px;
+     display:block;
+     
  }
+
+ .info-change{
+    width:100%;
+     display:block;
+ }
+ .info-change input{
+   width:80%;
+    font-size:20px;
+    border:0;
+    border-radius: 4px;
+}
+.input-group{
+    width:100%;
+    display:flex;
+    justify-content: center;
+}
+
+
+
+.input-group button{
+    font-size:20px;
+    padding:0;
+    background:white;
+    width:10%;
+    
+    border-radius:50px;
+    
+}
+
+.info-change h4{
+    width:100%;
+    text-align:center;
+    font-size:15px;
+}
+
  .closeModal{
-     margin:5px;
+     margin:3px;
      right:5%;
      position:absolute;
-     background:lightgrey;
+     background:0;
+     border:0;
      font-size: 20px;
      padding:0;
-     color:black;
+     color:grey;
      width:30px;
      height: 30px;
      border-radius:25px;
+     font-family:'Roboto';
  }
+ 
+ .lvlUp{
+     margin:5px;
+     padding:5px;
+     z-index:1;
+     float:right;
+     border:0;
+     font-family: 'Roboto';
+     border-radius:3px;
+     color:#282828;
+     background: #fecd61;
+     box-shadow: 0px 3px #ad7801;
+ }
+
+ .healFull{
+     position: absolute;
+     right:0;
+     padding:10px;
+ }
+
+ 
