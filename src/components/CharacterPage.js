@@ -253,8 +253,10 @@ function HPAndXPModal(props){
     }
 
     return(
+        
         <div className="infoHPXP">
-            {/* HP Related Things */}
+            
+            {/* HP Related Things Import CLOSEMODAL BUTTON function! */}
             <h3>HP:</h3>
             <h4>Current HP: {props.character.hp} </h4>
             <input type="number" placeholder="Incrementation" value={incrementerHP} onChange={e => {setIncrementerHP(e.target.value)}}></input>
@@ -315,14 +317,12 @@ function BaseStatCard(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal"
             >
+                <button className="closeModal" onClick={() => closeModal()}>X</button>
                 <h2>{props.base_stat.name}</h2>
-
                 {modifier >= 0 && <p>{props.base_stat.level}+{modifier}</p> }     
                 {modifier < 0 &&  <p>{props.base_stat.level} {modifier}</p>}
-
                 <button onClick={() => changeStatLevel(-1)}>-1</button>
                 <button onClick={() => changeStatLevel(1)}>+1</button>                
-
                 <button onClick={() => closeModal()}>Close</button>
             </Modal>
             <div className="baseStat" onClick={() => openModal()}>
@@ -369,7 +369,10 @@ function StatCard(props){
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
                 className="Modal modalStatCard"
-            >
+                 >   
+                
+                <button className="closeModal" onClick={() => closeModal()}>X</button>
+            
                 <h2>{props.stat.name}</h2>
                 <div className="statDisplay">
                     <button onClick={() => changeStatLevel(-1)}>-1</button>
@@ -377,7 +380,7 @@ function StatCard(props){
                     <button onClick={() => changeStatLevel(1)}>+1</button>
                 </div>
                 <button className="" onClick={() => removeStat()}>Remove</button>
-                <button className="closeCard" onClick={() => closeModal()}>Close</button>
+                
             </Modal>
             
         </div>

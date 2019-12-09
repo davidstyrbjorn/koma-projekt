@@ -266,10 +266,6 @@ div.baseStats{
     justify-content:space-around;
 }
 
-.modalStatCard button{
-    width:100%;
-}
-
 .modalStatCard .statDisplay button{
     position: static;
     font-size: 30px;
@@ -318,6 +314,7 @@ div.ReactModal__Content {
  }
 
  .modalBar{
+     padding-top:5px;
      width:100%;
      margin:0;
  }
@@ -328,10 +325,26 @@ div.ReactModal__Content {
      z-index:3;
      width:90%;
      margin:auto;
-     margin-top:10px;
+     margin-top:5px;
      border:6px double #b44040;
      border-radius: 3px;
      -webkit-box-shadow: 0 10px 6px -6px gray;
      -moz-box-shadow: 0 10px 6px -6px gray;
           box-shadow: 0 10px 6px -6px gray;
+ }
+
+ .infoHPXP{
+     padding:10px;
+ }
+ .closeModal{
+     margin:5px;
+     right:5%;
+     position:absolute;
+     background:lightgrey;
+     font-size: 20px;
+     padding:0;
+     color:black;
+     width:30px;
+     height: 30px;
+     border-radius:25px;
  }

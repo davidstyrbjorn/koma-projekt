@@ -104,8 +104,10 @@ nav h2, nav a{
 
 
 div.ReactModal__Content {
-    width:95%;
+    width:90%;
     display:flex;
+    border:6px double #b44040;
+     border-radius: 3px;
 }
 
 div.ReactModal__Content form{
@@ -118,6 +120,8 @@ div.ReactModal__Content form label{
     width:100%;
     justify-content:space-between;
 }
+
+
 
 
 
