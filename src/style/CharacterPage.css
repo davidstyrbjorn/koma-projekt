@@ -10,15 +10,14 @@ nav h2{
     padding:10px;
 }
 nav a{
-    font-size:28px;
-    padding: 0 10px;
+    margin-top:10px;
 }
 nav p{
     color:#b44040;
     font-size:24px;
     padding: 0 10px;
 }
-nav h2, nav a{
+nav h2{
     margin:0;
     color:white;
 }
@@ -236,7 +235,7 @@ div.baseStats{
     
 }
 
-.ReactModal__Content.modalStatCard{
+.ReactModal__Content.modalStatCard ,.ReactModal__Content.BaseStatModal{
     z-index:3;
     display:block;
     background:#F6F6F6;
@@ -346,11 +345,32 @@ div.ReactModal__Content {
     font-size:30px;
     border:0;
     border-radius: 200px;
-    border-bottom:1px #b44040 solid;
-    border-top:1px #b44040 solid;
-    border-right:5px #b44040 solid;
-    border-left:5px #b44040 solid;
+    
 }
+
+.info-change .green-border{
+    border-bottom:1px #79b85e solid;
+    border-top:1px #79b85e solid;
+    border-right:5px #79b85e solid;
+    border-left:5px #79b85e solid;
+}
+
+.info-change .yellow-border{
+    border-bottom:1px #fdb515 solid;
+    border-top:1px #fdb515 solid;
+    border-right:5px #fdb515 solid;
+    border-left:5px #fdb515 solid;
+}
+
+.info-change .blue-border{
+border-bottom:1px #2b76e6 solid;
+    border-top:1px #2b76e6 solid;
+    border-right:5px #2b76e6 solid;
+    border-left:5px #2b76e6 solid;
+}
+
+
+
 .input-group{
     width:100%;
     display:flex;
@@ -387,14 +407,15 @@ div.ReactModal__Content {
      font-family:'Roboto';
  }
  .closeModal svg{
-    fill:#f6f6f6;
+    fill:darkgrey;
+    
  }
  
  .lvlUp{
      position:absolute;
      margin:5px;
-     padding:5px;
-     
+     padding:5px 25px;
+     font-size:14px;
      right:10px;
      border:0;
      font-family: 'Roboto';
@@ -403,6 +424,9 @@ div.ReactModal__Content {
      background: #fecd61;
      box-shadow: 0px 3px #ad7801;
  }
+ .lvlUp-inModal{
+     right:32px;
+}
 
  .healFull{
      position: absolute;

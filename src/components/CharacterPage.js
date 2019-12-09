@@ -72,9 +72,9 @@ function CharacterHeader(props){
     return(
         <div className="CharacterHeader">
             <nav>
-            <Link to={"/"}> <h2>{"<-"}</h2> </Link>
+            <Link to={"/"}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"/></svg> </Link>
                 <h2>Scroll</h2>
-                <p>...</p>
+                <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"/></svg></a>
             </nav>
             <div className="section-1">
                 <img alt={"Character Error"} src={getCharacterImage(character.class_name)}></img>
@@ -82,8 +82,6 @@ function CharacterHeader(props){
                     <div>
                         <h2> {character.name} </h2>
                         <h3>Lv.{character.level}</h3>
-                        
-                        
                     </div>
                     <p>{character.campaign_name}</p>
                 </div>
@@ -130,7 +128,7 @@ function CharacterHeader(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal HPandXPModal">
 
-                    <button className="closeModal" onClick={()=>closeModal()}>X</button>
+                    <button className="closeModal" onClick={()=>closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
                     <h2>HP and XP</h2>
                     <div className="modalBar">
                         <div className="HP">
@@ -138,6 +136,7 @@ function CharacterHeader(props){
                         <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
                         <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
                         </div>
+                        {character.xp >= character.max_xp && <button className="lvlUp lvlUp-inModal" onClick={e => {openLevelUpModal()} }>Level Up!</button>}
                         <div className="XP">
                         <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
                         <p> XP: {character.xp}/{character.max_xp}</p></div>
@@ -282,7 +281,7 @@ function HPAndXPModal(props){
                 <h4>Current HP: {props.character.hp} </h4>
                 <div className="input-group">
                     <button onClick={e => { updateHP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerHP} onChange={e => {setIncrementerHP(e.target.value)}}></input>
+                    <input className="green-border" type="number" placeholder="Incrementation" value={incrementerHP} onChange={e => {setIncrementerHP(e.target.value)}}></input>
                     <button onClick={e => { updateHP(1) }}>+</button>
                 </div>
             </div>
@@ -291,7 +290,7 @@ function HPAndXPModal(props){
                 <h4>Max HP: {props.character.max_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateMaxHP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerMaxHP} onChange={e => {setIncrementerMaxHP(e.target.value)}}></input>
+                    <input  className="green-border" type="number" placeholder="Incrementation" value={incrementerMaxHP} onChange={e => {setIncrementerMaxHP(e.target.value)}}></input>
                     <button onClick={e => { updateMaxHP(1) }}>+</button>
                 </div>
             </div>
@@ -300,7 +299,7 @@ function HPAndXPModal(props){
                 <h4>Temporary hp HP: {props.character.temporary_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateTemporaryHP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerTemporaryHP} onChange={e => {setIncrementerTemporaryHP(e.target.value)}}></input>
+                    <input className="yellow-border" type="number" placeholder="Incrementation" value={incrementerTemporaryHP} onChange={e => {setIncrementerTemporaryHP(e.target.value)}}></input>
                     <button onClick={e => { updateTemporaryHP(1) }}>+</button>
                 </div>
             </div>
@@ -311,7 +310,7 @@ function HPAndXPModal(props){
                 <h4>Current XP: {props.character.xp}</h4>
                 <div className="input-group">    
                     <button onClick={e => { updateXP(-1) }}>-</button>
-                    <input type="number" placeholder="Incrementation" value={incrementerXP} onChange={e => {setIncrementerXP(e.target.value)}}></input>
+                    <input className="blue-border" type="number" placeholder="Incrementation" value={incrementerXP} onChange={e => {setIncrementerXP(e.target.value)}}></input>
                     <button onClick={e => { updateXP(1) }}>+</button>
                 </div>
             </div>
@@ -319,7 +318,7 @@ function HPAndXPModal(props){
                 <h4>Max XP: {props.character.max_xp}</h4>
                 <div className="input-group">
                     <button onClick={e => { updateMaxXP(-1) }}>-</button>   
-                    <input type="number" placeholder="Incrementation" value={incrementerMaxXP} onChange={e => {setIncrementerMaxXP(e.target.value)}}></input>
+                    <input className="blue-border" type="number" placeholder="Incrementation" value={incrementerMaxXP} onChange={e => {setIncrementerMaxXP(e.target.value)}}></input>
                     <button onClick={e => { updateMaxXP(1) }}>+</button>
                 </div>
             </div>
@@ -354,7 +353,7 @@ function BaseStatCard(props){
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
                 shouldCloseOnOverlayClick={true}
-                className="Modal"
+                className="Modal BaseStatModal"
             >
                 <button className="closeModal" onClick={() => closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
                 <h2>{props.base_stat.name}</h2>
@@ -362,7 +361,7 @@ function BaseStatCard(props){
                 {modifier < 0 &&  <p>{props.base_stat.level} {modifier}</p>}
                 <button onClick={() => changeStatLevel(-1)}>-1</button>
                 <button onClick={() => changeStatLevel(1)}>+1</button>                
-                <button onClick={() => closeModal()}>Close</button>
+                
             </Modal>
             <div className="baseStat" onClick={() => openModal()}>
                 <img className="baseStatImage" src={getBaseStatImage(props.base_stat.name)}></img>
@@ -410,7 +409,7 @@ function StatCard(props){
                 className="Modal modalStatCard"
                  >   
                 
-                <button className="closeModal" onClick={() => closeModal()}>X</button>
+                <button className="closeModal" onClick={() => closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
             
                 <h2>{props.stat.name}</h2>
                 <div className="statDisplay">

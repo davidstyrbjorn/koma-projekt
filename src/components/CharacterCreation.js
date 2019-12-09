@@ -93,21 +93,22 @@ function CharacterCreation(props) {
                 <div className="FormplusButton">
                     <form>
                         <label>
-                            {errorMessages[CHARACTER_NAME_ERROR_INDEX] === true && <p>Invalid Character Name!</p>}
-                            <p>Character Name</p> 
+                            
+                            <p>Character Name{errorMessages[CHARACTER_NAME_ERROR_INDEX] === true && <span className="error-message">Invalid Character Name!</span>}</p>
                             <input type="text" name="name" value={characterName} placeholder="Name" onChange={e => setCharacterName(e.target.value)} />
                         </label>
                         <br></br>
                         <label>
-                            <p>Initial Max XP</p> 
-                            <input type="number" name="init_max_xp" value={initMapXP} onChange={ e => setInitMaxXP(e.target.value)} />
-                        </label>
-                        <label>
-                            <p>HP</p>
+                            <p>Initial Max HP{errorMessages[INIT_MAX_HP_ERROR_INDEX] === true && <span className="error-message">Initial Max HP Invalid!</span>}</p>
                             <input type="number" name="hp" value={initMaxHP} onChange={e => setInitMaxHP(e.target.value)} />
                         </label>
                         <label>
-                            <p>Campaign Name</p>
+                            <p>Initial Max XP{errorMessages[INIT_MAX_XP_ERROR_INDEX] === true && <span className="error-message">Initial Max XP Invalid!</span>}</p>
+                            <input type="number" name="init_max_xp" value={initMapXP} onChange={ e => setInitMaxXP(e.target.value)} />
+                        </label>
+                        
+                        <label>
+                            <p>Campaign Name{errorMessages[CAMPAIGN_NAME_ERROR_INDEX] === true && <span className="error-message">Invalid Campaign Name!</span>}</p>
                             <input type="text" name="campaign_name" value={campaignName} placeholder="Campaign Name" onChange={e => setCampaignName(e.target.value)} />
                         </label>
                         <label>
