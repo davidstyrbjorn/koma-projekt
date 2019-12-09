@@ -45,9 +45,8 @@ function CharacterHeader(props){
     // Controls for the modal
     const [modalOpen, setModalOpen] = React.useState(false); 
     let openModal = () => { 
-        console.log("open HP/XP MODAL");
         setModalOpen(true);
-     }    
+    }    
     let closeModal = () => { setModalOpen(false); }
 
     const [levelUpModalOpen, setLevelUpModalOpen] = React.useState(false);
@@ -116,7 +115,7 @@ function CharacterHeader(props){
                 }
                 { props.currentPage === "combat" &&
                     <div className="menu">
-                        <button onClick={() => handleStateClick("stats")} >Stats</button>
+                        <button onClick={() => handleStateClick("stats")}>Stats</button>
                         <button onClick={() => handleStateClick("inventory")}>Inventory</button>
                         <button className="active" onClick={() => handleStateClick("combat")}>Combat</button>
                     </div>
@@ -143,7 +142,6 @@ function CharacterHeader(props){
                         </div>
                     </div>
                 <HPAndXPModal updateMaxXP={updateMaxXP} updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} updateTemporaryHP={updateTemporaryHP} showTemporary={showTemporary} character={props.character}/> 
-            
             
             </Modal>
 
@@ -195,25 +193,13 @@ function LevelUpModal(props){
     );
 }
 
-function HPAndXPModal(props){
+function HPAndXPModal(props) {
 
     const [incrementerHP, setIncrementerHP] = React.useState(1); 
     const [incrementerMaxHP, setIncrementerMaxHP] = React.useState(1);
     const [incrementerTemporaryHP, setIncrementerTemporaryHP] = React.useState(1);
     const [incrementerXP, setIncrementerXP] = React.useState(1);
     const [incrementerMaxXP, setIncrementerMaxXP] = React.useState(1);
-
-    /*
-    const [modalOpen, setModalOpen] = React.useState(false); // Flag to know if we want to manipulate the stat?
-
-    let openModal = () => {
-        setModalOpen(true);
-    }    
-
-    let closeModal = () => {
-        setModalOpen(false);
-    }
-    */
 
     let updateHP = dir => {
         if(incrementerHP !== 0){
@@ -281,7 +267,11 @@ function HPAndXPModal(props){
                 <h4>Current HP: {props.character.hp} </h4>
                 <div className="input-group">
                     <button onClick={e => { updateHP(-1) }}>-</button>
-                    <input className="green-border" type="number" placeholder="Incrementation" value={incrementerHP} onChange={e => {setIncrementerHP(e.target.value)}}></input>
+                    <input type="number" value={incrementerHP} onChange={e => {
+                        let x = e.target.value;
+                        if(x >= 0)
+                            setIncrementerHP((x))}}>
+                    </input>
                     <button onClick={e => { updateHP(1) }}>+</button>
                 </div>
             </div>
@@ -290,7 +280,11 @@ function HPAndXPModal(props){
                 <h4>Max HP: {props.character.max_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateMaxHP(-1) }}>-</button>
-                    <input  className="green-border" type="number" placeholder="Incrementation" value={incrementerMaxHP} onChange={e => {setIncrementerMaxHP(e.target.value)}}></input>
+                    <input type="number" value={incrementerMaxHP} onChange={e => {
+                        let x = e.target.value;
+                        if(x >= 0)
+                            setIncrementerMaxHP(x)}}>
+                    </input>
                     <button onClick={e => { updateMaxHP(1) }}>+</button>
                 </div>
             </div>
@@ -299,7 +293,11 @@ function HPAndXPModal(props){
                 <h4>Temporary hp HP: {props.character.temporary_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateTemporaryHP(-1) }}>-</button>
-                    <input className="yellow-border" type="number" placeholder="Incrementation" value={incrementerTemporaryHP} onChange={e => {setIncrementerTemporaryHP(e.target.value)}}></input>
+                    <input type="number" value={incrementerTemporaryHP} onChange={e => {
+                        let x = e.target.value;
+                        if(x >= 0)
+                            setIncrementerTemporaryHP(x)}}>    
+                    </input>
                     <button onClick={e => { updateTemporaryHP(1) }}>+</button>
                 </div>
             </div>
@@ -310,7 +308,11 @@ function HPAndXPModal(props){
                 <h4>Current XP: {props.character.xp}</h4>
                 <div className="input-group">    
                     <button onClick={e => { updateXP(-1) }}>-</button>
-                    <input className="blue-border" type="number" placeholder="Incrementation" value={incrementerXP} onChange={e => {setIncrementerXP(e.target.value)}}></input>
+                    <input type="number" value={incrementerXP} onChange={e => {
+                        let x = e.target.value;
+                        if(x >= 0)
+                            setIncrementerXP(e.target.value)}}>
+                    </input>
                     <button onClick={e => { updateXP(1) }}>+</button>
                 </div>
             </div>
@@ -318,11 +320,14 @@ function HPAndXPModal(props){
                 <h4>Max XP: {props.character.max_xp}</h4>
                 <div className="input-group">
                     <button onClick={e => { updateMaxXP(-1) }}>-</button>   
-                    <input className="blue-border" type="number" placeholder="Incrementation" value={incrementerMaxXP} onChange={e => {setIncrementerMaxXP(e.target.value)}}></input>
+                    <input type="number" placeholder="Incrementation" value={incrementerMaxXP} onChange={e => {
+                        let x = e.target.value;
+                        if(x >= 0)
+                            setIncrementerMaxXP(e.target.value)}}>
+                    </input>
                     <button onClick={e => { updateMaxXP(1) }}>+</button>
                 </div>
             </div>
-
         </div>
     );
 }
