@@ -92,11 +92,10 @@ function CharacterHeader(props){
             
             </div>
             
- 
+            {character.xp >= character.max_xp && <button className="lvlUp" onClick={e => {openLevelUpModal()} }>Level Up!</button>}
             <div className="XP" onClick={e => {openModal()}}>
             <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
-            <p> XP: {character.xp}/{character.max_xp}</p>{character.xp >= character.max_xp && <button className="lvlUp" onClick={e => {openLevelUpModal()} }>Level Up!</button>}</div>
-            
+            <p> XP: {character.xp}/{character.max_xp}</p></div>
             </div>
             
                 { props.currentPage === "stats" &&
