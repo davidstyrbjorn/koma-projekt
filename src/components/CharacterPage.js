@@ -43,7 +43,10 @@ function CharacterHeader(props){
 
     // Controls for the modal
     const [modalOpen, setModalOpen] = React.useState(false); 
-    let openModal = () => { setModalOpen(true); }    
+    let openModal = () => { 
+        console.log("open HP/XP MODAL");
+        setModalOpen(true);
+     }    
     let closeModal = () => { setModalOpen(false); }
 
     const [levelUpModalOpen, setLevelUpModalOpen] = React.useState(false);
@@ -91,11 +94,10 @@ function CharacterHeader(props){
             <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
             
             </div>
-            
  
             <div className="XP" onClick={e => {openModal()}}>
             <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
-            <p> XP: {character.xp}/{character.max_xp}</p>{character.xp >= character.max_xp && <button className="lvlUp" onClick={e => {openLevelUpModal()} }>Level Up!</button>}</div>
+            <p> XP: {character.xp}/{character.max_xp}</p>{character.xp >= character.max_xp && <button className="lvlUp" onClick={e => {openLevelUpModal()} }>Level Up!</button>}</div> 
             
             </div>
             
@@ -903,7 +905,7 @@ function Combat(props){
     )
 }
 
-function CharacterPage({ match }){
+function CharacterPage({ match }) {
 
     // State hook for the characters
     const [characters, setCharacters] = React.useState([]);
