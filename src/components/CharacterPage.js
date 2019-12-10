@@ -73,7 +73,7 @@ function CharacterHeader(props){
             <nav>
             <Link to={"/"}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"/></svg> </Link>
                 <h2>Scroll</h2>
-                <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"/></svg></a>
+                <a className="invisible"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"/></svg></a>
             </nav>
             <div className="section-1">
                 <img alt={"Character Error"} src={getCharacterImage(character.class_name)}></img>
@@ -85,7 +85,6 @@ function CharacterHeader(props){
                     <p>{character.campaign_name}</p>
                 </div>
             </div>
-            {character.hp < character.max_hp + character.temporary_hp && <button className="healFull" onClick={() =>updateHP((character.max_hp + character.temporary_hp) - character.hp)}>Heal To Full Health!</button>}
             <div className="HP" onClick={e => {openModal()}}>
             <p> HP: {character.hp}/{character.max_hp + character.temporary_hp} { character.temporary_hp > 0 && <span>({character.temporary_hp})</span> } </p> 
             <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}> </div> 
@@ -130,18 +129,21 @@ function CharacterHeader(props){
                     <button className="closeModal" onClick={()=>closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
                     <h2>HP and XP</h2>
                     <div className="modalBar">
+                    {character.hp < character.max_hp + character.temporary_hp && <button className="healFull" onClick={() =>updateHP((character.max_hp + character.temporary_hp) - character.hp)}>Heal To Full Health!</button>}
                         <div className="HP">
-                        <p> HP: {character.hp}/{character.max_hp + character.temporary_hp} { character.temporary_hp > 0 && <span>({character.temporary_hp})</span> } </p> 
-                        <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
-                        <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
+                            <p> HP: {character.hp}/{character.max_hp + character.temporary_hp} { character.temporary_hp > 0 && <span>({character.temporary_hp})</span> } </p> 
+                            <div className="innerHP" style={ showTemp ? {width:(1 - ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp))) * 100 + "%"} : {width: (character.hp/character.max_hp) * 100 + "%"}}></div> 
+                            <div className="temporaryHP" style={ showTemp ? {width: ((character.hp - character.max_hp)/(character.max_hp + character.temporary_hp)) * 100 + "%"} : {}}></div>
                         </div>
                         {character.xp >= character.max_xp && <button className="lvlUp lvlUp-inModal" onClick={e => {openLevelUpModal()} }>Level Up!</button>}
                         <div className="XP">
-                        <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
-                        <p> XP: {character.xp}/{character.max_xp}</p></div>
+                            <div className="innerXP" style={{width: (character.xp/character.max_xp) * 100 + "%"}}>
+                            <p> XP: {character.xp}/{character.max_xp}</p></div>
                         </div>
                     </div>
-                <HPAndXPModal updateMaxXP={updateMaxXP} updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} updateTemporaryHP={updateTemporaryHP} showTemporary={showTemporary} character={props.character}/> 
+                    
+                    
+                    <HPAndXPModal updateMaxXP={updateMaxXP} updateXP={updateXP} updateMaxHP={updateMaxHP} updateHP={updateHP} updateTemporaryHP={updateTemporaryHP} showTemporary={showTemporary} character={props.character}/> 
             
             </Modal>
 
@@ -261,13 +263,14 @@ function HPAndXPModal(props) {
     return(
         
         <div className="infoHPXP">
+            
             {/* HP Related Things Import CLOSEMODAL BUTTON function! */}
              {/*<h3>HP:</h3>*/}
             <div className="HP-change info-change">
                 <h4>Current HP: {props.character.hp} </h4>
                 <div className="input-group">
                     <button onClick={e => { updateHP(-1) }}>-</button>
-                    <input type="number" value={incrementerHP} onChange={e => {
+                    <input className="green-border" type="number" value={incrementerHP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerHP((x))}}>
@@ -280,7 +283,7 @@ function HPAndXPModal(props) {
                 <h4>Max HP: {props.character.max_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateMaxHP(-1) }}>-</button>
-                    <input type="number" value={incrementerMaxHP} onChange={e => {
+                    <input className="green-border" type="number" value={incrementerMaxHP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerMaxHP(x)}}>
@@ -293,7 +296,7 @@ function HPAndXPModal(props) {
                 <h4>Temporary hp HP: {props.character.temporary_hp} </h4> 
                 <div className="input-group">
                     <button onClick={e => { updateTemporaryHP(-1) }}>-</button>
-                    <input type="number" value={incrementerTemporaryHP} onChange={e => {
+                    <input className="yellow-border" type="number" value={incrementerTemporaryHP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerTemporaryHP(x)}}>    
@@ -308,7 +311,7 @@ function HPAndXPModal(props) {
                 <h4>Current XP: {props.character.xp}</h4>
                 <div className="input-group">    
                     <button onClick={e => { updateXP(-1) }}>-</button>
-                    <input type="number" value={incrementerXP} onChange={e => {
+                    <input className="blue-border" type="number" value={incrementerXP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerXP(e.target.value)}}>
@@ -320,7 +323,7 @@ function HPAndXPModal(props) {
                 <h4>Max XP: {props.character.max_xp}</h4>
                 <div className="input-group">
                     <button onClick={e => { updateMaxXP(-1) }}>-</button>   
-                    <input type="number" placeholder="Incrementation" value={incrementerMaxXP} onChange={e => {
+                    <input className="blue-border" type="number" placeholder="Incrementation" value={incrementerMaxXP} onChange={e => {
                         let x = e.target.value;
                         if(x >= 0)
                             setIncrementerMaxXP(e.target.value)}}>
@@ -362,9 +365,10 @@ function BaseStatCard(props){
             >
                 <button className="closeModal" onClick={() => closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
                 <h2>{props.base_stat.name}</h2>
+
+                <button onClick={() => changeStatLevel(-1)}>-1</button>
                 {modifier >= 0 && <p>{props.base_stat.level}+{modifier}</p> }     
                 {modifier < 0 &&  <p>{props.base_stat.level} {modifier}</p>}
-                <button onClick={() => changeStatLevel(-1)}>-1</button>
                 <button onClick={() => changeStatLevel(1)}>+1</button>                
                 
             </Modal>

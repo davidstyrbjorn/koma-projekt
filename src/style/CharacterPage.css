@@ -11,6 +11,10 @@ nav h2{
 }
 nav a{
     margin-top:10px;
+    fill:white;
+}
+nav a.invisible{
+    fill:#b44040;
 }
 nav p{
     color:#b44040;
@@ -23,13 +27,12 @@ nav h2{
 }
 
 .section-1{
-    margin:10px;
-    
+    margin:10px 10px 0;
     display:flex;
 }
 .section-1 img{
-    border-radius: 2px;
-    height:100px;
+    height:80px;
+    margin:0;
 } 
 .section-1 h2, .section-1 p, .section-1 h3{
     margin:0;
@@ -46,7 +49,7 @@ nav h2{
     width:100%;
 }
 .section-1 h2{
-    font-size:30px;
+    font-size: 25px;
     font-weight: bolder;
    
 }
@@ -108,7 +111,6 @@ nav h2{
 .HP p span{
     font-family: 'Roboto';
     color:#fecd61;
-
 }
 
 .XP div button, .HP div button{
@@ -116,14 +118,14 @@ nav h2{
  
     font-size: 15px;
 }
-
+.characterOption{
+    background:white;
+}
 
 .characterOption img{
     height:60px;
     padding:10px 0 10px 10px;
-    background:white;
 }
-
 .menu{
     display:flex;
     justify-content: space-around;
@@ -136,7 +138,7 @@ nav h2{
     background:0;
     border:0;
     font-size:12px;
-    
+    width:20%;
     border-bottom: 2px transparent;
 }
 
@@ -241,15 +243,17 @@ div.baseStats{
     background:#F6F6F6;
     width:90%;
     margin:auto;
-    margin-top:40%;
+    margin-top:35vh;
     border:6px double #b44040;
     border-radius: 3px;
     -webkit-box-shadow: 0 10px 6px -6px gray;
     -moz-box-shadow: 0 10px 6px -6px gray;
          box-shadow: 0 10px 6px -6px gray;
-
-
 }
+.BaseStatModal p{
+    
+}
+
 .Modal h2{
     width: 100%;
     text-align: center;
@@ -416,7 +420,7 @@ border-bottom:1px #2b76e6 solid;
      margin:5px;
      padding:5px 25px;
      font-size:14px;
-     right:10px;
+     right:6%;
      border:0;
      font-family: 'Roboto';
      border-radius:3px;
@@ -429,9 +433,18 @@ border-bottom:1px #2b76e6 solid;
 }
 
  .healFull{
-     position: absolute;
-     right:0;
-     padding:10px;
+     font-family: 'Roboto';
+     font-size: 14px;
+    margin:10px;
+     padding:5px; 
+    position:absolute;
+    right:6%;
+    color:white;
+    background:rgba(0,0,0,0.3);
+    border: 1px dashed lightgray;
+     
+     
+
  }
 
  
