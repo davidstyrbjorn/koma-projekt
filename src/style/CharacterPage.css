@@ -185,6 +185,7 @@ div.baseStats{
     font-family: 'roboto';
 }
 
+
 .StatCard{
     border-left:4px #b44040 solid;
 }
@@ -250,9 +251,21 @@ div.baseStats{
     -moz-box-shadow: 0 10px 6px -6px gray;
          box-shadow: 0 10px 6px -6px gray;
 }
-.BaseStatModal p{
-    
+
+.BaseStatModal div p{
+    font-size: 60px;
+    margin:0;
 }
+
+.BaseStatModal div{
+    display:flex;
+    justify-content: space-around;
+}
+.BaseStatModal h5{
+    text-align: center;
+    margin:0 0 10px 0;
+}
+
 
 .Modal h2{
     width: 100%;
@@ -271,7 +284,7 @@ div.baseStats{
     justify-content:space-around;
 }
 
-.modalStatCard .statDisplay button{
+.modalStatCard .statDisplay button , .BaseStatModal div button{
     position: static;
     font-size: 30px;
     padding:0;
@@ -305,13 +318,27 @@ div.ReactModal__Content {
     display: block;
 }
 
+.remove-btn{
+    background:#b44040;
+    color:white;
+    padding:7px;
+    border:0;
+    position: absolute;
+    border-radius:3px;
+    margin-top:10px;
+    font-family:'Roboto';
+    -webkit-box-shadow: 0 10px 6px -6px gray;
+    -moz-box-shadow: 0 10px 6px -6px gray;
+         box-shadow: 0 10px 6px -6px gray;
+
+}
 
 
 .HPandXPModal div input{
-   
    text-align: center;
 }
 .HPandXPModal div h4{
+    font-family: 'Roboto';
     margin:10px 0 5px 0;
  }
 
@@ -344,29 +371,74 @@ div.ReactModal__Content {
     width:100%;
      display:block;
  }
- .info-change input{
+
+ .levelUpModal{
+     display:flex;
+     flex-wrap:wrap;
+     justify-content: center;
+     padding:10px;
+ }
+
+ 
+ .levelUpModal p, .levelUpModal h4{
+    width:80%;
+    text-align:center;
+ }
+
+ .levelUpModal p{
+     font-size:14px;
+    font-family: 'Roboto';
+
+ }
+
+ .levelUpModal h4{
+     margin:15px 0 5px;   
+ }
+
+ .info-change input, .levelUpModal input{
     width:60%;
     font-size:30px;
-    border:0;
-    border-radius: 200px;
-    
+    text-align:center;
 }
 
-.info-change .green-border{
+.levelUpModal input{
+    width:100%;
+ }
+ .levelUpModal button{
+    width:100%;
+    font-size:16px;
+    padding: 10px 0;
+    font-weight: bolder;
+     border-radius:3px;
+     color:#282828;
+     background: #fecd61;
+     box-shadow: 0px 3px #ad7801;
+   
+ }
+
+ .lvlUpModal{
+     margin-top:30%;
+ }
+
+
+.green-border, .info-change .green-border{
+    border-radius: 200px;
     border-bottom:1px #79b85e solid;
     border-top:1px #79b85e solid;
     border-right:5px #79b85e solid;
     border-left:5px #79b85e solid;
 }
 
-.info-change .yellow-border{
+.yellow-border, .info-change .yellow-border{
+    border-radius: 200px;
     border-bottom:1px #fdb515 solid;
     border-top:1px #fdb515 solid;
     border-right:5px #fdb515 solid;
     border-left:5px #fdb515 solid;
 }
 
-.info-change .blue-border{
+.blue-border, .info-change .blue-border{
+    border-radius: 200px;
 border-bottom:1px #2b76e6 solid;
     border-top:1px #2b76e6 solid;
     border-right:5px #2b76e6 solid;

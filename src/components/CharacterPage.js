@@ -150,7 +150,7 @@ function CharacterHeader(props){
             <Modal
                 isOpen={levelUpModalOpen}
                 onRequestClose={() => closeLevelUpModal()}
-                className="Modal"
+                className="Modal lvlUpModal"
             >
                 <LevelUpModal character={character} updatedCharacter={props.updatedCharacter} closeModal={closeLevelUpModal} />
             </Modal>
@@ -183,13 +183,13 @@ function LevelUpModal(props){
 
     return(
         <div className="levelUpModal">
-            <h3>Increase XP Cap, Current: {props.character.max_xp}+{increaseMaxXP} </h3>
-            <input type="number" placeholder={"Increase XP By"} value={increaseMaxXP} onChange={e => {setIncreaseMaxXP(e.target.value)}}></input>
+            <h2>You Leveled Up!</h2>
+            <h4>New HP Cap: {props.character.max_hp}+{increaseMaxHP}={parseInt(props.character.max_hp)+parseInt(increaseMaxHP)} </h4>
+            <input className="green-border" type="number" placeholder={"Increase HP By"} value={increaseMaxHP} onChange={e => {setIncreaseMaxHP(e.target.value)}}></input>
             
-            <h3>Increase HP Cap, Current: {props.character.max_hp}+{increaseMaxHP} </h3>
-            <input type="number" placeholder={"Increase HP By"} value={increaseMaxHP} onChange={e => {setIncreaseMaxHP(e.target.value)}}></input>
-
-            <br></br>
+            <h4>New XP Cap: {props.character.max_xp}+{increaseMaxXP}={parseInt(props.character.max_xp)+parseInt(increaseMaxXP)} </h4>
+            <input className="blue-border" type="number" placeholder={"Increase XP By"} value={increaseMaxXP} onChange={e => {setIncreaseMaxXP(e.target.value)}}></input>
+            <p>Overflowed XP will be carried over to your next level.</p>
             <button onClick={e => {levelUp()}}>Do It!</button>
         </div>
     );
@@ -365,12 +365,14 @@ function BaseStatCard(props){
             >
                 <button className="closeModal" onClick={() => closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
                 <h2>{props.base_stat.name}</h2>
-
+                {modifier >= 0 && <h5>Modifier: +{modifier}</h5> }     
+                {modifier < 0 &&  <h5>Modifier: {modifier}</h5>}
+            <div>
                 <button onClick={() => changeStatLevel(-1)}>-1</button>
-                {modifier >= 0 && <p>{props.base_stat.level}+{modifier}</p> }     
-                {modifier < 0 &&  <p>{props.base_stat.level} {modifier}</p>}
-                <button onClick={() => changeStatLevel(1)}>+1</button>                
+                 <p>{props.base_stat.level}</p>    
                 
+                <button onClick={() => changeStatLevel(1)}>+1</button>                
+            </div>
             </Modal>
             <div className="baseStat" onClick={() => openModal()}>
                 <img className="baseStatImage" src={getBaseStatImage(props.base_stat.name)}></img>
@@ -426,7 +428,7 @@ function StatCard(props){
                     <p>{props.stat.level}</p>
                     <button onClick={() => changeStatLevel(1)}>+1</button>
                 </div>
-                <button className="" onClick={() => removeStat()}>Remove</button>
+                <button className="remove-btn" onClick={() => removeStat()}>Remove Stat</button>
                 
             </Modal>
             
