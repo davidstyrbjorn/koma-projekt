@@ -419,7 +419,12 @@ div.ReactModal__Content {
  .lvlUpModal{
      margin-top:30%;
  }
+.search-icon{
+    position: absolute;
+    padding:10px;
+    fill:gray;
 
+}
 
 .green-border, .info-change .green-border{
     border-radius: 200px;
