@@ -266,7 +266,14 @@ div.baseStats{
      font-weight: bold;
  }
  
-
+.remove-temp{
+    position: absolute;
+    font-family: Roboto;
+    border:0;
+    background:#fdb515;
+    border-radius:20px;
+    margin: 0 10px;
+}
 
 
 .searchbar{

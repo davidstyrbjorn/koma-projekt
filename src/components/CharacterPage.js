@@ -306,7 +306,7 @@ function HPAndXPModal(props) {
             </div>
 
             <div className="HP-change info-change">
-                <h4>Temporary hp HP: {props.character.temporary_hp} </h4> 
+                    <h4>Temporary hp HP: {props.character.temporary_hp} {props.character.temporary_hp > 0 && <button className="remove-temp"onClick={e => { updateTemporaryHP(-2)}}>Remove</button>}</h4> 
                 <div className="input-group">
                     <button onClick={e => { updateTemporaryHP(-1) }}>-</button>
                     <input className="yellow-border" type="number" value={incrementerTemporaryHP} onChange={e => {
@@ -316,7 +316,9 @@ function HPAndXPModal(props) {
                     </input>
                     <button onClick={e => { updateTemporaryHP(1) }}>+</button>
                 </div>
-                <button onClick={e => { updateTemporaryHP(-2)}}>Remove Temporary HP</button>
+                
+                
+                {/*<button onClick={e => { updateTemporaryHP(-2)}}>Remove Temporary HP</button>*/}
             </div>
 
             {/* XP Related Things */}
@@ -588,7 +590,7 @@ function Stats(props){
                 shouldCloseOnOverlayClick={true}
                 className="Modal addStatModal"
             ><button className="closeModal" onClick={()=>closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
-                <h2>New Stat!</h2>
+                <h2>Add a New Stat!</h2>
                 <form>
                     <p>Stat Name</p>
                     <input type="text" placeholder="Stat Name" onChange={e => {setNewStatName(e.target.value)}}></input>
