@@ -135,15 +135,22 @@ nav h2{
 }
 
 .menu button{
-    background:0;
+    font-weight: bolder;
+    margin-top: 5px;
+    padding:5px;
+    background: 0;
     border:0;
     font-size:12px;
-    width:20%;
+    width:25%;
     border-bottom: 2px transparent;
+   
 }
 
 .menu .active{
-    border-bottom: 2px black solid;
+  
+    background:#b44040;
+    color:white;
+    border-radius:60px;
 }
 
 .page{
@@ -208,7 +215,6 @@ div.baseStats{
 }
 
 .addStatBtn{
- 
     position:fixed;
     bottom:0;
     right:0;
@@ -222,6 +228,47 @@ div.baseStats{
     display: inline-block;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.addStatModal{
+    display:block;
+    
+ }
+
+.addStatModal form{
+   width:90%;
+   padding:10px 0;
+   margin:auto;
+
+}
+.addStatModal form input, .addStatModal form select, .addStatModal form div input{
+    width:100%;
+    margin: 5px 0;
+    
+    padding:10px;
+    font-size:20px;
+    border:solid 2px black;
+ }
+ .addStatModal form p{
+     width:100%;
+    align-text:left;
+    margin: 10px 0 0;
+ }
+
+ .addStatModal button{
+     width:100%;
+     font-size:20px;
+     background:green;
+     border:0;
+     color:white;
+     border-bottom: 4px darkgreen solid;
+     border-radius:3px;
+     margin:5px auto;
+     padding:5px 0;
+     align-self: center;
+ }
+ 
+
+
 
 .searchbar{
     border:0;
@@ -376,7 +423,7 @@ div.ReactModal__Content {
      display:flex;
      flex-wrap:wrap;
      justify-content: center;
-     padding:10px;
+     padding: 0 10px 10px;
  }
 
  
@@ -472,21 +519,7 @@ border-bottom:1px #2b76e6 solid;
     font-size:15px;
 }
 
- .closeModal{
-    
-     margin:3px;
-     right:5%;
-     position:absolute;
-     background:0;
-     border:0;
-     font-size: 20px;
-     padding:0;
-     color:grey;
-     width:30px;
-     height: 30px;
-     border-radius:25px;
-     font-family:'Roboto';
- }
+ 
  .closeModal svg{
     fill:darkgrey;
     
@@ -523,5 +556,26 @@ border-bottom:1px #2b76e6 solid;
      
 
  }
+ button.closeModal{
+    margin:3px;
+    right:5%;
+    position:absolute;
+    background:0;
+    border:0;
+    font-size: 20px;
+    padding:0;
+    color:grey;
+    width:30px;
+    height: 30px;
+    border-radius:25px;
+    font-family:'Roboto';
+    box-shadow: 0 0 0;
+}
 
+
+
+
+
+
+ 
  

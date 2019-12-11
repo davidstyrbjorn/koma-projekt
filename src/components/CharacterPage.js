@@ -152,6 +152,7 @@ function CharacterHeader(props){
                 onRequestClose={() => closeLevelUpModal()}
                 className="Modal lvlUpModal"
             >
+                
                 <LevelUpModal character={character} updatedCharacter={props.updatedCharacter} closeModal={closeLevelUpModal} />
             </Modal>
 
@@ -183,11 +184,16 @@ function LevelUpModal(props){
 
     return(
         <div className="levelUpModal">
+            <button className="closeModal" onClick={()=>props.closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
             <h2>You Leveled Up!</h2>
-            <h4>New HP Cap: {props.character.max_hp}+{increaseMaxHP}={parseInt(props.character.max_hp)+parseInt(increaseMaxHP)} </h4>
+
+            {increaseMaxHP != "" && <h4>New HP Cap: {props.character.max_hp} + {increaseMaxHP} = {parseInt(props.character.max_hp)+parseInt(increaseMaxHP)} </h4>}
+            {increaseMaxHP == "" && <h4>New HP Cap: {props.character.max_hp} + 0 = {props.character.max_hp}</h4>}
             <input className="green-border" type="number" placeholder={"Increase HP By"} value={increaseMaxHP} onChange={e => {setIncreaseMaxHP(e.target.value)}}></input>
             
-            <h4>New XP Cap: {props.character.max_xp}+{increaseMaxXP}={parseInt(props.character.max_xp)+parseInt(increaseMaxXP)} </h4>
+
+            {increaseMaxXP != "" && <h4>New XP Cap: {props.character.max_xp} + {increaseMaxHP} = {parseInt(props.character.max_xp)+parseInt(increaseMaxXP)} </h4>}
+            {increaseMaxXP == "" && <h4>New XP Cap: {props.character.max_xp} + 0 = {props.character.max_xp}</h4>}
             <input className="blue-border" type="number" placeholder={"Increase XP By"} value={increaseMaxXP} onChange={e => {setIncreaseMaxXP(e.target.value)}}></input>
             <p>Overflowed XP will be carried over to your next level.</p>
             <button onClick={e => {levelUp()}}>Do It!</button>
@@ -196,7 +202,6 @@ function LevelUpModal(props){
 }
 
 function HPAndXPModal(props) {
-
     const [incrementerHP, setIncrementerHP] = React.useState(1); 
     const [incrementerMaxHP, setIncrementerMaxHP] = React.useState(1);
     const [incrementerTemporaryHP, setIncrementerTemporaryHP] = React.useState(1);
@@ -579,34 +584,32 @@ function Stats(props){
                 isOpen = {modalOpen}
                 onRequestClose = {() => closeModal()}
                 shouldCloseOnOverlayClick={true}
-                className="Modal"
-            >
+                className="Modal addStatModal"
+            ><button className="closeModal" onClick={()=>closeModal()}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg></button>
+                <h2>New Stat!</h2>
                 <form>
+                    <p>Stat Name</p>
                     <input type="text" placeholder="Stat Name" onChange={e => {setNewStatName(e.target.value)}}></input>
-
+                    <p>Type</p>
                     {/* Conditional rendering to check if we want custom type or not, change input fields depending on that */}
                     {!wantsCustomType && 
-                        <div>
+                            
                             <select name="Type" onChange={e => {changeStatType(e.target.value)}} >
                                 {statTypes.map((st, i) => {
                                     return <option key={i} value={st}>{st}</option>
                                 })}
                                 <option value="add_new">Add New Type</option>
                             </select>
-                        </div>
                     }
                     {wantsCustomType && 
-                        <div>
+                       
                             <input type="text" placeholder="Custom Type" onChange={e => {setNewStatType(e.target.value)}}></input>
-                        </div>
+                        
                     }
+                    <p>Stat level</p>
                     <input type="number" placeholder="Stat Level" onChange={e => {setNewStatLevel(e.target.value)}}></input>                    
                 </form>
-
                 <button onClick = {() => addNewStat()}>Add</button>
-                <button onClick={() => closeModal()}>Close</button>
-
-                <br></br>
                 {errorMessages.map((msg, i) => {
                     return <p key={i}>- {msg} -</p>
                 })}
