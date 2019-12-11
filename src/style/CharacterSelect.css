@@ -70,17 +70,27 @@ nav h2, nav a{
     font-weight: bolder;
  }
  .characterOption a h5{
+    
     font-size: 10px;
     font-weight: bolder;
  }
 .createNew{
     margin: auto;
-    width: 100%;
-    border: solid lightgrey 1px; 
-    color: #282828;
+    width:75%;   
+    background:green;
+    color: white;
     border-radius: 2px;
     font-weight:bold;
-    margin-top:10px;
+    margin-top:20px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0 8px 6px -6px gray;
+    -moz-box-shadow: 0 8px 6px -6px gray;
+         box-shadow: 0 8px 6px -6px gray;
+}
+
+.createNew p{
+    margin:0;
+    padding:10px;
 }
 
 .createNew a{
@@ -88,6 +98,7 @@ nav h2, nav a{
     text-decoration: none;
 	color: black;
 }
+
 
 .characterOption img{
 	border-right: none;

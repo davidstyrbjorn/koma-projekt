@@ -2,6 +2,7 @@
     text-align: center;
 /* Center content*/
     margin: auto;
+    
 }
 
 .Modal1 {
@@ -35,9 +36,18 @@
     margin-bottom: 20px;
     width: 90%;
     height: 40px;
-    border: 1px solid grey;
-    border-radius: 3%;
+    font-weight: bold;
+    border-radius: 3px;
     font-size:20px;
+    width:90%;
+    
+     background:green;
+     border:0;
+     color:white;
+     border-bottom: 4px darkgreen solid;
+     
+     
+    
 }
 
 .Modal1 input{

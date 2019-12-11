@@ -83,7 +83,7 @@ function CharacterCreation(props) {
     return(
         
         <div className="CharacterCreation">
-            <p onClick={() => openModal()}>Create a new character</p>
+            <p onClick={() => openModal()}>Create a new character +</p>
             <Modal
                 isOpen={modalOpen}    
                 onRequestClose={() => closeModal()}
