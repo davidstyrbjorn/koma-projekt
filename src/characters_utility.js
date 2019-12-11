@@ -1,8 +1,8 @@
 //images for character class
 import elfImg from './elf.png'
-import cyclopsImg from './cyclops.png'
+
 import mageImg from './wizard_color.png'
-import minotaurImg from './minotaur.png'
+
 import orcImg from './orc.png'
 import rogueImg from './rogue.png'
 import knightImg from './knight.png'
@@ -162,7 +162,7 @@ export function createItemObject(name, cost, amount, desc, type){
 }
 
 export function getSupportedClasses(){
-	return ["Mage", "Elf", "Orc", "Cyclops", "Rogue", "Knight" ];
+	return ["Mage", "Elf", "Orc", "Rogue", "Knight" ];
 }
 
 
@@ -192,12 +192,8 @@ export function getCharacterImage(className){
 	switch(className.toLowerCase()){
 		case 'mage':
 			return mageImg;
-		case 'cyclops':
-			return cyclopsImg;
 		case 'elf':
 			return elfImg;
-		case 'minotaur':
-			return minotaurImg;
 		case 'orc':
 			return orcImg;
 		case 'rogue':
