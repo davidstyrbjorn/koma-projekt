@@ -52,7 +52,7 @@ function CharacterSelect(){
         <div>
         <nav>
             <p>...</p>
-            <h2>Scroll</h2>
+            <img src="logo.png"></img>
             <p>...</p>
         </nav>
 

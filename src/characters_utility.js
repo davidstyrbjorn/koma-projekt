@@ -4,6 +4,8 @@ import cyclopsImg from './cyclops.png'
 import mageImg from './wizard_color.png'
 import minotaurImg from './minotaur.png'
 import orcImg from './orc.png'
+import rogueImg from './rogue.png'
+import knightImg from './knight.png'
 
 //Images for baseStats
 import constitutionImg from './constitution_color.png'
@@ -160,7 +162,7 @@ export function createItemObject(name, cost, amount, desc, type){
 }
 
 export function getSupportedClasses(){
-	return ["Mage", "Elf", "Orc", "Cyclops"];
+	return ["Mage", "Elf", "Orc", "Cyclops", "Rogue", "Knight" ];
 }
 
 
@@ -198,6 +200,10 @@ export function getCharacterImage(className){
 			return minotaurImg;
 		case 'orc':
 			return orcImg;
+		case 'rogue':
+			return rogueImg;
+		case 'knight':
+			return knightImg;
 		default:
 			return mageImg;
 	}
