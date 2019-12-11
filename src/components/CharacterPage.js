@@ -228,7 +228,15 @@ function HPAndXPModal(props) {
     }
 
     let updateTemporaryHP = dir => {
-        if(incrementerTemporaryHP !== 0){ //funkar ej logiken är inte fungerande.
+        if(dir === -2){
+            props.updateTemporaryHP(- props.character.temporary_hp);
+            props.showTemporary((props.character.hp - props.character.max_hp), props.character.temporary_hp);
+            if(props.character.hp > props.character.max_hp){
+                props.updateHP((props.character.hp - props.character.max_hp) * -1);
+            }
+        }
+
+        else if(incrementerTemporaryHP !== 0){ //funkar ej logiken är inte fungerande.
 
             if(props.character.temporary_hp + incrementerMaxHP*dir <= 0){
                 if(props.character.hp - props.character.max_hp === props.character.temporary_hp){
@@ -303,6 +311,7 @@ function HPAndXPModal(props) {
                     </input>
                     <button onClick={e => { updateTemporaryHP(1) }}>+</button>
                 </div>
+                <button onClick={e => { updateTemporaryHP(-2)}}>Remove Temporary HP</button>
             </div>
 
             {/* XP Related Things */}
