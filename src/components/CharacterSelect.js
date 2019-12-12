@@ -22,7 +22,7 @@ function CharacterSelectOption(props){
                 <h3>{props.character.name}</h3>
                 <h5>Campaign: {props.character.campaign_name}</h5>
             </Link>
-            <button onClick={ e => {props.removeCallback(props.character.ID)} }>X</button>        
+            <button onClick={ e => {props.removeCallback(props.character.ID)} }>Delete</button>        
         </div>
     );
 }
