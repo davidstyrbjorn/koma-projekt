@@ -57,7 +57,7 @@ function CharacterHeader(props){
     }
 
     //Krav för temporaryHP ska visas
-    const[showTemp, setShowTemp] = React.useState(false);
+    const [showTemp, setShowTemp] = React.useState(false);
     
     let showTemporary = (overflow, temp) => {
         if(overflow > 0 && overflow <= temp) {
@@ -543,7 +543,7 @@ function Stats(props){
             
             // Make sure we write the new stat type to the file if we did a custom one
             if(wantsCustomType){
-                if(statTypes.indexOf(newStatType) == -1){
+                if(statTypes.indexOf(newStatType) === -1){
                     let temp = statTypes;
                     temp.push(newStatType);
                     setStatTypes(temp);
