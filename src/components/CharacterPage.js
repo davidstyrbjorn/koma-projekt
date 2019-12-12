@@ -242,8 +242,8 @@ function HPAndXPModal(props) {
         }
 
         else if(incrementerTemporaryHP !== 0){ //funkar ej logiken är inte fungerande.
-
-            if(props.character.temporary_hp + incrementerMaxHP*dir <= 0){
+            
+             if(props.character.temporary_hp + incrementerTemporaryHP*dir <= 0){
                 if(props.character.hp - props.character.max_hp === props.character.temporary_hp){
                     props.updateHP(props.character.temporary_hp*dir);
                 }
@@ -251,7 +251,7 @@ function HPAndXPModal(props) {
             }
             
             else{
-                if(props.character.hp === props.character.max_hp + props.character.temporary_hp){
+                if(props.character.hp === props.character.max_hp + props.character.temporary_hp || dir > 0){
                     props.updateHP(incrementerTemporaryHP*dir);
                 }
 
