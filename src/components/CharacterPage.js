@@ -457,7 +457,7 @@ function Stats(props){
 
     // States used for adding a new stat
     const [newStatName, setNewStatName] = React.useState("");
-    const [newStatType, setNewStatType] = React.useState("skill");
+    const [newStatType, setNewStatType] = React.useState("Other");
     const [newStatLevel, setNewStatLevel] = React.useState(0);
     const [modalOpen, setModalOpen] = React.useState(false); // Modal used for adding new stat!
     const [errorMessages, setErrorMessages] = React.useState([]);
@@ -541,13 +541,14 @@ function Stats(props){
             setNewStatLevel(0);
             setWantsCustomType(false);
             
-
             // Make sure we write the new stat type to the file if we did a custom one
             if(wantsCustomType){
-                let temp = statTypes;
-                temp.push(newStatType);
-                setStatTypes(temp);
-                writeStatTypesToJSON(statTypes);
+                if(statTypes.indexOf(newStatType) == -1){
+                    let temp = statTypes;
+                    temp.push(newStatType);
+                    setStatTypes(temp);
+                    writeStatTypesToJSON(statTypes);
+                }
             }
 
             // Close the add new stat modal!
@@ -558,6 +559,7 @@ function Stats(props){
     let changeStatType = v => {
         if(v === "add_new"){
             setWantsCustomType(true);
+            setNewStatType("Other");
         }else{
             setNewStatType(v);
         }
