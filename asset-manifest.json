@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/Mieeh/koma-projekt/static/css/main.b038f5b3.chunk.css",
+    "main.js": "/Mieeh/koma-projekt/static/js/main.4e63b544.chunk.js",
+    "main.js.map": "/Mieeh/koma-projekt/static/js/main.4e63b544.chunk.js.map",
+    "runtime-main.js": "/Mieeh/koma-projekt/static/js/runtime-main.6f642108.js",
+    "runtime-main.js.map": "/Mieeh/koma-projekt/static/js/runtime-main.6f642108.js.map",
+    "static/js/2.36c755f4.chunk.js": "/Mieeh/koma-projekt/static/js/2.36c755f4.chunk.js",
+    "static/js/2.36c755f4.chunk.js.map": "/Mieeh/koma-projekt/static/js/2.36c755f4.chunk.js.map",
+    "index.html": "/Mieeh/koma-projekt/index.html",
+    "precache-manifest.c7544ff4b9d1c84e6f8089832c05fbb1.js": "/Mieeh/koma-projekt/precache-manifest.c7544ff4b9d1c84e6f8089832c05fbb1.js",
+    "service-worker.js": "/Mieeh/koma-projekt/service-worker.js",
+    "static/css/main.b038f5b3.chunk.css.map": "/Mieeh/koma-projekt/static/css/main.b038f5b3.chunk.css.map",
+    "static/media/Intelligence_color.png": "/Mieeh/koma-projekt/static/media/Intelligence_color.bd5c97b5.png",
+    "static/media/Strength_color.png": "/Mieeh/koma-projekt/static/media/Strength_color.509a3f71.png",
+    "static/media/charisma.png": "/Mieeh/koma-projekt/static/media/charisma.51c18790.png",
+    "static/media/constitution_color.png": "/Mieeh/koma-projekt/static/media/constitution_color.fc06735b.png",
+    "static/media/dexterity.png": "/Mieeh/koma-projekt/static/media/dexterity.e0a46776.png",
+    "static/media/elf.png": "/Mieeh/koma-projekt/static/media/elf.b2ff27af.png",
+    "static/media/knight.png": "/Mieeh/koma-projekt/static/media/knight.b564c383.png",
+    "static/media/orc.png": "/Mieeh/koma-projekt/static/media/orc.abfd03a2.png",
+    "static/media/rogue.png": "/Mieeh/koma-projekt/static/media/rogue.9f34dfdd.png",
+    "static/media/wisdom_color.png": "/Mieeh/koma-projekt/static/media/wisdom_color.e0680679.png",
+    "static/media/wizard_color.png": "/Mieeh/koma-projekt/static/media/wizard_color.28c76236.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6f642108.js",
+    "static/js/2.36c755f4.chunk.js",
+    "static/css/main.b038f5b3.chunk.css",
+    "static/js/main.4e63b544.chunk.js"
+  ]
+}
